@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Srinjoy Pramanick - Resume</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111827;
+      --muted: #4b5563;
+      --border: #e5e7eb;
+      --accent: #0284c7;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #09090b;
+        --text: #f4f4f5;
+        --muted: #a1a1aa;
+        --border: #27272a;
+        --accent: #38bdf8;
+      }
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 16px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.5px;
+    }
+    .contact-info {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    .contact-info a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+    section {
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+    .education-item, .project-item, .exp-item {
+      margin-bottom: 14px;
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .item-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    ul {
+      margin: 4px 0 8px 0;
+      padding-left: 18px;
+      font-size: 13.5px;
+    }
+    li {
+      margin-bottom: 3px;
+    }
+    .skills-list p {
+      margin: 4px 0;
+      font-size: 13.5px;
+    }
+    .actions {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    @media print {
+      .actions { display: none; }
+      body { padding: 0; background: white; color: black; }
+    }
+  </style>
+</head>
+<body>
+  <div class="actions">
+    <button class="btn" onclick="window.print()">Print / Save PDF</button>
+    <a class="btn" href="/">Return to Portfolio</a>
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>Srinjoy Pramanick</h1>
+      <div class="contact-info">
+        <span>📍 Ichapore, West Bengal</span>
+        <span>📧 <a href="mailto:srinjoypramanick15@gmail.com">srinjoypramanick15@gmail.com</a></span>
+        <span>📞 +91 7980942750</span>
+        <span>🌐 <a href="https://bento.me/srinjoy19" target="_blank">bento.me/srinjoy19</a></span>
+        <span>💼 <a href="https://linkedin.com/in/srinjoy-pramanick" target="_blank">linkedin.com/in/srinjoy-pramanick</a></span>
+        <span>💻 <a href="https://github.com/Codexia-afk" target="_blank">github.com/Codexia-afk</a></span>
+      </div>
+    </header>
+
+    <section>
+      <h2>Summary</h2>
+      <p style="font-size: 13.5px; margin: 0;">
+        B.Tech Computer Science Engineering student focused on <strong>AI/ML, full-stack development, and systems engineering</strong>. Builds production-oriented projects involving <strong>LLMs, AI agents, trust infrastructure, browser extensions, WebAssembly, Go, and Rust</strong>. Active hackathon participant, open-source contributor, and core member of college coding and gaming communities.
+      </p>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="education-item">
+        <div class="item-header">
+          <span>JIS College of Engineering, Kalyani</span>
+          <span>2024 – 2028</span>
+        </div>
+        <div class="item-sub">Bachelor of Technology in Computer Science & Engineering</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Technical Skills</h2>
+      <div class="skills-list">
+        <p><strong>Languages:</strong> C, C++, Python, JavaScript, TypeScript, Go, Rust, PHP, HTML, CSS</p>
+        <p><strong>Frameworks:</strong> React, FastAPI, Flutter, Tailwind CSS, Vite, PyTorch, TensorFlow</p>
+        <p><strong>AI/ML:</strong> Generative AI, LLMs, AI Agents, Machine Learning, NLP, Computer Vision, Prompt Engineering</p>
+        <p><strong>Systems & Web:</strong> REST APIs, Chrome Extensions (Manifest V3), WebAssembly (WASM), Browser APIs</p>
+        <p><strong>Tools & Platforms:</strong> Git, GitHub, VS Code, MongoDB, Firebase, DigitalOcean, Google AI Studio, Gemini API</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Selected Projects</h2>
+      <div class="project-item">
+        <div class="item-header">
+          <span>PulseForge AI — Strategic Business Intelligence Platform</span>
+          <span><a href="https://github.com/Codexia-afk" target="_blank">GitHub</a></span>
+        </div>
+        <ul>
+          <li>AI-powered business intelligence platform that builds Business Twins from market signals to predict opportunities, partnerships, hiring, expansion, and strategic risks. Built with React, TypeScript, FastAPI, Gemini, data APIs, and MongoDB.</li>
+        </ul>
+      </div>
+
+      <div class="project-item">
+        <div class="item-header">
+          <span>TrustOS — Explainable AI Trust Layer</span>
+          <span><a href="https://github.com/Codexia-afk/trustos" target="_blank">GitHub</a></span>
+        </div>
+        <ul>
+          <li>Middleware for autonomous AI agents providing intent verification, policy/constitution enforcement, and explainable decisions before agents execute high-impact actions.</li>
+        </ul>
+      </div>
+
+      <div class="project-item">
+        <div class="item-header">
+          <span>Loksetu.ai</span>
+          <span><a href="https://github.com/Codexia-afk/loksetu-ai" target="_blank">GitHub</a></span>
+        </div>
+        <ul>
+          <li>Privacy-First Browser Copilot & CSC Facilitator Application Engine for Indian Welfare Portals. Built with React, TypeScript, and Chrome Extension Manifest V3 APIs.</li>
+        </ul>
+      </div>
+
+      <div class="project-item">
+        <div class="item-header">
+          <span>JeeraType — Go-based Developer Tool</span>
+          <span><a href="https://github.com/Codexia-afk/jeeratype" target="_blank">GitHub</a></span>
+        </div>
+        <ul>
+          <li>A fully offline, cross-platform terminal typing speed test for macOS, Windows, and Linux. Compiled to a single binary with zero internet required.</li>
+        </ul>
+      </div>
+
+      <div class="project-item">
+        <div class="item-header">
+          <span>WASM Sandbox Package Manager — Rust</span>
+          <span><a href="https://github.com/Codexia-afk/wasm-sandbox" target="_blank">GitHub</a></span>
+        </div>
+        <ul>
+          <li>Rust-based sandbox runtime for installing and executing small WebAssembly plugins with capability-oriented permissions using Wasmtime, exploring secure plugin architecture and WASM isolation.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Leadership & Experience</h2>
+      <div class="exp-item">
+        <div class="item-header">
+          <span>Community Contributor — TechVerse</span>
+          <span>Sep 2025 – Present</span>
+        </div>
+        <ul>
+          <li>Contribute to technical discussions, development challenges, peer debugging, and Git/GitHub collaboration.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="item-header">
+          <span>Core Member — College Coding Club</span>
+          <span>Sep 2025 – Present</span>
+        </div>
+        <ul>
+          <li>Participate in hackathons, coding activities, peer mentoring, and technical events; support juniors in development and problem solving.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="item-header">
+          <span>Extended Member — JIS Gaming Club</span>
+          <span>2025 – Present</span>
+        </div>
+        <ul>
+          <li>Contribute to gaming community activities, event coordination, and collaborative college initiatives.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Achievements</h2>
+      <ul>
+        <li><strong>SIH 2025 Qualifier:</strong> Smart India Hackathon 2025</li>
+        <li><strong>1st Runner-Up:</strong> CrazyBuild Hackathon</li>
+        <li><strong>Participated in 7+ Hackathons:</strong> Across AI/ML, cybersecurity, fintech, and software development</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>

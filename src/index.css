@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-primary: #fafaf9;
+    --bg-secondary: #f5f5f4;
+    --bg-card: #ffffff;
+    --border-subtle: #e7e5e4;
+    --border-strong: #d6d3d1;
+    --text-primary: #09090b;
+    --text-secondary: #52525b;
+    --text-muted: #71717a;
+    --accent: #0284c7; /* Muted technical electric blue/cyan - NOT neon */
+    --accent-hover: #0369a1;
+    --accent-light: #f0f9ff;
+    --accent-glow: rgba(2, 132, 199, 0.12);
+  }
+
+  html.dark {
+    --bg-primary: #09090b;
+    --bg-secondary: #121215;
+    --bg-card: #141418;
+    --border-subtle: #27272a;
+    --border-strong: #3f3f46;
+    --text-primary: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --accent: #06b6d4; /* Muted cyan */
+    --accent-hover: #22d3ee;
+    --accent-light: rgba(6, 182, 212, 0.08);
+    --accent-glow: rgba(6, 182, 212, 0.15);
+  }
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Keyframe animations for Orbital Rings */
+@keyframes spin-cw {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-ccw {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.015);
+  }
+}
+
+@keyframes orbit-float {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.02);
+  }
+}
+
+.animate-spin-cw {
+  animation: spin-cw 40s linear infinite;
+}
+
+.animate-spin-ccw {
+  animation: spin-ccw 55s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-cw 90s linear infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 6s ease-in-out infinite;
+}
+
+.animate-orbit-float {
+  animation: orbit-float 4s ease-in-out infinite;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-spin-cw,
+  .animate-spin-ccw,
+  .animate-spin-slow,
+  .animate-pulse-ring,
+  .animate-orbit-float {
+    animation: none !important;
+  }
+}
+
+/* Utility classes */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.tracking-widest-xl {
+  letter-spacing: 0.35em;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Focus styles for accessibility */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
