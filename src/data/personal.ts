@@ -84,7 +84,7 @@ export const personalData: PersonalData = {
   },
   socials: {
     github: "https://github.com/Codexia-afk",
-    linkedin: "https://linkedin.com/in/srinjoy-pramanick",
+    linkedin: "https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/",
     email: "srinjoypramanick15@gmail.com",
     bento: "https://bento.me/srinjoy19",
     mailto: `mailto:srinjoypramanick15@gmail.com?subject=${encodeURIComponent("Inquiry / Opportunity for Srinjoy Pramanick")}&body=${encodeURIComponent("Hi Srinjoy,\n\nI reviewed your resume and portfolio and would love to connect regarding an opportunity or technical collaboration.\n\nBest regards,")}`,
