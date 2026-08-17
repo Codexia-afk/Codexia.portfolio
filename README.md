@@ -1,93 +1,126 @@
-# 🌐 Codexia Portfolio — Immersive AI Orbit & Systems Engineering Showcase
+# 🌐 Srinjoy Pramanick — Engineering Portfolio & Systems Showcase
 
-[![Vite](https://img.shields.io/badge/Vite-6.4-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Live Site](https://img.shields.io/badge/Live_Site-codexia--portfolio.vercel.app-06B6D4?style=for-the-badge&logo=vercel&logoColor=white)](https://codexia-portfolio.vercel.app/)
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.0-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
-[![Release](https://img.shields.io/badge/Release-v2.0.0-10B981?style=for-the-badge)](https://github.com/Codexia-afk/Codexia.portfolio/releases/tag/v2.0.0)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.4-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
-> An immersive, high-performance personal portfolio engineered for **Srinjoy Pramanick** (AI Engineer & Full-Stack Developer). Designed at the intersection of AI agents, systems programming (Go, Rust, WASM), and high-contrast monochrome editorial UI aesthetics.
+> High-performance, fully SEO-optimized personal portfolio and systems engineering showcase for **Srinjoy Pramanick** (AI Engineer, ML Engineer & Full-Stack Developer). Built with React 19, TypeScript, Vite, Tailwind CSS v4, Framer Motion, and a custom SSG pre-rendering pipeline.
 
 ---
 
-## ⚡ Key Highlights & Systems Features
+## 👨‍💻 About Srinjoy Pramanick
 
-### 1. 🪐 Cybernetic Orbital Hero Ecosystem
-- **Monochrome Portrait Cutout**: Central B&W profile image (`w-44` / 176px) embedded inside an interactive 620px orbital circle frame.
-- **Cybernetic Satellite Energy Nodes**: 2 counter-rotating data satellite nodes with animated telemetry blips (`animate-ping`) and glowing energy tails orbiting along the perimeter.
-- **Drifting Micro-Constellation Dust**: Ambient floating particles providing visual depth across the dark/light hero canvas.
+I’m an **AI Engineer, Machine Learning Developer, and Full-Stack Systems Builder** pursuing my B.Tech in Computer Science & Engineering at **JIS College of Engineering** (2024–2028) in West Bengal, India.
 
-### 2. 📸 Full-Size Editorial Portrait About Section
-- **3:4 High-Contrast Portrait Card**: Features an editorial profile display with technical status badges (`AI ENGINEER`, `INDIA`, `@Codexia-afk`).
-- **6 Technical Focus Pillars**: Deep-dive domain cards detailing expertise in AI Agent Guardrails, Systems & WASM, Full-Stack Architecture, Low-Latency APIs, Hackathon Prototyping, and Open-Source Collaboration.
+I view software development as turning complex abstractions into deterministic, resilient, production-ready systems. My core technical focus spans:
 
-### 3. 🛠️ Selected Engineering Builds & Detailed Case Studies
-Comprehensive architectural breakdowns, technical metrics, challenges, and live demos for 5 selected builds:
-1. **TrustOS** — Explainable AI Trust Layer for Autonomous Agents (*Python, FastAPI, LLMs, Vector Search*).
-2. **PulseForge AI** — Strategic Market Signal Intelligence Platform (*React, TypeScript, FastAPI, Gemini API, MongoDB*).
-3. **Loksetu.ai** — Privacy-First Browser Copilot & CSC Facilitator Engine (*Chrome Extensions Manifest V3, Web APIs*).
-4. **JeeraType** — Go-based Cross-Platform Terminal Typing Speed Test (*Go, Terminal UI, Web Audio API*).
-5. **WASM Sandbox Package Manager** — Rust-based WebAssembly Plugin Runtime with Capability Security (*Rust, Wasmtime, WASI*).
+- **AI Agents & Trust Infrastructure**: Designing deterministic runtime guardrails, in-flight intent verification middleware, FAISS vector policy search, and cryptographic proof logging (e.g. *TrustOS*).
+- **Systems & WebAssembly**: Engineering low-latency cross-platform developer tools in Go and capability-isolated WebAssembly (WASM) plugin runtimes in Rust (*JeeraType*, *WASM Sandbox Manager*).
+- **Browser Engineering & GovtTech**: Building privacy-first Manifest V3 Chrome Extension copilots for Indian welfare portals (*Loksetu.ai*).
+- **Strategic AI Intelligence**: Constructing high-throughput market signal ingestion pipelines and LLM-powered strategic intelligence engines (*PulseForge AI*).
+- **Hackathons & Competitions**: Active builder across 7+ national & global hackathons (1st Runner-Up at CrazyBuild Hackathon, Qualifier for Smart India Hackathon 2025).
 
-### 4. 💫 Interactive Skills Constellation
-- **3 Rotating Orbital Rings**: Continuous rotation displaying skill pills with counter-rotation to keep titles upright and legible.
-- **Interactive Controls**: Toggle continuous ring rotation or pause/resume on demand.
+---
 
-### 5. 📄 Resume Integration & Standalone Printable Viewer
-- **Printable Resume Engine**: Accessible via `/resume.html` with a 1-click **"Print / Save PDF"** export action.
-- **Complete Data Sync**: Education (*JIS College of Engineering 2024–2028*), Contact (`+91 7980942750`), Skills, Projects, and Experience synced across the portfolio.
+## ⚡ Comprehensive Features & Architecture
 
-### 6. ✉️ Instant Email Composer Integration
-- Connected pre-filled `mailto:` triggers pointing directly to `srinjoypramanick15@gmail.com` across TopBar, Contact Orbit section, and Footer.
+### 1. 🔄 Rotating Professional Identity Sequence
+- **Animated Role Rotation**: Continuously rotating title display cycling through 11 core specializations (`AI ENGINEER` → `MACHINE LEARNING DEVELOPER` → `FULL-STACK DEVELOPER` → `AI APPLICATION DEVELOPER` → `PYTHON DEVELOPER` → `BACKEND DEVELOPER` → `AI AGENT BUILDER` → `GENERATIVE AI DEVELOPER` → `CYBERSECURITY BUILDER` → `SOFTWARE ENGINEER` → `HACKATHON BUILDER`).
+- **Zero Layout Shift**: Housed inside a fixed-height container (`h-7 sm:h-8`) with Framer Motion slide-and-fade transitions (`y: 8px → 0` enter, `y: 0 → -8px` exit) to prevent vertical page jumping.
+- **Accessibility**: Integrated with `useReducedMotion()`, `aria-live="polite"`, and `role="status"` for full screen-reader compliance.
+
+### 2. 🪐 Cybernetic Orbital Hero Ecosystem
+- **Circular Photo Frame & Orbital Rings**: B&W profile cutout surrounded by 620px concentric orbital rings and dual counter-rotating satellite energy nodes (`animate-ping`).
+- **Synchronized Ring Pulse**: Every role rotation triggers a subtle cyan orbital pulse around the photo frame, visually connecting role state changes to the orbital design.
+
+### 3. 🔍 Full Technical SEO Engine & Schema.org Integration
+- **Dynamic Head Metadata**: Dynamic per-page management for `<title>`, `<meta name="description">`, keywords, and canonical URLs (`https://codexia-portfolio.vercel.app/`).
+- **JSON-LD Structured Data**: Implements Schema.org `Person`, `WebSite`, and `SoftwareSourceCode` schemas for entity recognition in search engines and rich snippets.
+- **Social Cards & Open Graph**: Custom 1200×630 Open Graph preview image (`/og-image.png`) with full `og:*` and Twitter card tags.
+- **Google Search Console Verified**: Built-in verification file (`googleb4dab4039d740486.html`), XML sitemap (`/sitemap.xml`), and `robots.txt`.
+
+### 4. ⚡ SSG Static Pre-Rendering Pipeline
+- **Automated Post-Build Pre-Renderer**: `scripts/prerender.js` runs automatically during `npm run build` to generate static HTML pages for all routes (`/`, `/projects/trustos`, `/projects/pulseforge-ai`, `/projects/loksetu-ai`, `/projects/jeeratype`, `/projects/wasm-sandbox`).
+- **Fast Crawlability**: Crawlers and link scrapers receive pre-populated HTML, metadata, and JSON-LD data without requiring JavaScript execution.
+
+### 5. 📸 Editorial Portrait & About Section
+- **High-Contrast Editorial Card**: 3:4 portrait card with live telemetry badges (`AI ENGINEER`, `INDIA`, `@Codexia-afk`).
+- **6 Technical Focus Pillars**: Detail cards covering AI Agent Guardrails, Systems Programming, Full-Stack Architecture, Low-Latency APIs, Prototyping, and Open-Source Collaboration.
+
+### 6. 📂 In-Depth Project Case Studies
+Comprehensive architectural breakdowns for 5 core projects:
+1. **TrustOS** — Explainable AI Trust Layer for Autonomous Agents (*Python, FastAPI, LLMs, Vector Search, Cryptographic Proofs*).
+2. **PulseForge AI** — Strategic Market Intelligence Platform (*React, FastAPI, Gemini API, MongoDB, Tailwind CSS*).
+3. **Loksetu.ai** — Privacy-First Browser Copilot for Govt Portals (*React, TypeScript, Chrome Extensions Manifest V3, FastAPI*).
+4. **JeeraType** — Offline Cross-Platform Terminal Typing Speed Tester (*Go, Terminal UI, Cross-Platform*).
+5. **WASM Sandbox Package Manager** — Capability-Isolated Rust WebAssembly Runtime (*Rust, Wasmtime, WASI, Capability Security*).
+
+### 7. 💫 3-Ring Interactive Skill Orbit
+- **Concentric Rotating Skill Rings**: 3 skill orbit rings displaying technical proficiencies with counter-rotated text pills to remain upright. Includes interactive pause/play rotation controls.
+
+### 8. 📜 Standalone Printable Resume Engine
+- **Printable Resume Page**: Accessible at `/resume.html` with a 1-click **"Print / Save PDF"** action for recruiters and hiring managers.
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Category | Technologies |
+| Category | Technologies Used |
 | :--- | :--- |
-| **Framework & Core** | React 19, TypeScript, Vite |
-| **Styling & Layout** | Tailwind CSS v4, Vanilla CSS Design System |
-| **Motion & Animation**| Framer Motion, Lucide React Icons |
-| **Routing & State** | React Router DOM v7, Zustand |
-| **Resume & Assets** | HTML5 Print API, High-Contrast Monochrome PIL Assets |
-| **Deployment** | Vercel / Static Web Hosting |
+| **Core Framework** | React 19, TypeScript 5.7, Vite 6.1 |
+| **Styling & UI** | Tailwind CSS v4, Vanilla CSS Custom Tokens |
+| **Animations** | Framer Motion 12.4, Lucide React Icons |
+| **Routing** | React Router DOM v7 |
+| **SEO & SSG** | Custom Pre-Rendering Script (`scripts/prerender.js`), JSON-LD Schema, Open Graph Image Generator |
+| **Assets & Verification** | Custom 1200x630 OG Image, SVG Favicons, Web App Manifest, Google Search Console Verification |
+| **Hosting & Deployment** | Vercel (`https://codexia-portfolio.vercel.app/`) |
 
 ---
 
-## 📂 Project Directory Structure
+## 📁 Repository Directory Structure
 
 ```
 Portfolio/
 ├── public/
-│   ├── profile-bw.jpg          # High-contrast B&W profile portrait asset
-│   ├── resume.html            # Standalone printable resume page
-│   ├── favicon.svg            # Custom SVG favicon
-│   ├── robots.txt             # SEO crawler rules
-│   └── sitemap.xml            # Search engine sitemap
+│   ├── googleb4dab4039d740486.html  # Google Search Console verification file
+│   ├── og-image.png                 # 1200x630 Open Graph preview image
+│   ├── profile-bw.jpg               # Profile photo asset
+│   ├── resume.html                  # Standalone printable resume page
+│   ├── site.webmanifest             # Web application manifest
+│   ├── favicon.svg                  # Custom SVG favicon
+│   ├── robots.txt                   # Search crawler directives
+│   └── sitemap.xml                  # XML Sitemap for search engines
+├── scripts/
+│   ├── generate_og_image.py         # Python PIL script generating OG image
+│   └── prerender.js                 # SSG static HTML pre-rendering script
 ├── src/
 │   ├── components/
-│   │   ├── OrbitalHero.tsx    # Cybernetic Satellite Hero section
-│   │   ├── AboutConstellation.tsx # Full-size editorial portrait & domain cards
-│   │   ├── SkillOrbit.tsx     # 3-Ring rotating skill orbit component
-│   │   ├── ProjectsEditorial.tsx # Selected builds editorial stack
-│   │   ├── ExperienceCarousel.tsx # Experience & leadership cards
-│   │   ├── HackathonsSection.tsx  # Hackathon & competition achievements
-│   │   ├── ContactOrbit.tsx   # Direct contact & mailto actions
-│   │   ├── TopBar.tsx         # Fixed navigation & theme toggle
-│   │   └── Footer.tsx         # Portfolio footer & quick links
+│   │   ├── AnimatedRole.tsx         # Rotating role identity animation component
+│   │   ├── OrbitalHero.tsx          # Cybernetic hero with photo frame & ring pulse
+│   │   ├── SEO.tsx                  # Dynamic head metadata & JSON-LD schema component
+│   │   ├── AboutConstellation.tsx   # Full portrait card & focus pillars
+│   │   ├── SkillOrbit.tsx           # 3-Ring rotating skill orbit component
+│   │   ├── ProjectsEditorial.tsx   # Selected builds editorial cards
+│   │   ├── ExperienceCarousel.tsx   # Hackathon awards & experience timeline
+│   │   ├── HackathonsSection.tsx    # Hackathon achievements display
+│   │   ├── GitHubBuildLog.tsx       # Live commit log & repo status
+│   │   ├── ContactOrbit.tsx         # Direct contact & mailto triggers
+│   │   ├── TopBar.tsx               # Fixed header navigation & theme toggle
+│   │   └── Footer.tsx               # Footer with links & quick actions
 │   ├── data/
-│   │   ├── personal.ts        # Personal info, contact, education & socials
-│   │   ├── projects.ts        # Full case study data for all 5 projects
-│   │   ├── skills.ts          # Technical skill nodes & category groupings
-│   │   └── experience.ts      # Hackathon & community leadership entries
+│   │   ├── personal.ts              # Personal bio, education, contacts & socials
+│   │   ├── projects.ts              # Detailed case study data for all 5 builds
+│   │   ├── skills.ts                # Technical skill groupings & orbit nodes
+│   │   └── experience.ts            # Hackathons & community experience entries
 │   ├── pages/
-│   │   ├── Home.tsx           # Primary portfolio landing page
-│   │   └── ProjectDetail.tsx  # Dedicated project case study view
-│   ├── App.tsx                # App routing & theme wrapper
-│   ├── index.css              # Core Tailwind v4 tokens & global utilities
-│   └── main.tsx               # Entry mount script
+│   │   ├── Home.tsx                 # Homepage component with Person & WebSite schema
+│   │   └── ProjectDetail.tsx        # Project case study view with SoftwareSourceCode schema
+│   ├── App.tsx                      # Main router & theme provider
+│   ├── index.css                    # Tailwind v4 imports & custom CSS variables
+│   └── main.tsx                     # React application entry point
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts
@@ -99,10 +132,10 @@ Portfolio/
 ## 🚀 Local Setup & Installation
 
 ### Prerequisites
-- **Node.js** >= 18.0.0
-- **npm** >= 9.0.0
+- **Node.js**: `>= 18.0.0`
+- **npm**: `>= 9.0.0`
 
-### Step-by-Step Instructions
+### Installation Steps
 
 1. **Clone the Repository**:
    ```bash
@@ -115,17 +148,17 @@ Portfolio/
    npm install
    ```
 
-3. **Start Development Server**:
+3. **Run Development Server**:
    ```bash
    npm run dev
    ```
-   Open `http://localhost:5173` in your browser to view the live application.
+   Open `http://localhost:5173` in your browser.
 
-4. **Build for Production**:
+4. **Build & Pre-render for Production**:
    ```bash
    npm run build
    ```
-   Generates optimized production assets inside the `dist/` directory.
+   Executes TypeScript typechecking, Vite bundling, and the SSG pre-rendering script generating production static HTML inside `dist/`.
 
 5. **Preview Production Build**:
    ```bash
@@ -134,13 +167,14 @@ Portfolio/
 
 ---
 
-## 🌐 Socials & Contact Information
+## 🌐 Contact & Social Links
 
-- **Email**: [srinjoypramanick15@gmail.com](mailto:srinjoypramanick15@gmail.com)
-- **LinkedIn**: [linkedin.com/in/srinjoy-pramanick-2a3019309/](https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/)
+- **Live Website**: [https://codexia-portfolio.vercel.app/](https://codexia-portfolio.vercel.app/)
 - **GitHub**: [github.com/Codexia-afk](https://github.com/Codexia-afk)
+- **LinkedIn**: [linkedin.com/in/srinjoy-pramanick-2a3019309/](https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/)
+- **Email**: [srinjoypramanick15@gmail.com](mailto:srinjoypramanick15@gmail.com)
 - **Bento**: [bento.me/srinjoy19](https://bento.me/srinjoy19)
-- **Resume**: [View Printable Resume](/public/resume.html)
+- **Resume**: [Printable Resume](/public/resume.html)
 
 ---
 
