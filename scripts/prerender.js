@@ -20,14 +20,14 @@ const routes = [
     route: '/',
     title: 'Srinjoy Pramanick — AI Engineer & ML Engineer | Full-Stack Developer',
     description: 'Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems. Explore projects including TrustOS, PulseForge AI, Loksetu.ai, and JeeraType.',
-    canonical: 'https://srinjoypramanick.dev/',
+    canonical: 'https://codexia-portfolio.vercel.app/',
     jsonLd: [
       {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Srinjoy Pramanick",
-        "url": "https://srinjoypramanick.dev/",
-        "image": "https://srinjoypramanick.dev/profile-bw.jpg",
+        "url": "https://codexia-portfolio.vercel.app/",
+        "image": "https://codexia-portfolio.vercel.app/profile-bw.jpg",
         "jobTitle": ["AI Engineer", "ML Engineer", "Full-Stack Developer"],
         "description": "Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems.",
         "sameAs": [
@@ -58,7 +58,7 @@ const routes = [
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Srinjoy Pramanick Portfolio",
-        "url": "https://srinjoypramanick.dev/",
+        "url": "https://codexia-portfolio.vercel.app/",
         "author": {
           "@type": "Person",
           "name": "Srinjoy Pramanick"
@@ -92,19 +92,19 @@ const routes = [
     route: '/projects/trustos',
     title: 'TrustOS — Explainable AI Trust Layer by Srinjoy Pramanick',
     description: 'TrustOS is an explainable digital trust layer for autonomous AI agents, built by Srinjoy Pramanick using Python, FastAPI, LLMs, Vector Search, and Cryptographic Proofs.',
-    canonical: 'https://srinjoypramanick.dev/projects/trustos',
+    canonical: 'https://codexia-portfolio.vercel.app/projects/trustos',
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareSourceCode",
       "name": "TrustOS",
       "description": "An explainable digital trust layer for autonomous AI agents.",
-      "url": "https://srinjoypramanick.dev/projects/trustos",
+      "url": "https://codexia-portfolio.vercel.app/projects/trustos",
       "codeRepository": "https://github.com/Codexia-afk/trustos",
       "programmingLanguage": ["Python", "FastAPI", "LLMs", "Vector Search", "Cryptographic Proofs"],
       "author": {
         "@type": "Person",
         "name": "Srinjoy Pramanick",
-        "url": "https://srinjoypramanick.dev/"
+        "url": "https://codexia-portfolio.vercel.app/"
       }
     },
     htmlContent: `
@@ -123,19 +123,19 @@ const routes = [
     route: '/projects/pulseforge-ai',
     title: 'PulseForge AI — Strategic Intelligence Platform by Srinjoy Pramanick',
     description: 'PulseForge AI is an AI-powered strategic intelligence platform for discovering market signals and business opportunities, built by Srinjoy Pramanick using React, FastAPI, Gemini, and MongoDB.',
-    canonical: 'https://srinjoypramanick.dev/projects/pulseforge-ai',
+    canonical: 'https://codexia-portfolio.vercel.app/projects/pulseforge-ai',
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareSourceCode",
       "name": "PulseForge AI",
       "description": "AI-powered strategic intelligence for discovering business opportunities from market signals.",
-      "url": "https://srinjoypramanick.dev/projects/pulseforge-ai",
+      "url": "https://codexia-portfolio.vercel.app/projects/pulseforge-ai",
       "codeRepository": "https://github.com/Codexia-afk/pulseforge-ai",
       "programmingLanguage": ["React", "FastAPI", "Gemini", "MongoDB", "Tailwind CSS"],
       "author": {
         "@type": "Person",
         "name": "Srinjoy Pramanick",
-        "url": "https://srinjoypramanick.dev/"
+        "url": "https://codexia-portfolio.vercel.app/"
       }
     },
     htmlContent: `
@@ -152,19 +152,19 @@ const routes = [
     route: '/projects/loksetu-ai',
     title: 'Loksetu.ai — Govt Welfare Browser Copilot by Srinjoy Pramanick',
     description: 'Loksetu.ai is a privacy-first browser copilot & CSC facilitator application engine for Indian welfare portals, built by Srinjoy Pramanick using React, TypeScript, Chrome Extensions (Manifest V3), and FastAPI.',
-    canonical: 'https://srinjoypramanick.dev/projects/loksetu-ai',
+    canonical: 'https://codexia-portfolio.vercel.app/projects/loksetu-ai',
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareSourceCode",
       "name": "Loksetu.ai",
       "description": "Privacy-First Browser Copilot & CSC Facilitator Application Engine for Indian Welfare Portals.",
-      "url": "https://srinjoypramanick.dev/projects/loksetu-ai",
+      "url": "https://codexia-portfolio.vercel.app/projects/loksetu-ai",
       "codeRepository": "https://github.com/Codexia-afk/loksetu-ai",
       "programmingLanguage": ["React", "TypeScript", "Chrome Extensions (Manifest V3)", "FastAPI"],
       "author": {
         "@type": "Person",
         "name": "Srinjoy Pramanick",
-        "url": "https://srinjoypramanick.dev/"
+        "url": "https://codexia-portfolio.vercel.app/"
       }
     },
     htmlContent: `
@@ -181,19 +181,19 @@ const routes = [
     route: '/projects/jeeratype',
     title: 'JeeraType — Terminal Typing Speed Tester in Go by Srinjoy Pramanick',
     description: 'JeeraType is a fully offline, cross-platform terminal typing speed test for macOS, Windows, and Linux built in Go by Srinjoy Pramanick.',
-    canonical: 'https://srinjoypramanick.dev/projects/jeeratype',
+    canonical: 'https://codexia-portfolio.vercel.app/projects/jeeratype',
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareSourceCode",
       "name": "JeeraType",
       "description": "A fully offline, cross-platform terminal typing speed test for macOS, Windows, and Linux built in Go.",
-      "url": "https://srinjoypramanick.dev/projects/jeeratype",
+      "url": "https://codexia-portfolio.vercel.app/projects/jeeratype",
       "codeRepository": "https://github.com/Codexia-afk/jeeratype",
       "programmingLanguage": ["Go", "Terminal UI", "Cross-Platform", "React"],
       "author": {
         "@type": "Person",
         "name": "Srinjoy Pramanick",
-        "url": "https://srinjoypramanick.dev/"
+        "url": "https://codexia-portfolio.vercel.app/"
       }
     },
     htmlContent: `
@@ -210,19 +210,19 @@ const routes = [
     route: '/projects/wasm-sandbox',
     title: 'WASM Sandbox Manager — Rust WebAssembly Runtime by Srinjoy Pramanick',
     description: 'WASM Sandbox Manager is a Rust-based WebAssembly runtime for executing capability-isolated plugins safely, built by Srinjoy Pramanick using Rust, Wasmtime, and WebAssembly.',
-    canonical: 'https://srinjoypramanick.dev/projects/wasm-sandbox',
+    canonical: 'https://codexia-portfolio.vercel.app/projects/wasm-sandbox',
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareSourceCode",
       "name": "WASM Sandbox Manager",
       "description": "Rust-based sandbox runtime for installing and executing small WebAssembly plugins with capability permissions.",
-      "url": "https://srinjoypramanick.dev/projects/wasm-sandbox",
+      "url": "https://codexia-portfolio.vercel.app/projects/wasm-sandbox",
       "codeRepository": "https://github.com/Codexia-afk/wasm-sandbox",
       "programmingLanguage": ["Rust", "WebAssembly (WASM)", "Wasmtime", "Capability Security"],
       "author": {
         "@type": "Person",
         "name": "Srinjoy Pramanick",
-        "url": "https://srinjoypramanick.dev/"
+        "url": "https://codexia-portfolio.vercel.app/"
       }
     },
     htmlContent: `

@@ -14,8 +14,8 @@ const homepageJsonLd = [
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Srinjoy Pramanick",
-    "url": "https://srinjoypramanick.dev/",
-    "image": "https://srinjoypramanick.dev/profile-bw.jpg",
+    "url": "https://codexia-portfolio.vercel.app/",
+    "image": "https://codexia-portfolio.vercel.app/profile-bw.jpg",
     "jobTitle": ["AI Engineer", "ML Engineer", "Full-Stack Developer"],
     "description": "Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems.",
     "sameAs": [
@@ -46,7 +46,7 @@ const homepageJsonLd = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Srinjoy Pramanick Portfolio",
-    "url": "https://srinjoypramanick.dev/",
+    "url": "https://codexia-portfolio.vercel.app/",
     "author": {
       "@type": "Person",
       "name": "Srinjoy Pramanick"

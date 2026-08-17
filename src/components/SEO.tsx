@@ -13,8 +13,8 @@ export interface SEOProps {
 const DEFAULT_TITLE = "Srinjoy Pramanick — AI Engineer & ML Engineer | Full-Stack Developer";
 const DEFAULT_DESCRIPTION = "Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems. Explore projects including TrustOS, PulseForge AI, Loksetu.ai, and JeeraType.";
 const DEFAULT_KEYWORDS = "Srinjoy Pramanick, Srinjoy Pramanick AI Engineer, Srinjoy Pramanick ML Engineer, Srinjoy Pramanick portfolio, Srinjoy Pramanick GitHub, Srinjoy Pramanick developer, AI Engineer, ML Engineer, Full-Stack Developer, TrustOS, PulseForge AI, Loksetu.ai, JeeraType";
-const DEFAULT_CANONICAL = "https://srinjoypramanick.dev/";
-const DEFAULT_OG_IMAGE = "https://srinjoypramanick.dev/og-image.png";
+const DEFAULT_CANONICAL = "https://codexia-portfolio.vercel.app/";
+const DEFAULT_OG_IMAGE = "https://codexia-portfolio.vercel.app/og-image.png";
 
 export const SEO: React.FC<SEOProps> = ({
   title = DEFAULT_TITLE,

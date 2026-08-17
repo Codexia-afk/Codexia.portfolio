@@ -54,7 +54,7 @@ export const ProjectDetail: React.FC = () => {
 
   const projectTitle = `${project.title} — AI & Software Project by Srinjoy Pramanick`;
   const projectDesc = `${project.title}: ${project.tagline} Built by Srinjoy Pramanick using ${project.tech.join(', ')}.`;
-  const projectCanonical = `https://srinjoypramanick.dev/projects/${project.slug}`;
+  const projectCanonical = `https://codexia-portfolio.vercel.app/projects/${project.slug}`;
 
   const projectJsonLd = {
     "@context": "https://schema.org",
@@ -67,7 +67,7 @@ export const ProjectDetail: React.FC = () => {
     "author": {
       "@type": "Person",
       "name": "Srinjoy Pramanick",
-      "url": "https://srinjoypramanick.dev/"
+      "url": "https://codexia-portfolio.vercel.app/"
     }
   };
 
