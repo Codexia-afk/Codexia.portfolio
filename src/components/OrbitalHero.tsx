@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home } from 'lucide-react';
 import { personalData } from '../data/personal';
+import { AnimatedRole } from './AnimatedRole';
 
 export const OrbitalHero: React.FC = () => {
   const [statementIndex, setStatementIndex] = useState(0);
   const [isSettled, setIsSettled] = useState(false);
+  const [roleIndex, setRoleIndex] = useState(0);
 
   const statements = [
     "Hi, I'm Srinjoy Pramanick",
@@ -114,7 +116,7 @@ export const OrbitalHero: React.FC = () => {
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="mb-4"
+            className="mb-4 relative flex items-center justify-center"
           >
             <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44 rounded-full p-1.5 border-2 border-stone-300 dark:border-zinc-700 bg-stone-100 dark:bg-zinc-900 shadow-2xl overflow-hidden flex items-center justify-center group relative ring-4 ring-cyan-500/20 transition-transform duration-500 hover:scale-105">
               <img
@@ -123,11 +125,23 @@ export const OrbitalHero: React.FC = () => {
                 className="w-full h-full rounded-full object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-110 filter brightness-95"
               />
             </div>
+
+            {/* Subtle orbital pulse on role change */}
+            <AnimatePresence>
+              <motion.div
+                key={roleIndex}
+                initial={{ opacity: 0.6, scale: 0.98 }}
+                animate={{ opacity: 0, scale: 1.15 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="absolute inset-0 rounded-full border border-cyan-500/40 dark:border-cyan-400/40 pointer-events-none"
+              />
+            </AnimatePresence>
           </motion.div>
 
-          {/* 2. Small Uppercase Role Label */}
-          <div className="font-mono text-xs tracking-widest-xl uppercase text-zinc-500 dark:text-zinc-400 font-bold mb-3">
-            AI ENGINEER
+          {/* 2. Small Uppercase Animated Role Label */}
+          <div className="mb-3 w-full flex justify-center">
+            <AnimatedRole onRoleChange={setRoleIndex} />
           </div>
 
           {/* 3. Large Bold Statement */}
