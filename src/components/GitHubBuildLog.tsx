@@ -22,9 +22,9 @@ export const GitHubBuildLog: React.FC = () => {
               </span>
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             </div>
-            <h3 className="text-xl font-bold font-mono text-zinc-900 dark:text-zinc-100">
+            <h2 className="text-xl font-bold font-mono text-zinc-900 dark:text-zinc-100">
               GitHub — @{personalData.username}
-            </h3>
+            </h2>
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
               Open source repositories, AI agent sidecars & active development commits.
             </p>

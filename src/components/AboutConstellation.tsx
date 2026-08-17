@@ -88,7 +88,7 @@ export const AboutConstellation: React.FC = () => {
               {/* Full-Size Black & White Photo */}
               <img
                 src="/profile-bw.jpg"
-                alt="Srinjoy Pramanick - Full Size Portrait"
+                alt="Srinjoy Pramanick — AI Engineer, ML Engineer & Full-Stack Developer"
                 className="w-full h-full object-cover object-[center_20%] filter grayscale contrast-115 brightness-100 transition-transform duration-700 group-hover:scale-105"
               />
               
@@ -133,7 +133,7 @@ export const AboutConstellation: React.FC = () => {
             {/* Bio Narrative */}
             <div className="bg-stone-50/80 dark:bg-zinc-900/60 border border-stone-200 dark:border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-sm">
               <p className="text-base sm:text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed font-normal mb-4">
-                {personalData.subTagline} I view software development as turning complex abstractions into deterministic, resilient, production-ready systems.
+                I'm <strong className="font-semibold text-zinc-900 dark:text-zinc-100">Srinjoy Pramanick</strong>, an AI Engineer, ML Engineer, and Full-Stack Developer. {personalData.subTagline} I view software development as turning complex abstractions into deterministic, resilient, production-ready systems.
               </p>
               <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-normal">
                 From designing real-time AI guardrails to engineering low-latency vector search backends and interactive web apps, my goal is always clarity, execution speed, and real-world impact.

@@ -144,11 +144,14 @@ export const OrbitalHero: React.FC = () => {
             <AnimatedRole onRoleChange={setRoleIndex} />
           </div>
 
+          {/* Primary SEO Heading for Homepage (Hidden visually, accessible to crawlers & screen readers) */}
+          <h1 className="sr-only">Srinjoy Pramanick — AI Engineer, ML Engineer & Full-Stack Developer</h1>
+
           {/* 3. Large Bold Statement */}
           <div className="min-h-[72px] sm:min-h-[90px] flex items-center justify-center mb-6">
             <AnimatePresence mode="wait">
               {!isSettled ? (
-                <motion.h1
+                <motion.h2
                   key={statementIndex}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -157,9 +160,9 @@ export const OrbitalHero: React.FC = () => {
                   className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 font-sans leading-tight"
                 >
                   {statements[statementIndex]}
-                </motion.h1>
+                </motion.h2>
               ) : (
-                <motion.h1
+                <motion.h2
                   key="permanent"
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -167,7 +170,7 @@ export const OrbitalHero: React.FC = () => {
                   className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 font-sans leading-tight"
                 >
                   I build intelligent systems.
-                </motion.h1>
+                </motion.h2>
               )}
             </AnimatePresence>
           </div>

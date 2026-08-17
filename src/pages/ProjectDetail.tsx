@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { projectsData } from '../data/projects';
+import { SEO } from '../components/SEO';
 import { 
   ArrowLeft, 
   Github, 
@@ -28,6 +29,10 @@ export const ProjectDetail: React.FC = () => {
   if (!project) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24">
+        <SEO 
+          title="Project Not Found — Srinjoy Pramanick"
+          description="The requested project case study could not be found."
+        />
         <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">
           Project Not Found
         </h1>
@@ -47,8 +52,34 @@ export const ProjectDetail: React.FC = () => {
 
   const { caseStudy } = project;
 
+  const projectTitle = `${project.title} — AI & Software Project by Srinjoy Pramanick`;
+  const projectDesc = `${project.title}: ${project.tagline} Built by Srinjoy Pramanick using ${project.tech.join(', ')}.`;
+  const projectCanonical = `https://srinjoypramanick.dev/projects/${project.slug}`;
+
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": project.title,
+    "description": project.tagline,
+    "url": projectCanonical,
+    "codeRepository": project.githubUrl,
+    "programmingLanguage": project.tech,
+    "author": {
+      "@type": "Person",
+      "name": "Srinjoy Pramanick",
+      "url": "https://srinjoypramanick.dev/"
+    }
+  };
+
   return (
-    <article className="pt-24 pb-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <SEO
+        title={projectTitle}
+        description={projectDesc}
+        canonical={projectCanonical}
+        jsonLd={projectJsonLd}
+      />
+      <article className="pt-24 pb-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {/* Back Button Breadcrumbs */}
       <div className="mb-8">
@@ -317,5 +348,6 @@ export const ProjectDetail: React.FC = () => {
       </div>
 
     </article>
+    </>
   );
 };
