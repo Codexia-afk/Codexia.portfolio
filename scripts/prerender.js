@@ -270,6 +270,23 @@ const routes = [
         <p>Terms and conditions of use for the personal developer portfolio of Srinjoy Pramanick.</p>
       </main>
     `
+  },
+  {
+    route: '/auth/callback',
+    title: 'Authenticating — The Margins | Srinjoy Pramanick Portfolio',
+    description: 'Verifying session and returning to the portfolio guestbook.',
+    canonical: 'https://codexia-portfolio.vercel.app/auth/callback',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Auth Callback - The Margins"
+    },
+    htmlContent: `
+      <main>
+        <h1>Verifying Authentication</h1>
+        <p>Processing OAuth session and returning to The Margins.</p>
+      </main>
+    `
   }
 ];
 

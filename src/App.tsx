@@ -6,6 +6,7 @@ import { Home } from './pages/Home';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Terms } from './pages/Terms';
+import { AuthCallback } from './pages/AuthCallback';
 import { PortalOS } from './components/portal/PortalOS';
 import { MobilePortalLauncher } from './components/portal/MobilePortalLauncher';
 import { PortalView } from './components/portal/types';
@@ -19,6 +20,15 @@ const AppContent: React.FC<{
   const [portalView, setPortalView] = useState<PortalView>('discover');
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Handle URL return parameters (e.g. from OAuth redirect)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('portal') === 'margins') {
+      setPortalView('margins-notes');
+      setIsPortalOpen(true);
+    }
+  }, [location.search]);
 
   // Global ⌘K / Ctrl+K keyboard shortcut
   useEffect(() => {
@@ -74,6 +84,7 @@ const AppContent: React.FC<{
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/terms-and-conditions" element={<Terms />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 

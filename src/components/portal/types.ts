@@ -39,15 +39,19 @@ export interface AuthUser {
 }
 
 export type NoteCategory = 
+  | 'Just Saying Hello'
+  | 'A Thought'
+  | 'A Suggestion'
+  | 'A Question'
+  | 'Some Appreciation'
   | 'Critique & Suggestions'
   | 'Portfolio Feedback' 
   | 'Collaboration Idea' 
-  | 'Technical Architecture'
-  | 'Appreciation' 
-  | 'A Question';
+  | 'Technical Architecture';
 
 export interface NoteItem {
   id: string;
+  userId?: string;
   displayName: string;
   message: string;
   category: NoteCategory;
@@ -61,6 +65,8 @@ export interface NoteItem {
   authorHandle?: string;
   authorEmail?: string;
   rating?: number; // 1-5 rating
+  isOwnNote?: boolean;
+  reportCount?: number;
 }
 
 export interface DeskMilestone {

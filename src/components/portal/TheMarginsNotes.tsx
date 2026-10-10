@@ -6,6 +6,7 @@ import {
   Send, 
   Sparkles, 
   Trash2, 
+  Edit3,
   Star, 
   X,
   Lock,
@@ -13,7 +14,9 @@ import {
   AlertCircle,
   ShieldCheck,
   Github,
-  LogOut
+  LogOut,
+  Flag,
+  UserCheck
 } from 'lucide-react';
 import { NoteItem, NoteCategory, AuthUser } from './types';
 import { notesService } from './notesService';
@@ -37,10 +40,22 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
   
   // Composer form state
   const [message, setMessage] = useState<string>('');
-  const [category, setCategory] = useState<NoteCategory>('Critique & Suggestions');
+  const [category, setCategory] = useState<NoteCategory>('A Thought');
   const [rating, setRating] = useState<number>(5);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [formError, setFormError] = useState<string | null>(null);
+
+  // Edit note state
+  const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
+
+  // Report modal state
+  const [reportingNoteId, setReportingNoteId] = useState<string | null>(null);
+  const [reportReason, setReportReason] = useState<string>('');
+  const [isSubmittingReport, setIsSubmittingReport] = useState<boolean>(false);
+
+  // Edit profile display name state
+  const [isEditingName, setIsEditingName] = useState<boolean>(false);
+  const [customDisplayName, setCustomDisplayName] = useState<string>('');
 
   // Owner moderation state
   const [isOwnerMode, setIsOwnerMode] = useState<boolean>(false);
@@ -50,28 +65,54 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
 
   const categories: ('All' | NoteCategory)[] = [
     'All',
+    'Just Saying Hello',
+    'A Thought',
+    'A Suggestion',
+    'A Question',
+    'Some Appreciation',
     'Critique & Suggestions',
     'Portfolio Feedback',
     'Collaboration Idea',
-    'Technical Architecture',
-    'Appreciation',
-    'A Question'
+    'Technical Architecture'
   ];
 
-  const refreshNotes = () => {
-    setNotes(notesService.getPublicNotes());
+  const refreshNotes = async () => {
+    const list = await notesService.getPublicNotes(currentUser?.id);
+    setNotes(list);
   };
 
   useEffect(() => {
     refreshNotes();
+
+    // Check for unfinished draft restoration
+    const draft = authService.getDraft();
+    if (draft) {
+      setMessage(draft.message || '');
+      setCategory(draft.category || 'A Thought');
+      setRating(draft.rating || 5);
+      authService.clearDraft();
+      if (authService.getCurrentUser()) {
+        setIsComposerOpen(true);
+        onShowToast('✓ Restored your unfinished note draft.');
+      }
+    }
+
     const unsubscribe = authService.subscribe((user) => {
       setCurrentUser(user);
+      if (user && draft) {
+        setIsComposerOpen(true);
+      }
     });
+
     return () => unsubscribe();
   }, []);
 
-  const handleToggleReaction = (noteId: string) => {
-    const res = notesService.toggleReaction(noteId);
+  useEffect(() => {
+    refreshNotes();
+  }, [currentUser]);
+
+  const handleToggleReaction = async (noteId: string) => {
+    const res = await notesService.toggleReaction(noteId);
     setNotes((prev) =>
       prev.map((n) =>
         n.id === noteId
@@ -86,15 +127,29 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
 
   const handleOpenComposer = () => {
     if (!currentUser) {
+      // Save any partial text in draft
+      if (message.trim()) {
+        authService.saveDraft({ message, category, rating });
+      }
       setIsAuthModalOpen(true);
     } else {
+      setEditingNoteId(null);
       setIsComposerOpen((prev) => !prev);
     }
   };
 
-  const handleSubmitNote = (e: React.FormEvent) => {
+  const handleStartEdit = (note: NoteItem) => {
+    setEditingNoteId(note.id);
+    setMessage(note.message);
+    setCategory(note.category);
+    if (note.rating) setRating(note.rating);
+    setIsComposerOpen(true);
+  };
+
+  const handleSubmitNote = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentUser) {
+      authService.saveDraft({ message, category, rating });
       setIsAuthModalOpen(true);
       return;
     }
@@ -102,25 +157,90 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
     setFormError(null);
     setIsSubmitting(true);
 
-    const result = notesService.submitNote({
-      author: currentUser,
-      message,
-      category,
-      rating
-    });
+    if (editingNoteId) {
+      // Update existing note
+      const res = await notesService.editNote({
+        noteId: editingNoteId,
+        authorId: currentUser.id,
+        message,
+        category,
+        rating
+      });
 
-    setIsSubmitting(false);
+      setIsSubmitting(false);
+      if (!res.success) {
+        setFormError(res.error || 'Failed to update note.');
+        return;
+      }
 
-    if (!result.success) {
-      setFormError(result.error || 'Failed to submit thought.');
-      return;
+      onShowToast('✓ Your note has been updated.');
+      setEditingNoteId(null);
+    } else {
+      // Create new note
+      const result = await notesService.submitNote({
+        author: currentUser,
+        message,
+        category,
+        rating
+      });
+
+      setIsSubmitting(false);
+      if (!result.success) {
+        setFormError(result.error || 'Failed to submit thought.');
+        return;
+      }
+
+      onShowToast('✓ Your thought has been left in The Margins.');
     }
 
-    onShowToast('✓ Your verified thought has been shared in The Margins.');
     setMessage('');
     setRating(5);
     setIsComposerOpen(false);
-    refreshNotes();
+    authService.clearDraft();
+    await refreshNotes();
+  };
+
+  const handleDeleteOwnNote = async (noteId: string) => {
+    if (!confirm('Are you sure you want to permanently delete this note?')) return;
+
+    const res = await notesService.deleteNote({
+      noteId,
+      authorId: currentUser?.id
+    });
+
+    if (res.success) {
+      onShowToast('✓ Note deleted.');
+      await refreshNotes();
+    } else {
+      onShowToast(res.error || 'Failed to delete note.');
+    }
+  };
+
+  const handleReportSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reportingNoteId || !reportReason.trim()) return;
+
+    setIsSubmittingReport(true);
+    await notesService.reportNote({
+      noteId: reportingNoteId,
+      reporterId: currentUser?.id,
+      reason: reportReason.trim()
+    });
+
+    setIsSubmittingReport(false);
+    setReportingNoteId(null);
+    setReportReason('');
+    onShowToast('✓ Report received. Thank you for keeping The Margins safe.');
+  };
+
+  const handleSaveDisplayName = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customDisplayName.trim()) return;
+
+    await authService.updateDisplayName(customDisplayName.trim());
+    setIsEditingName(false);
+    onShowToast(`✓ Display name updated to ${customDisplayName.trim()}`);
+    await refreshNotes();
   };
 
   const handleUnlockOwner = (e: React.FormEvent) => {
@@ -142,12 +262,12 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
     onShowToast(`Updated note status: ${status}`);
   };
 
-  const handleAdminDelete = (noteId: string) => {
-    if (confirm('Permanently delete this note?')) {
-      notesService.deleteNote(ownerPasscode, noteId);
+  const handleAdminDelete = async (noteId: string) => {
+    if (confirm('Permanently delete this note as owner?')) {
+      await notesService.deleteNote({ noteId, passcode: ownerPasscode });
       setAdminNotes(notesService.getModerationNotes(ownerPasscode));
-      refreshNotes();
-      onShowToast('Note deleted.');
+      await refreshNotes();
+      onShowToast('Note deleted by owner.');
     }
   };
 
@@ -165,8 +285,8 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn">
-      {/* Top Navigation & Title Bar */}
+    <div className="space-y-6 sm:space-y-8 animate-fadeIn">
+      {/* Top Navigation & Identity Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-stone-200/80 dark:border-zinc-800 gap-3">
         <button
           onClick={onBack}
@@ -180,10 +300,10 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
           {!isOwnerMode ? (
             <button
               onClick={() => setIsPasscodeModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-[11px] text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 bg-stone-100 dark:bg-zinc-800/80 border border-stone-200 dark:border-zinc-700/60 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-mono text-[11px] text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 bg-stone-100 dark:bg-zinc-800/80 border border-stone-200 dark:border-zinc-700/60 transition-colors cursor-pointer"
             >
               <Lock className="w-3 h-3" />
-              <span>OWNER ACCESS</span>
+              <span>OWNER</span>
             </button>
           ) : (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-mono text-[10px] font-bold uppercase bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
@@ -191,36 +311,58 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
             </span>
           )}
 
-          {/* User Auth Status / Action */}
+          {/* User Auth Status / Leave Your Mark Button */}
           {!currentUser ? (
             <button
-              onClick={() => setIsAuthModalOpen(true)}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs uppercase font-bold tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors cursor-pointer shadow-xs"
+              onClick={handleOpenComposer}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs uppercase font-bold tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors cursor-pointer shadow-xs"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>SIGN IN TO SHARE THOUGHTS</span>
+              <span>LEAVE YOUR MARK</span>
             </button>
           ) : (
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-stone-100 dark:bg-zinc-800 border border-stone-200 dark:border-zinc-700 font-mono text-xs">
-                <img
-                  src={currentUser.avatarUrl}
-                  alt={currentUser.name}
-                  className="w-5 h-5 rounded-full object-cover border border-stone-300 dark:border-zinc-600"
-                />
-                <span className="font-semibold text-zinc-900 dark:text-zinc-100 max-w-[100px] truncate">
+            <div className="flex items-center gap-2 flex-wrap">
+              {/* Authenticated Identity Pill */}
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-stone-100 dark:bg-zinc-800/90 border border-stone-200 dark:border-zinc-700 font-mono text-xs">
+                {currentUser.avatarUrl ? (
+                  <img
+                    src={currentUser.avatarUrl}
+                    alt={currentUser.name}
+                    className="w-5 h-5 rounded-full object-cover border border-stone-300 dark:border-zinc-600"
+                  />
+                ) : (
+                  <div className="w-5 h-5 rounded-full bg-sky-600 text-white flex items-center justify-center text-[10px] font-bold">
+                    {currentUser.name[0]}
+                  </div>
+                )}
+                
+                <span className="font-semibold text-zinc-900 dark:text-zinc-100 max-w-[120px] truncate">
                   {currentUser.name}
                 </span>
+
                 <span className="text-[9px] uppercase px-1.5 py-0.2 rounded bg-stone-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 font-bold">
                   {currentUser.provider}
                 </span>
+
                 <button
                   onClick={() => {
-                    authService.signOut();
-                    onShowToast('Signed out successfully.');
+                    setCustomDisplayName(currentUser.name);
+                    setIsEditingName(true);
+                  }}
+                  title="Edit Display Name"
+                  className="text-zinc-400 hover:text-sky-600 dark:hover:text-cyan-400 cursor-pointer ml-1"
+                >
+                  <Edit3 className="w-3 h-3" />
+                </button>
+
+                <button
+                  onClick={async () => {
+                    await authService.signOut();
+                    onShowToast('Signed out.');
+                    await refreshNotes();
                   }}
                   title="Sign out"
-                  className="text-zinc-400 hover:text-rose-500 cursor-pointer pl-1"
+                  className="text-zinc-400 hover:text-rose-500 cursor-pointer ml-1"
                 >
                   <LogOut className="w-3 h-3" />
                 </button>
@@ -228,34 +370,77 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
 
               <button
                 onClick={handleOpenComposer}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-sky-600 dark:bg-cyan-500 text-white font-mono text-xs uppercase font-bold tracking-wider hover:opacity-90 transition-opacity cursor-pointer shadow-xs"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-600 dark:bg-cyan-500 text-white font-mono text-xs uppercase font-bold tracking-wider hover:opacity-90 transition-opacity cursor-pointer shadow-xs"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>{isComposerOpen ? 'CLOSE' : 'LEAVE A THOUGHT'}</span>
+                <span>{isComposerOpen ? 'CLOSE COMPOSER' : 'WRITE NOTE'}</span>
               </button>
             </div>
           )}
         </div>
       </div>
 
-      {/* Hero Statement */}
-      <div className="space-y-1.5">
+      {/* Hero Headline & Philosophy */}
+      <div className="space-y-2">
         <div className="flex items-center gap-2 font-mono text-xs text-sky-600 dark:text-cyan-400 font-semibold uppercase tracking-widest">
           <MessageSquare className="w-3.5 h-3.5" />
-          <span>THE MARGINS // AUTHENTIC THOUGHTS & REVIEWS</span>
+          <span>THE MARGINS // DIGITAL GUESTBOOK</span>
         </div>
-        <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-          Annotations, feedback, and reviews.
+        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+          Leave a little piece of yourself here.
         </h2>
-        <p className="font-sans text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 max-w-xl text-pretty leading-relaxed">
-          Zero simulated reviews or fake comments. An open public canvas for verified peers and recruiters to share feedback, suggestions, and critique.
+        <p className="font-editorial text-lg italic text-zinc-600 dark:text-zinc-300 max-w-xl leading-relaxed">
+          "A little thought can stay longer than you think."
+        </p>
+        <p className="font-sans text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 max-w-2xl leading-relaxed">
+          An authentic public journal powered by Google & GitHub authentication. Share your thoughts, architectural critique, feedback, or say hello.
         </p>
       </div>
 
+      {/* Edit Display Name Modal */}
+      {isEditingName && (
+        <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-sky-300 dark:border-cyan-500/60 shadow-md animate-fadeIn">
+          <form onSubmit={handleSaveDisplayName} className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs font-bold text-sky-600 dark:text-cyan-400 uppercase tracking-wider">
+                CUSTOMIZE PUBLIC DISPLAY NAME
+              </span>
+              <button
+                type="button"
+                onClick={() => setIsEditingName(false)}
+                className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <p className="font-sans text-xs text-zinc-500">
+              Choose how your name appears on your public notes:
+            </p>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                required
+                maxLength={40}
+                value={customDisplayName}
+                onChange={(e) => setCustomDisplayName(e.target.value)}
+                className="flex-1 px-3 py-2 rounded-xl bg-stone-50 dark:bg-zinc-800 border border-stone-200 dark:border-zinc-700 text-xs font-sans text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-sky-500"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs uppercase font-bold tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Owner Moderation Banner */}
       {isOwnerMode && (
-        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs font-mono text-amber-800 dark:text-amber-300 flex items-center justify-between">
+        <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs font-mono text-amber-800 dark:text-amber-300 flex items-center justify-between">
           <span>OWNER MODERATION ACTIVE · {adminNotes?.length ?? 0} TOTAL RECORDS</span>
-          <span className="text-[10px] uppercase font-bold text-amber-600">Verified Access</span>
+          <span className="text-[10px] uppercase font-bold text-amber-600">PASSCODE VERIFIED</span>
         </div>
       )}
 
@@ -263,16 +448,21 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
       {isComposerOpen && currentUser && (
         <form 
           onSubmit={handleSubmitNote}
-          className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-sky-300 dark:border-cyan-500/50 shadow-md space-y-4 animate-fadeIn"
+          className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-sky-300 dark:border-cyan-500/50 shadow-lg space-y-4 animate-fadeIn"
         >
           <div className="flex items-center justify-between pb-2 border-b border-stone-100 dark:border-zinc-800">
             <div className="flex items-center gap-2 font-mono text-xs font-bold text-sky-600 dark:text-cyan-400">
-              <ShieldCheck className="w-4 h-4" />
-              <span>POSTING AS {currentUser.name.toUpperCase()} ({currentUser.provider.toUpperCase()} VERIFIED)</span>
+              <UserCheck className="w-4 h-4" />
+              <span>
+                {editingNoteId ? 'EDITING NOTE' : 'WRITING NOTE AS'} {currentUser.name.toUpperCase()} ({currentUser.provider.toUpperCase()})
+              </span>
             </div>
             <button
               type="button"
-              onClick={() => setIsComposerOpen(false)}
+              onClick={() => {
+                setIsComposerOpen(false);
+                setEditingNoteId(null);
+              }}
               className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer"
             >
               <X className="w-4 h-4" />
@@ -296,12 +486,15 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                 onChange={(e) => setCategory(e.target.value as NoteCategory)}
                 className="w-full px-3.5 py-2 rounded-xl bg-stone-50 dark:bg-zinc-800/80 border border-stone-200 dark:border-zinc-700 text-xs font-sans text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-sky-500"
               >
-                <option value="Critique & Suggestions">Critique & Suggestions (How to improve)</option>
+                <option value="Just Saying Hello">Just Saying Hello</option>
+                <option value="A Thought">A Thought</option>
+                <option value="A Suggestion">A Suggestion</option>
+                <option value="A Question">A Question</option>
+                <option value="Some Appreciation">Some Appreciation</option>
+                <option value="Critique & Suggestions">Critique & Suggestions (Constructive)</option>
                 <option value="Portfolio Feedback">Portfolio Feedback</option>
                 <option value="Collaboration Idea">Collaboration Idea</option>
                 <option value="Technical Architecture">Technical Architecture</option>
-                <option value="Appreciation">Appreciation</option>
-                <option value="A Question">A Question</option>
               </select>
             </div>
 
@@ -333,7 +526,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
 
           <div>
             <div className="flex items-center justify-between font-mono text-[11px] text-zinc-500 mb-1">
-              <span>Your Thought or Review (Max 400 chars)</span>
+              <span>Your Thought or Annotation (Max 400 chars)</span>
               <span className={message.length > 380 ? 'text-amber-500 font-bold' : ''}>
                 {message.length} / 400
               </span>
@@ -343,7 +536,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
               rows={3}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Share constructive feedback, ideas on what can be improved, architectural questions, or your review..."
+              placeholder="Leave a thought, architecture suggestion, question, or encouragement..."
               maxLength={400}
               className="w-full p-3.5 rounded-xl bg-stone-50 dark:bg-zinc-800/80 border border-stone-200 dark:border-zinc-700 text-xs sm:text-sm font-sans text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-sky-500 resize-none leading-relaxed"
             />
@@ -351,7 +544,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
 
           <div className="flex items-center justify-between pt-1">
             <span className="font-mono text-[10px] text-zinc-400">
-              Verified identity ensures high-quality feedback. Plain text only.
+              Verified identity · Escaped plain text · Draft auto-saved
             </span>
             <button
               type="submit"
@@ -359,7 +552,13 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 dark:bg-cyan-500 text-white font-mono text-xs uppercase font-bold tracking-wider hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer shadow-xs"
             >
               <Send className="w-3.5 h-3.5" />
-              <span>{isSubmitting ? 'Posting...' : 'Post Verified Review'}</span>
+              <span>
+                {isSubmitting 
+                  ? 'Saving...' 
+                  : editingNoteId 
+                    ? 'Update Note' 
+                    : 'Publish to The Margins'}
+              </span>
             </button>
           </div>
         </form>
@@ -371,7 +570,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-3 py-1.5 rounded-lg border transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
               activeCategory === cat
                 ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 border-transparent font-bold shadow-2xs'
                 : 'bg-white dark:bg-zinc-900/60 text-zinc-600 dark:text-zinc-400 border-stone-200/80 dark:border-zinc-800 hover:border-stone-400'
@@ -382,30 +581,30 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
         ))}
       </div>
 
-      {/* Notes Cards Stream */}
+      {/* Notes Stream Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filteredNotes.length === 0 ? (
-          <div className="col-span-2 p-10 sm:p-14 text-center rounded-2xl bg-white dark:bg-zinc-900/60 border border-stone-200/90 dark:border-zinc-800 font-sans space-y-4">
+          <div className="col-span-2 p-10 sm:p-14 text-center rounded-3xl bg-white dark:bg-zinc-900/60 border border-stone-200/90 dark:border-zinc-800 font-sans space-y-4">
             <div className="w-12 h-12 rounded-2xl bg-stone-100 dark:bg-zinc-800 flex items-center justify-center mx-auto text-zinc-400">
               <MessageSquare className="w-6 h-6 opacity-60" />
             </div>
 
             <div className="max-w-md mx-auto space-y-2">
-              <h3 className="font-display text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100">
-                The floor is yours. No fake reviews.
+              <h3 className="font-display text-lg sm:text-xl font-bold text-zinc-900 dark:text-zinc-100">
+                The floor is yours.
               </h3>
               <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                We've wiped all artificial comments. Authenticate with GitHub or Google to be the first to share your thoughts, critique, or suggestions to elevate this portfolio.
+                No fake reviews or artificial comments. Authenticate with Google or GitHub to leave the first note in <span className="font-editorial italic">The Margins</span>.
               </p>
             </div>
 
             <div>
               <button
                 onClick={handleOpenComposer}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs uppercase font-bold tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors cursor-pointer shadow-xs"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs uppercase font-bold tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors cursor-pointer shadow-xs"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>LEAVE THE FIRST THOUGHT</span>
+                <span>LEAVE YOUR MARK</span>
               </button>
             </div>
           </div>
@@ -413,16 +612,16 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
           filteredNotes.map((note) => (
             <div
               key={note.id}
-              className={`p-5 rounded-2xl border transition-all flex flex-col justify-between ${
+              className={`p-5 sm:p-6 rounded-3xl border transition-all flex flex-col justify-between ${
                 note.isFeatured
                   ? 'bg-sky-50/40 dark:bg-cyan-950/20 border-sky-300 dark:border-cyan-800/80 shadow-xs'
                   : 'bg-white dark:bg-zinc-900/70 border-stone-200/80 dark:border-zinc-800/90 shadow-2xs'
               }`}
             >
               <div>
-                {/* Card Header: Category, Rating & Date */}
+                {/* Header: Category, Rating & Status */}
                 <div className="flex items-center justify-between mb-3 font-mono text-[11px]">
-                  <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 uppercase font-semibold">
+                  <span className="px-2.5 py-0.5 rounded-lg bg-stone-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 uppercase font-semibold">
                     {note.category}
                   </span>
 
@@ -450,9 +649,9 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                 </p>
               </div>
 
-              {/* Card Footer: Verified Author & Appreciation */}
-              <div className="pt-3 border-t border-stone-100 dark:border-zinc-800 flex items-center justify-between font-mono text-xs">
-                <div className="flex items-center gap-2 min-w-0 pr-2">
+              {/* Footer: Verified Author & Actions */}
+              <div className="pt-3.5 border-t border-stone-100 dark:border-zinc-800 flex items-center justify-between font-mono text-xs">
+                <div className="flex items-center gap-2.5 min-w-0 pr-2">
                   {note.authorAvatar ? (
                     <img
                       src={note.authorAvatar}
@@ -465,29 +664,33 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                     </div>
                   )}
 
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-semibold text-zinc-900 dark:text-zinc-100 truncate text-[11px] sm:text-xs">
-                        {note.displayName}
+                  <div className="min-w-0 flex items-center gap-1.5">
+                    <span className="font-semibold text-zinc-900 dark:text-zinc-100 truncate text-[11px] sm:text-xs">
+                      {note.displayName}
+                    </span>
+                    {note.authorProvider && (
+                      <span className="inline-flex items-center gap-1 text-[9px] uppercase px-1.5 py-0.2 rounded bg-stone-100 dark:bg-zinc-800 text-zinc-500 shrink-0">
+                        {note.authorProvider === 'github' ? (
+                          <Github className="w-2.5 h-2.5" />
+                        ) : (
+                          <span className="text-blue-500 font-bold">G</span>
+                        )}
+                        <span className="hidden sm:inline">Verified</span>
                       </span>
-                      {note.authorProvider && (
-                        <span className="inline-flex items-center gap-1 text-[9px] uppercase px-1 py-0.2 rounded bg-stone-100 dark:bg-zinc-800 text-zinc-500">
-                          {note.authorProvider === 'github' ? (
-                            <Github className="w-2.5 h-2.5" />
-                          ) : (
-                            <span className="text-blue-500 font-bold">G</span>
-                          )}
-                          <span className="hidden sm:inline">Verified</span>
-                        </span>
-                      )}
-                    </div>
+                    )}
+                    {note.isOwnNote && (
+                      <span className="font-mono text-[9px] uppercase px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-bold shrink-0">
+                        YOU
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
+                  {/* Appreciation Reaction */}
                   <button
                     onClick={() => handleToggleReaction(note.id)}
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] transition-all cursor-pointer ${
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] transition-all cursor-pointer ${
                       note.userReacted
                         ? 'bg-rose-50 text-rose-600 dark:bg-rose-950/60 dark:text-rose-400 font-bold'
                         : 'text-zinc-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50/60 dark:hover:bg-zinc-800'
@@ -497,19 +700,51 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                     <span>{note.reactionCount}</span>
                   </button>
 
+                  {/* Actions for Own Note */}
+                  {note.isOwnNote && (
+                    <div className="flex items-center gap-1 pl-1 border-l border-stone-200 dark:border-zinc-800">
+                      <button
+                        onClick={() => handleStartEdit(note)}
+                        title="Edit My Note"
+                        className="p-1 text-zinc-400 hover:text-sky-600 dark:hover:text-cyan-400 cursor-pointer"
+                      >
+                        <Edit3 className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteOwnNote(note.id)}
+                        title="Delete My Note"
+                        className="p-1 text-zinc-400 hover:text-rose-500 cursor-pointer"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Report Inappropriate Note */}
+                  {!note.isOwnNote && !isOwnerMode && (
+                    <button
+                      onClick={() => setReportingNoteId(note.id)}
+                      title="Report Inappropriate Content"
+                      className="p-1 text-zinc-300 dark:text-zinc-600 hover:text-amber-500 cursor-pointer transition-colors"
+                    >
+                      <Flag className="w-3 h-3" />
+                    </button>
+                  )}
+
+                  {/* Owner Controls */}
                   {isOwnerMode && (
                     <div className="flex items-center gap-1 pl-2 border-l border-stone-200 dark:border-zinc-800">
                       <button
                         onClick={() => handleAdminStatusChange(note.id, note.status, !note.isFeatured)}
                         title="Toggle Featured"
-                        className="p-1 text-zinc-400 hover:text-amber-500"
+                        className="p-1 text-zinc-400 hover:text-amber-500 cursor-pointer"
                       >
                         <Star className={`w-3 h-3 ${note.isFeatured ? 'fill-amber-400 text-amber-400' : ''}`} />
                       </button>
                       <button
                         onClick={() => handleAdminDelete(note.id)}
-                        title="Delete Note"
-                        className="p-1 text-zinc-400 hover:text-rose-500"
+                        title="Delete Note as Owner"
+                        className="p-1 text-zinc-400 hover:text-rose-500 cursor-pointer"
                       >
                         <Trash2 className="w-3 h-3" />
                       </button>
@@ -521,6 +756,60 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
           ))
         )}
       </div>
+
+      {/* Report Modal */}
+      {reportingNoteId && (
+        <div className="fixed inset-0 z-60 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <form
+            onSubmit={handleReportSubmit}
+            className="w-full max-w-sm rounded-2xl bg-white dark:bg-zinc-900 border border-stone-300 dark:border-zinc-800 p-6 shadow-2xl space-y-4 animate-fadeIn"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <Flag className="w-4 h-4 text-amber-500" />
+                REPORT INAPPROPRIATE CONTENT
+              </span>
+              <button
+                type="button"
+                onClick={() => setReportingNoteId(null)}
+                className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <p className="font-sans text-xs text-zinc-500">
+              Please specify why this note violates community guidelines:
+            </p>
+
+            <textarea
+              required
+              rows={3}
+              value={reportReason}
+              onChange={(e) => setReportReason(e.target.value)}
+              placeholder="Spam, abusive language, inappropriate content..."
+              className="w-full p-3 rounded-xl bg-stone-50 dark:bg-zinc-800 border border-stone-200 dark:border-zinc-700 text-xs font-sans text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-amber-500 resize-none"
+            />
+
+            <div className="flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setReportingNoteId(null)}
+                className="px-4 py-2 rounded-xl border border-stone-200 dark:border-zinc-700 text-xs font-mono text-zinc-600 dark:text-zinc-400"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmittingReport || !reportReason.trim()}
+                className="px-4 py-2 rounded-xl bg-amber-600 text-white font-mono text-xs uppercase font-bold tracking-wider hover:bg-amber-700 disabled:opacity-50"
+              >
+                {isSubmittingReport ? 'Submitting...' : 'Submit Report'}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* Owner Passcode Modal */}
       {isPasscodeModalOpen && (
@@ -571,6 +860,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
       <AuthGateModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
+        draft={{ message, category, rating }}
         onSuccess={(user) => {
           setCurrentUser(user);
           setIsComposerOpen(true);
