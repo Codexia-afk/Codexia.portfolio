@@ -36,6 +36,13 @@ export interface AuthUser {
   provider: 'github' | 'google';
   handle?: string;
   verifiedAt: string;
+  bio?: string;
+  githubUrl?: string;
+  publicRepos?: number;
+  followers?: number;
+  following?: number;
+  company?: string;
+  location?: string;
 }
 
 export type NoteCategory = 
@@ -64,6 +71,8 @@ export interface NoteItem {
   authorProvider?: 'github' | 'google';
   authorHandle?: string;
   authorEmail?: string;
+  authorBio?: string;
+  authorGithubUrl?: string;
   rating?: number; // 1-5 rating
   isOwnNote?: boolean;
   reportCount?: number;

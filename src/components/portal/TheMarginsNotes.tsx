@@ -16,7 +16,7 @@ import {
   Github,
   LogOut,
   Flag,
-  UserCheck
+  ExternalLink
 } from 'lucide-react';
 import { NoteItem, NoteCategory, AuthUser } from './types';
 import { notesService } from './notesService';
@@ -62,6 +62,10 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
   const [ownerPasscode, setOwnerPasscode] = useState<string>('');
   const [isPasscodeModalOpen, setIsPasscodeModalOpen] = useState<boolean>(false);
   const [adminNotes, setAdminNotes] = useState<NoteItem[] | null>(null);
+
+  // Quick GitHub inline account lookup
+  const [quickGithubUsername, setQuickGithubUsername] = useState<string>('');
+  const [isQuickFetching, setIsQuickFetching] = useState<boolean>(false);
 
   const categories: ('All' | NoteCategory)[] = [
     'All',
@@ -135,6 +139,29 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
     } else {
       setEditingNoteId(null);
       setIsComposerOpen((prev) => !prev);
+    }
+  };
+
+  const handleQuickGithubLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = quickGithubUsername.trim().replace(/^@/, '');
+    if (!clean) return;
+
+    setIsQuickFetching(true);
+    const result = await authService.fetchGithubAccount(clean);
+    setIsQuickFetching(false);
+
+    if (result.error) {
+      onShowToast(`⚠️ ${result.error}`);
+      return;
+    }
+
+    if (result.data) {
+      const user = await authService.signInWithGithubAccount(result.data);
+      setCurrentUser(user);
+      setQuickGithubUsername('');
+      onShowToast(`✓ Verified as @${result.data.login}. Profile details loaded!`);
+      setIsComposerOpen(true);
     }
   };
 
@@ -340,9 +367,17 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                   {currentUser.name}
                 </span>
 
-                <span className="text-[9px] uppercase px-1.5 py-0.2 rounded bg-stone-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 font-bold">
-                  {currentUser.provider}
-                </span>
+                {currentUser.handle && (
+                  <a
+                    href={currentUser.githubUrl || `https://github.com/${currentUser.handle.replace(/^@/, '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-zinc-500 hover:text-sky-600 dark:hover:text-cyan-400 font-mono text-[10px] flex items-center gap-0.5"
+                  >
+                    {currentUser.provider === 'github' && <Github className="w-2.5 h-2.5" />}
+                    <span>{currentUser.handle}</span>
+                  </a>
+                )}
 
                 <button
                   onClick={() => {
@@ -381,7 +416,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
       </div>
 
       {/* Hero Headline & Philosophy */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center gap-2 font-mono text-xs text-sky-600 dark:text-cyan-400 font-semibold uppercase tracking-widest">
           <MessageSquare className="w-3.5 h-3.5" />
           <span>THE MARGINS // DIGITAL GUESTBOOK</span>
@@ -393,8 +428,57 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
           "A little thought can stay longer than you think."
         </p>
         <p className="font-sans text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 max-w-2xl leading-relaxed">
-          An authentic public journal powered by Google & GitHub authentication. Share your thoughts, architectural critique, feedback, or say hello.
+          An authentic public journal powered by GitHub & Google authentication. Type your username to load your profile picture and repositories, or authenticate to leave your review.
         </p>
+
+        {/* Quick Connect Banner for Unauthenticated Visitors */}
+        {!currentUser && (
+          <div className="mt-4 p-4 sm:p-5 rounded-3xl bg-white dark:bg-zinc-900/90 border border-stone-200/90 dark:border-zinc-800 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 animate-fadeIn">
+            <div className="flex items-center gap-3.5">
+              <div className="w-10 h-10 rounded-2xl bg-zinc-950 dark:bg-zinc-800 text-white flex items-center justify-center shrink-0 border border-zinc-700/80">
+                <Github className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h4 className="font-display text-sm font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                  <span>Sign In with GitHub to Leave a Review</span>
+                  <span className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold">
+                    Live Details Fetch
+                  </span>
+                </h4>
+                <p className="font-sans text-xs text-zinc-500 dark:text-zinc-400">
+                  Type your username to load your profile picture, repositories & review on The Margins.
+                </p>
+              </div>
+            </div>
+
+            <form onSubmit={handleQuickGithubLogin} className="flex items-center gap-2">
+              <div className="relative">
+                <span className="absolute left-2.5 top-2 text-zinc-400 font-mono text-xs font-bold">@</span>
+                <input
+                  type="text"
+                  value={quickGithubUsername}
+                  onChange={(e) => setQuickGithubUsername(e.target.value)}
+                  placeholder="github-username"
+                  className="w-36 sm:w-48 pl-6 pr-3 py-1.5 rounded-xl bg-stone-50 dark:bg-zinc-800 border border-stone-200 dark:border-zinc-700 text-xs font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-sky-500"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={isQuickFetching || !quickGithubUsername.trim()}
+                className="px-3.5 py-1.5 rounded-xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors disabled:opacity-50 cursor-pointer shrink-0"
+              >
+                {isQuickFetching ? 'Fetching...' : 'Verify & Post'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsAuthModalOpen(true)}
+                className="px-3 py-1.5 rounded-xl bg-stone-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-mono text-xs font-semibold hover:bg-stone-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer shrink-0"
+              >
+                Options
+              </button>
+            </form>
+          </div>
+        )}
       </div>
 
       {/* Edit Display Name Modal */}
@@ -450,20 +534,80 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
           onSubmit={handleSubmitNote}
           className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-sky-300 dark:border-cyan-500/50 shadow-lg space-y-4 animate-fadeIn"
         >
-          <div className="flex items-center justify-between pb-2 border-b border-stone-100 dark:border-zinc-800">
-            <div className="flex items-center gap-2 font-mono text-xs font-bold text-sky-600 dark:text-cyan-400">
-              <UserCheck className="w-4 h-4" />
-              <span>
-                {editingNoteId ? 'EDITING NOTE' : 'WRITING NOTE AS'} {currentUser.name.toUpperCase()} ({currentUser.provider.toUpperCase()})
-              </span>
+          {/* Contributor Profile Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-stone-100 dark:border-zinc-800 gap-3">
+            <div className="flex items-center gap-3.5">
+              <div className="relative shrink-0">
+                {currentUser.avatarUrl ? (
+                  <img
+                    src={currentUser.avatarUrl}
+                    alt={currentUser.name}
+                    className="w-12 h-12 rounded-2xl object-cover ring-2 ring-emerald-500/80 shadow-xs"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center font-bold text-sm">
+                    {currentUser.name[0]}
+                  </div>
+                )}
+                {currentUser.provider === 'github' && (
+                  <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-zinc-950 text-white flex items-center justify-center border border-white dark:border-zinc-900">
+                    <Github className="w-2.5 h-2.5" />
+                  </span>
+                )}
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h4 className="font-display text-sm sm:text-base font-bold text-zinc-900 dark:text-zinc-50">
+                    {currentUser.name}
+                  </h4>
+                  {currentUser.handle && (
+                    <a
+                      href={currentUser.githubUrl || `https://github.com/${currentUser.handle.replace(/^@/, '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-xs text-sky-600 dark:text-cyan-400 hover:underline flex items-center gap-1"
+                    >
+                      <span>{currentUser.handle}</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+                  <span className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-bold">
+                    VERIFIED {currentUser.provider.toUpperCase()}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 mt-0.5 text-zinc-500 font-mono text-[10px]">
+                  <span>Reviewing Portfolio</span>
+                  {currentUser.publicRepos !== undefined && currentUser.publicRepos > 0 && (
+                    <>
+                      <span>·</span>
+                      <span>{currentUser.publicRepos} Repos</span>
+                    </>
+                  )}
+                  {currentUser.followers !== undefined && currentUser.followers > 0 && (
+                    <>
+                      <span>·</span>
+                      <span>{currentUser.followers} Followers</span>
+                    </>
+                  )}
+                </div>
+
+                {currentUser.bio && (
+                  <p className="font-sans text-xs italic text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">
+                    "{currentUser.bio}"
+                  </p>
+                )}
+              </div>
             </div>
+
             <button
               type="button"
               onClick={() => {
                 setIsComposerOpen(false);
                 setEditingNoteId(null);
               }}
-              className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer"
+              className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer self-start sm:self-center"
             >
               <X className="w-4 h-4" />
             </button>
@@ -542,7 +686,54 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
             />
           </div>
 
-          <div className="flex items-center justify-between pt-1">
+          {/* Live Review Preview Card on The Margins */}
+          <div className="p-4 rounded-2xl bg-stone-50/80 dark:bg-zinc-800/40 border border-stone-200/80 dark:border-zinc-700/60 space-y-2">
+            <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase text-zinc-400">
+              <span className="flex items-center gap-1.5 text-sky-600 dark:text-cyan-400">
+                <Sparkles className="w-3 h-3" />
+                <span>LIVE REVIEW PREVIEW ON THE MARGINS</span>
+              </span>
+              <span>{category}</span>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 shadow-2xs space-y-3">
+              <div className="flex items-center justify-between font-mono text-[11px]">
+                <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-semibold text-[10px]">
+                  {category}
+                </span>
+                <div className="flex items-center gap-0.5 text-amber-500">
+                  {Array.from({ length: rating }).map((_, i) => (
+                    <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+              </div>
+
+              <p className="font-sans text-xs sm:text-sm text-zinc-800 dark:text-zinc-200 italic leading-relaxed">
+                "{message.trim() || 'Your thought will appear here as you type...'}"
+              </p>
+
+              <div className="pt-2 border-t border-stone-100 dark:border-zinc-800 flex items-center justify-between font-mono text-xs">
+                <div className="flex items-center gap-2">
+                  <img
+                    src={currentUser.avatarUrl}
+                    alt={currentUser.name}
+                    className="w-5 h-5 rounded-full object-cover border border-stone-300 dark:border-zinc-700 ring-1 ring-emerald-500/30"
+                  />
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-100 text-[11px]">
+                    {currentUser.name}
+                  </span>
+                  {currentUser.handle && (
+                    <span className="text-zinc-400 text-[10px]">
+                      {currentUser.handle}
+                    </span>
+                  )}
+                </div>
+                <span className="text-[10px] text-zinc-400">Just now</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between pt-1 flex-wrap gap-2">
             <span className="font-mono text-[10px] text-zinc-400">
               Verified identity · Escaped plain text · Draft auto-saved
             </span>
@@ -557,7 +748,9 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                   ? 'Saving...' 
                   : editingNoteId 
                     ? 'Update Note' 
-                    : 'Publish to The Margins'}
+                    : currentUser.handle 
+                      ? `Publish Review as ${currentUser.handle}` 
+                      : 'Publish to The Margins'}
               </span>
             </button>
           </div>
@@ -656,19 +849,32 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                     <img
                       src={note.authorAvatar}
                       alt={note.displayName}
-                      className="w-5 h-5 rounded-full object-cover shrink-0 border border-stone-300 dark:border-zinc-700"
+                      className="w-6 h-6 rounded-full object-cover shrink-0 border border-stone-300 dark:border-zinc-700 ring-1 ring-emerald-500/30"
                     />
                   ) : (
-                    <div className="w-5 h-5 rounded-full bg-stone-200 dark:bg-zinc-800 flex items-center justify-center shrink-0 text-[10px]">
+                    <div className="w-6 h-6 rounded-full bg-stone-200 dark:bg-zinc-800 flex items-center justify-center shrink-0 text-[10px]">
                       {note.displayName[0]}
                     </div>
                   )}
 
-                  <div className="min-w-0 flex items-center gap-1.5">
+                  <div className="min-w-0 flex items-center gap-1.5 flex-wrap">
                     <span className="font-semibold text-zinc-900 dark:text-zinc-100 truncate text-[11px] sm:text-xs">
                       {note.displayName}
                     </span>
-                    {note.authorProvider && (
+
+                    {note.authorHandle && (
+                      <a
+                        href={note.authorGithubUrl || `https://github.com/${note.authorHandle.replace(/^@/, '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-mono text-[10px] text-zinc-500 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors"
+                      >
+                        {note.authorProvider === 'github' && <Github className="w-2.5 h-2.5" />}
+                        <span>{note.authorHandle}</span>
+                      </a>
+                    )}
+
+                    {note.authorProvider && !note.authorHandle && (
                       <span className="inline-flex items-center gap-1 text-[9px] uppercase px-1.5 py-0.2 rounded bg-stone-100 dark:bg-zinc-800 text-zinc-500 shrink-0">
                         {note.authorProvider === 'github' ? (
                           <Github className="w-2.5 h-2.5" />
@@ -678,6 +884,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                         <span className="hidden sm:inline">Verified</span>
                       </span>
                     )}
+
                     {note.isOwnNote && (
                       <span className="font-mono text-[9px] uppercase px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 font-bold shrink-0">
                         YOU

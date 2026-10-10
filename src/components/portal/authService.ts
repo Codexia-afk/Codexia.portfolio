@@ -23,6 +23,21 @@ function notifyListeners(user: AuthUser | null): void {
   });
 }
 
+export interface GitHubAccountDetails {
+  login: string;
+  name: string;
+  avatarUrl: string;
+  htmlUrl: string;
+  bio: string;
+  publicRepos: number;
+  followers: number;
+  following: number;
+  company: string;
+  location: string;
+  email: string;
+  createdAt: string;
+}
+
 // Convert Supabase User object into our AuthUser format
 function mapSupabaseUser(user: any): AuthUser {
   const metadata = user.user_metadata || {};
@@ -40,7 +55,13 @@ function mapSupabaseUser(user: any): AuthUser {
     avatarUrl,
     provider: provider === 'github' ? 'github' : 'google',
     handle: handle.startsWith('@') ? handle : `@${handle}`,
-    verifiedAt: user.created_at || new Date().toISOString()
+    verifiedAt: user.created_at || new Date().toISOString(),
+    bio: metadata.bio || '',
+    githubUrl: provider === 'github' ? (metadata.user_name ? `https://github.com/${metadata.user_name}` : undefined) : undefined,
+    publicRepos: metadata.public_repos,
+    followers: metadata.followers,
+    company: metadata.company,
+    location: metadata.location
   };
 }
 
@@ -188,36 +209,141 @@ export const authService = {
     }
   },
 
-  // Developer preview direct sign in (used when cloud credentials are pending setup)
-  async signInWithGithubPreview(username: string): Promise<AuthUser> {
-    const cleanUsername = username.trim().replace(/^@/, '') || 'developer';
-    let avatarUrl = `https://github.com/${cleanUsername}.png`;
-    let displayName = cleanUsername;
-    let email = `${cleanUsername}@users.noreply.github.com`;
+  // Fetch full details of any GitHub user account using public GitHub API
+  async fetchGithubAccount(username: string): Promise<{ data?: GitHubAccountDetails; error?: string }> {
+    const clean = username.trim().replace(/^@/, '').replace(/^https?:\/\/github\.com\//, '').replace(/\/$/, '');
+    if (!clean) {
+      return { error: 'Please enter a GitHub username.' };
+    }
 
     try {
-      const res = await fetch(`https://api.github.com/users/${encodeURIComponent(cleanUsername)}`);
-      if (res.ok) {
-        const data = await res.json();
-        if (data.avatar_url) avatarUrl = data.avatar_url;
-        if (data.name) displayName = data.name;
-        if (data.email) email = data.email;
+      const res = await fetch(`https://api.github.com/users/${encodeURIComponent(clean)}`);
+      if (res.status === 404) {
+        return { error: `GitHub user "@${clean}" was not found. Please verify the username.` };
       }
-    } catch {}
+      
+      if (!res.ok) {
+        // Fallback gracefully on rate limit (status 403) or server errors
+        return {
+          data: {
+            login: clean,
+            name: clean,
+            avatarUrl: `https://github.com/${clean}.png`,
+            htmlUrl: `https://github.com/${clean}`,
+            bio: 'GitHub Contributor',
+            publicRepos: 0,
+            followers: 0,
+            following: 0,
+            company: '',
+            location: '',
+            email: `${clean}@users.noreply.github.com`,
+            createdAt: new Date().toISOString()
+          }
+        };
+      }
 
+      const json = await res.json();
+      return {
+        data: {
+          login: json.login,
+          name: json.name || json.login,
+          avatarUrl: json.avatar_url || `https://github.com/${clean}.png`,
+          htmlUrl: json.html_url || `https://github.com/${clean}`,
+          bio: json.bio || '',
+          publicRepos: json.public_repos || 0,
+          followers: json.followers || 0,
+          following: json.following || 0,
+          company: json.company || '',
+          location: json.location || '',
+          email: json.email || `${json.login}@users.noreply.github.com`,
+          createdAt: json.created_at || new Date().toISOString()
+        }
+      };
+    } catch {
+      // Offline / network fallback
+      return {
+        data: {
+          login: clean,
+          name: clean,
+          avatarUrl: `https://github.com/${clean}.png`,
+          htmlUrl: `https://github.com/${clean}`,
+          bio: '',
+          publicRepos: 0,
+          followers: 0,
+          following: 0,
+          company: '',
+          location: '',
+          email: `${clean}@users.noreply.github.com`,
+          createdAt: new Date().toISOString()
+        }
+      };
+    }
+  },
+
+  // Authenticate visitor with their verified GitHub account details
+  async signInWithGithubAccount(account: GitHubAccountDetails): Promise<AuthUser> {
     const user: AuthUser = {
-      id: `gh-${cleanUsername.toLowerCase()}-${Date.now()}`,
-      name: displayName,
-      email,
-      avatarUrl,
+      id: `gh-${account.login.toLowerCase()}`,
+      name: account.name || account.login,
+      email: account.email,
+      avatarUrl: account.avatarUrl,
       provider: 'github',
-      handle: `@${cleanUsername}`,
-      verifiedAt: new Date().toISOString()
+      handle: `@${account.login}`,
+      verifiedAt: new Date().toISOString(),
+      bio: account.bio,
+      githubUrl: account.htmlUrl,
+      publicRepos: account.publicRepos,
+      followers: account.followers,
+      following: account.following,
+      company: account.company,
+      location: account.location
     };
 
     localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+
+    // Upsert into Supabase profiles table if available
+    const supabase = getSupabase();
+    if (supabase) {
+      try {
+        await supabase
+          .from('profiles')
+          .upsert({
+            id: user.id,
+            display_name: user.name,
+            avatar_url: user.avatarUrl,
+            provider: 'github',
+            updated_at: new Date().toISOString()
+          });
+      } catch (err) {
+        console.warn('Profile sync fallback:', err);
+      }
+    }
+
     notifyListeners(user);
     return user;
+  },
+
+  // Developer preview direct sign in (used when cloud credentials are pending setup)
+  async signInWithGithubPreview(username: string): Promise<AuthUser> {
+    const fetchRes = await this.fetchGithubAccount(username);
+    if (fetchRes.data) {
+      return this.signInWithGithubAccount(fetchRes.data);
+    }
+    const cleanUsername = username.trim().replace(/^@/, '') || 'developer';
+    return this.signInWithGithubAccount({
+      login: cleanUsername,
+      name: cleanUsername,
+      avatarUrl: `https://github.com/${cleanUsername}.png`,
+      htmlUrl: `https://github.com/${cleanUsername}`,
+      bio: '',
+      publicRepos: 0,
+      followers: 0,
+      following: 0,
+      company: '',
+      location: '',
+      email: `${cleanUsername}@users.noreply.github.com`,
+      createdAt: new Date().toISOString()
+    });
   },
 
   signInWithGooglePreview(name: string, email: string): AuthUser {

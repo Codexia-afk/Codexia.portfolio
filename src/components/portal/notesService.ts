@@ -176,6 +176,8 @@ export const notesService = {
       authorProvider: input.author.provider,
       authorHandle: input.author.handle,
       authorEmail: input.author.email,
+      authorBio: input.author.bio,
+      authorGithubUrl: input.author.githubUrl,
       rating: input.rating && input.rating >= 1 && input.rating <= 5 ? input.rating : undefined,
       isOwnNote: true
     };
