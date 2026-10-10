@@ -61,7 +61,7 @@ export const OrbitalHero: React.FC = () => {
           <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-zinc-900/80 border border-stone-200 dark:border-zinc-800 shadow-2xs">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <MonoLabel className="text-[10px] sm:text-[11px] text-zinc-700 dark:text-zinc-300">
-              STATUS // SHIPPING ARCHITECTURE
+              PORTFOLIO V2 // SHIPPING ARCHITECTURE
             </MonoLabel>
           </div>
 

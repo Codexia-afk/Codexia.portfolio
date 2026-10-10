@@ -152,7 +152,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               SRINJOY
             </span>
             <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
-              // ARCHITECT
+              // ARCHITECT // V2
             </span>
           </button>
         </div>

@@ -47,7 +47,7 @@ export interface PersonalData {
 export const personalData: PersonalData = {
   name: "Srinjoy Pramanick",
   username: "Codexia-afk",
-  role: "AI ENGINEER · FULL-STACK DEVELOPER",
+  role: "AI ENGINEER · FULL-STACK DEVELOPER // V2",
   tagline: "B.Tech CSE student focused on AI/ML, full-stack development, and systems engineering.",
   subTagline: "I build production-oriented systems involving LLMs, AI agents, trust infrastructure, browser extensions, WebAssembly, Go, and Rust.",
   location: "Ichapore, West Bengal, India",

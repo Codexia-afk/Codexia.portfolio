@@ -183,8 +183,8 @@ export const PortalOS: React.FC<PortalOSProps> = ({
                   <span className="font-display font-bold text-sm tracking-tight text-zinc-900 dark:text-zinc-50">
                     PORTAL OS
                   </span>
-                  <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest px-1.5 py-0.5 rounded bg-stone-200/70 dark:bg-zinc-800">
-                    v2.4
+                  <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest px-1.5 py-0.5 rounded bg-stone-200/70 dark:bg-zinc-800 font-bold text-sky-600 dark:text-cyan-400">
+                    v2.0
                   </span>
                 </div>
 
@@ -321,8 +321,8 @@ export const PortalOS: React.FC<PortalOSProps> = ({
             <div className="shrink-0 px-4 sm:px-6 py-3 border-t border-stone-200/80 dark:border-zinc-800/80 bg-stone-100/70 dark:bg-zinc-900/60 flex items-center justify-between font-mono text-[11px] text-zinc-500 dark:text-zinc-400">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                <span className="hidden sm:inline">STATE: DETERMINISTIC</span>
-                <span className="sm:hidden">PORTAL OS</span>
+                <span className="hidden sm:inline">STATE: DETERMINISTIC // V2.0</span>
+                <span className="sm:hidden">PORTAL OS V2</span>
                 <span className="text-stone-300 dark:text-zinc-700">·</span>
                 <span className="text-zinc-400">22.57°N, 88.36°E</span>
               </div>

@@ -10,7 +10,7 @@ interface SEOProps {
   jsonLd?: Record<string, any> | Array<Record<string, any>>;
 }
 
-const DEFAULT_TITLE = "Srinjoy Pramanick - AI Engineer & ML Engineer | Full-Stack Developer";
+const DEFAULT_TITLE = "Srinjoy Pramanick — Portfolio v2.0 | AI Engineer & Systems Builder";
 const DEFAULT_DESC = "Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems.";
 const DEFAULT_CANONICAL = "https://codexia-portfolio.vercel.app/";
 const DEFAULT_OG_IMAGE = "https://codexia-portfolio.vercel.app/og-image.png";

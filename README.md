@@ -1,5 +1,6 @@
-# Srinjoy Pramanick - Engineering Portfolio & Systems Showcase
+# Srinjoy Pramanick — Engineering Portfolio v2.0 & Systems Showcase
 
+[![Version](https://img.shields.io/badge/Release-v2.0.0-emerald?style=for-the-badge&logo=github)](https://github.com/Codexia-afk/Codexia.portfolio)
 [![Live Site](https://img.shields.io/badge/Live_Site-codexia--portfolio.vercel.app-06B6D4?style=for-the-badge&logo=vercel&logoColor=white)](https://codexia-portfolio.vercel.app/)
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -7,7 +8,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.4-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
-> High-performance, fully SEO-optimized personal portfolio and systems engineering showcase for **Srinjoy Pramanick** (AI Engineer, ML Engineer and Full-Stack Developer). Built with React 19, TypeScript, Vite, Tailwind CSS v4, Framer Motion, and a custom SSG pre-rendering pipeline.
+> **Portfolio v2.0**: High-performance personal portfolio and systems engineering showcase for **Srinjoy Pramanick** (AI Engineer & Full-Stack Systems Builder). Featuring **PORTAL OS (Command Center)**, authentic visitor feedback with Google & GitHub authentication, multi-state project case studies, and automated SSG static pre-rendering.
 
 ---
 

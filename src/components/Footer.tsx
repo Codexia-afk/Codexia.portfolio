@@ -9,12 +9,12 @@ export const Footer: React.FC = () => {
         
         {/* Left Copyright & Role */}
         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 font-sans text-xs text-zinc-500 dark:text-zinc-400">
-          <span className="font-semibold text-zinc-800 dark:text-zinc-200">© 2026 {personalData.name}</span>
+          <span className="font-semibold text-zinc-800 dark:text-zinc-200">© 2026 {personalData.name} · V2.0</span>
           <span>·</span>
           <span>{personalData.role}</span>
           <span className="hidden md:inline">·</span>
           <span className="hidden md:inline font-mono text-[11px] text-zinc-400 dark:text-zinc-600">
-            SYSTEM // CRAFTED WITH SATOSHI & CLASH DISPLAY
+            SYSTEM // PORTFOLIO V2.0 // CRAFTED WITH SATOSHI & CLASH DISPLAY
           </span>
         </div>
 
