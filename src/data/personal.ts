@@ -34,6 +34,7 @@ export interface PersonalData {
     email: string;
     bento: string;
     mailto: string;
+    gmailCompose: string;
     resume: string;
   };
   stats: {
@@ -88,6 +89,7 @@ export const personalData: PersonalData = {
     email: "srinjoypramanick15@gmail.com",
     bento: "https://bento.me/srinjoy19",
     mailto: `mailto:srinjoypramanick15@gmail.com?subject=${encodeURIComponent("Inquiry / Opportunity for Srinjoy Pramanick")}&body=${encodeURIComponent("Hi Srinjoy,\n\nI reviewed your portfolio and would love to connect regarding an opportunity or technical collaboration.\n\nBest regards,")}`,
+    gmailCompose: `https://mail.google.com/mail/?view=cm&fs=1&to=srinjoypramanick15@gmail.com&cc=srinjoypramanick15@gmail.com&bcc=srinjoypramanick15@gmail.com&su=${encodeURIComponent("Inquiry / Opportunity for Srinjoy Pramanick")}&body=${encodeURIComponent("Hi Srinjoy,\n\nI reviewed your portfolio and would love to connect regarding an opportunity or technical collaboration.\n\nBest regards,")}`,
     resume: "/resume.html"
   },
   stats: {

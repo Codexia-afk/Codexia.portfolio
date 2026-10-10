@@ -52,9 +52,12 @@ export const Footer: React.FC = () => {
           </a>
           <span className="text-stone-300 dark:text-zinc-700">·</span>
           <a
-            href={personalData.socials.mailto}
+            href={personalData.socials.gmailCompose}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Click to mail"
             className="hover:text-sky-600 dark:hover:text-cyan-400 transition-colors"
-            aria-label="Send Email"
+            aria-label="Click to mail"
           >
             Email
           </a>

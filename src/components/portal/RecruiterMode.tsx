@@ -107,7 +107,11 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({
           </a>
           <span className="text-stone-300 dark:text-zinc-700">·</span>
           <a
-            href={personalData.socials.mailto}
+            href={personalData.socials.gmailCompose}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Click to mail"
+            aria-label="Click to mail"
             className="inline-flex items-center gap-1.5 text-zinc-500 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors"
           >
             <Mail className="w-3.5 h-3.5" />

@@ -33,14 +33,32 @@ export const ContactOrbit: React.FC = () => {
 
         {/* Direct Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10">
-          <a
-            href={personalData.socials.mailto}
-            className="group inline-flex items-center space-x-2.5 px-7 py-3.5 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-all shadow-sm hover:shadow-md"
-          >
-            <Mail className="w-4 h-4" />
-            <span>EMAIL DIRECTLY</span>
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
+          {/* Email Directly Button with Hover Tooltip */}
+          <div className="relative group inline-block">
+            {/* Hover Tooltip: 'Click to mail' */}
+            <div 
+              role="tooltip"
+              className="absolute -top-10 left-1/2 -translate-x-1/2 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out translate-y-1 group-hover:translate-y-0 z-30 flex flex-col items-center"
+            >
+              <div className="px-2.5 py-1 rounded-md bg-zinc-950 text-white dark:bg-stone-100 dark:text-zinc-950 font-mono text-[11px] font-bold shadow-lg whitespace-nowrap border border-zinc-800 dark:border-stone-200 flex items-center gap-1.5">
+                <span>Click to mail</span>
+              </div>
+              <div className="w-2 h-2 bg-zinc-950 dark:bg-stone-100 rotate-45 -mt-1 border-r border-b border-zinc-800 dark:border-stone-200" />
+            </div>
+
+            <a
+              href={personalData.socials.gmailCompose}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Click to mail"
+              aria-label="Click to mail"
+              className="inline-flex items-center space-x-2.5 px-8 py-3.5 rounded-2xl sm:rounded-full bg-[#00E5FF] hover:bg-[#00cbe0] text-zinc-950 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 shadow-md hover:shadow-cyan-500/25 active:scale-95 cursor-pointer"
+            >
+              <Mail className="w-4 h-4 text-zinc-950 stroke-[2.2]" />
+              <span>EMAIL DIRECTLY</span>
+              <ArrowUpRight className="w-4 h-4 text-zinc-950 stroke-[2.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
 
           <a
             href="/resume.html"
