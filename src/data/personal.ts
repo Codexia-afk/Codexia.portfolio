@@ -54,21 +54,21 @@ export const personalData: PersonalData = {
   education: {
     institution: "JIS College of Engineering, Kalyani",
     degree: "Bachelor of Technology in Computer Science & Engineering",
-    period: "2024 – 2028"
+    period: "2024 - 2028"
   },
   availability: "Open to technical collaborations, engineering roles & hackathons",
   tags: ["AI/ML", "Full-Stack", "Systems", "Rust & Go", "WebAssembly"],
-  motto: "Building intelligent software that revolves around real-world utility.",
+  motto: "Building reliable software focused on real-world engineering utility.",
   heroStatements: [
     "Building intelligent software.",
-    "Engineering AI agents & trust systems.",
-    "Exploring WebAssembly, Go & Rust.",
-    "Shipping things that solve real problems."
+    "Engineering AI agents and trust systems.",
+    "Exploring WebAssembly, Go and Rust.",
+    "Shipping systems that solve real problems."
   ],
   permanentStatement: {
     headline: "I BUILD INTELLIGENT SYSTEMS.",
-    subtext: "AI Engineer • Full-Stack Developer • Systems Builder",
-    detail: "JIS College of Engineering (2024–2028) · Ichapore, West Bengal"
+    subtext: "AI Engineer · Full-Stack Developer · Systems Builder",
+    detail: "JIS College of Engineering (2024 - 2028) · Ichapore, West Bengal"
   },
   bio: [
     "B.Tech Computer Science Engineering student focused on AI/ML, full-stack development, and systems engineering. Builds production-oriented projects involving LLMs, AI agents, trust infrastructure, browser extensions, WebAssembly, Go, and Rust.",
@@ -79,7 +79,7 @@ export const personalData: PersonalData = {
     title: "TrustOS",
     description: "An explainable digital trust layer for autonomous AI agents providing intent verification, policy enforcement, and explainable decision traces.",
     slug: "trustos",
-    status: "Active Architecture & v0.4 Dev",
+    status: "Active Development",
     tech: ["Python", "FastAPI", "LLMs", "Vector Search", "Cryptographic Proofs"]
   },
   socials: {
@@ -87,12 +87,12 @@ export const personalData: PersonalData = {
     linkedin: "https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/",
     email: "srinjoypramanick15@gmail.com",
     bento: "https://bento.me/srinjoy19",
-    mailto: `mailto:srinjoypramanick15@gmail.com?subject=${encodeURIComponent("Inquiry / Opportunity for Srinjoy Pramanick")}&body=${encodeURIComponent("Hi Srinjoy,\n\nI reviewed your resume and portfolio and would love to connect regarding an opportunity or technical collaboration.\n\nBest regards,")}`,
+    mailto: `mailto:srinjoypramanick15@gmail.com?subject=${encodeURIComponent("Inquiry / Opportunity for Srinjoy Pramanick")}&body=${encodeURIComponent("Hi Srinjoy,\n\nI reviewed your portfolio and would love to connect regarding an opportunity or technical collaboration.\n\nBest regards,")}`,
     resume: "/resume.html"
   },
   stats: {
     hackathons: "7+ HACKATHONS",
-    awards: "1st Runner-Up — CrazyBuild Hackathon",
-    sihStatus: "Qualifier — Smart India Hackathon 2025"
+    awards: "1st Runner-Up: CrazyBuild Hackathon",
+    sihStatus: "Qualifier: Smart India Hackathon 2025"
   }
 };

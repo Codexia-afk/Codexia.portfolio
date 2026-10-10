@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
 
-export interface SEOProps {
+interface SEOProps {
   title?: string;
   description?: string;
   keywords?: string;
   canonical?: string;
   ogImage?: string;
   ogType?: string;
-  jsonLd?: object | object[];
+  jsonLd?: Record<string, any> | Array<Record<string, any>>;
 }
 
-const DEFAULT_TITLE = "Srinjoy Pramanick — AI Engineer & ML Engineer | Full-Stack Developer";
-const DEFAULT_DESCRIPTION = "Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems. Explore projects including TrustOS, PulseForge AI, Loksetu.ai, and JeeraType.";
-const DEFAULT_KEYWORDS = "Srinjoy Pramanick, Srinjoy Pramanick AI Engineer, Srinjoy Pramanick ML Engineer, Srinjoy Pramanick portfolio, Srinjoy Pramanick GitHub, Srinjoy Pramanick developer, AI Engineer, ML Engineer, Full-Stack Developer, TrustOS, PulseForge AI, Loksetu.ai, JeeraType";
+const DEFAULT_TITLE = "Srinjoy Pramanick - AI Engineer & ML Engineer | Full-Stack Developer";
+const DEFAULT_DESC = "Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems.";
 const DEFAULT_CANONICAL = "https://codexia-portfolio.vercel.app/";
 const DEFAULT_OG_IMAGE = "https://codexia-portfolio.vercel.app/og-image.png";
 
 export const SEO: React.FC<SEOProps> = ({
   title = DEFAULT_TITLE,
-  description = DEFAULT_DESCRIPTION,
-  keywords = DEFAULT_KEYWORDS,
+  description = DEFAULT_DESC,
+  keywords,
   canonical = DEFAULT_CANONICAL,
   ogImage = DEFAULT_OG_IMAGE,
   ogType = "website",
@@ -29,57 +28,62 @@ export const SEO: React.FC<SEOProps> = ({
     // 1. Update Title
     document.title = title;
 
-    // Helper for updating or creating meta tags
-    const updateMeta = (selector: string, attrName: string, attrVal: string, content: string) => {
-      let element = document.querySelector(selector);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute(attrName, attrVal);
-        document.head.appendChild(element);
+    // 2. Helper to set or update meta tag
+    const setMeta = (selector: string, attr: string, value: string) => {
+      let el = document.querySelector(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        if (selector.startsWith('meta[name=')) {
+          const name = selector.match(/meta\[name="(.*?)"\]/)?.[1];
+          if (name) el.setAttribute('name', name);
+        } else if (selector.startsWith('meta[property=')) {
+          const prop = selector.match(/meta\[property="(.*?)"\]/)?.[1];
+          if (prop) el.setAttribute('property', prop);
+        }
+        document.head.appendChild(el);
       }
-      element.setAttribute('content', content);
+      el.setAttribute(attr, value);
     };
 
-    // 2. Standard Metadata
-    updateMeta('meta[name="description"]', 'name', 'description', description);
-    updateMeta('meta[name="keywords"]', 'name', 'keywords', keywords);
-    updateMeta('meta[name="author"]', 'name', 'author', 'Srinjoy Pramanick');
-
-    // 3. Canonical Link
-    let canonicalLink = document.querySelector('link[rel="canonical"]');
-    if (!canonicalLink) {
-      canonicalLink = document.createElement('link');
-      canonicalLink.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonicalLink);
+    // 3. Update Standard & Social Meta
+    setMeta('meta[name="description"]', 'content', description);
+    if (keywords) {
+      setMeta('meta[name="keywords"]', 'content', keywords);
     }
-    canonicalLink.setAttribute('href', canonical);
+    setMeta('meta[property="og:title"]', 'content', title);
+    setMeta('meta[property="og:description"]', 'content', description);
+    setMeta('meta[property="og:url"]', 'content', canonical);
+    setMeta('meta[property="og:image"]', 'content', ogImage);
+    setMeta('meta[property="og:type"]', 'content', ogType);
+    setMeta('meta[name="twitter:title"]', 'content', title);
+    setMeta('meta[name="twitter:description"]', 'content', description);
+    setMeta('meta[name="twitter:image"]', 'content', ogImage);
 
-    // 4. Open Graph Tags
-    updateMeta('meta[property="og:type"]', 'property', 'og:type', ogType);
-    updateMeta('meta[property="og:title"]', 'property', 'og:title', title);
-    updateMeta('meta[property="og:description"]', 'property', 'og:description', description);
-    updateMeta('meta[property="og:image"]', 'property', 'og:image', ogImage);
-    updateMeta('meta[property="og:url"]', 'property', 'og:url', canonical);
-    updateMeta('meta[property="og:site_name"]', 'property', 'og:site_name', 'Srinjoy Pramanick Portfolio');
+    // 4. Update Canonical Link
+    let linkCanonical = document.querySelector('link[rel="canonical"]');
+    if (!linkCanonical) {
+      linkCanonical = document.createElement('link');
+      linkCanonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(linkCanonical);
+    }
+    linkCanonical.setAttribute('href', canonical);
 
-    // 5. Twitter Card Tags
-    updateMeta('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image');
-    updateMeta('meta[name="twitter:title"]', 'name', 'twitter:title', title);
-    updateMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
-    updateMeta('meta[name="twitter:image"]', 'name', 'twitter:image', ogImage);
+    // 5. Update or Inject JSON-LD Schema
+    const existingScript = document.getElementById('json-ld-schema');
+    if (existingScript) {
+      existingScript.remove();
+    }
 
-    // 6. Inject JSON-LD
     if (jsonLd) {
-      let script = document.querySelector('script[id="json-ld-schema"]') as HTMLScriptElement | null;
-      if (!script) {
-        script = document.createElement('script');
-        script.id = 'json-ld-schema';
-        script.type = 'application/ld+json';
-        document.head.appendChild(script);
-      }
-      script.textContent = JSON.stringify(jsonLd);
+      const script = document.createElement('script');
+      script.id = 'json-ld-schema';
+      script.type = 'application/ld+json';
+      script.text = JSON.stringify(jsonLd);
+      document.head.appendChild(script);
     }
   }, [title, description, keywords, canonical, ogImage, ogType, jsonLd]);
 
   return null;
 };
+
+export default SEO;

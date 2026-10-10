@@ -10,7 +10,7 @@ export interface Project {
   githubUrl: string;
   liveUrl?: string;
   highlighted?: boolean;
-  accentColor?: string; // Muted section accent shift
+  accentColor?: string;
   caseStudy: {
     thesis: string;
     problem: string;
@@ -40,25 +40,25 @@ export const projectsData: Project[] = [
     highlighted: true,
     accentColor: "#0284c7",
     caseStudy: {
-      thesis: "As autonomous AI agents acquire real-world execution rights (executing API calls, database mutations, and financial transactions), traditional RBAC fails because model outputs are stochastic. TrustOS provides deterministic runtime guardrails, explainable decision traces, and cryptographic verification.",
-      problem: "Autonomous agents frequently experience hallucinated authority, tool drift, or execution outside safety policies. Hardcoded if/else checks cannot adapt to open-ended LLM outputs, while pure model-based self-checking adds unacceptably high latency and recurses on reliability issues.",
+      thesis: "As autonomous AI agents execute real-world operations (API calls, database mutations, and transactions), traditional role-based access control fails because model outputs are stochastic. TrustOS provides deterministic runtime guardrails, explainable decision traces, and cryptographic verification.",
+      problem: "Autonomous agents frequently experience hallucinated authority, tool drift, or execution outside safety policies. Hardcoded if/else checks cannot adapt to open-ended LLM outputs, while pure model-based self-checking adds high latency and recurses on reliability issues.",
       whyIBuiltIt: "I built TrustOS after observing AI agent frameworks execute unverified multi-step API payloads without state verification. I wanted to engineer a middleware sidecar that guarantees verifiable execution bounds without bottlenecking model generation.",
       architecture: [
         "In-flight Interception Layer: Async FastAPI middleware that intercepts outbound model tool-call requests before network dispatch.",
         "Policy Vector Engine: FAISS vector database storing organizational security policies, semantic bounds, and context constraints.",
         "Deterministic Proof Generator: SHA-256 state hashing and signature generation for non-repudiable agent action logging.",
-        "Live Telemetry Stream: WebSockets feed providing real-time visual inspection of agent intent vs. approved action boundaries."
+        "Live Telemetry Stream: WebSockets feed providing real-time visual inspection of agent intent vs approved action boundaries."
       ],
       howItWorks: [
-        "1. Intercept: Agent requests execution of an external tool call (e.g. `delete_user_record` or `initiate_transfer`).",
+        "1. Intercept: Agent requests execution of an external tool call (such as delete_user_record or initiate_transfer).",
         "2. Evaluate: TrustOS converts proposed tool arguments into a contextual embedding and queries policy bounds.",
         "3. Score: Calculates a dynamic Trust Score (0.0 to 1.0) using heuristic rules + semantic similarity.",
         "4. Enforce: Either grants signed execution token, flags for human-in-the-loop review, or blocks with detailed explanation trace."
       ],
       challenges: [
         "Keeping evaluation latency under 18ms so agent response streams feel immediate.",
-        "Handling state synchronization when multi-agent teams pass tasks to each other with nested tool dependencies.",
-        "Designing intuitive human-in-the-loop override UI that doesn't disrupt developer workflows."
+        "Handling state synchronization when multi-agent teams pass tasks with nested tool dependencies.",
+        "Designing an intuitive human-in-the-loop override UI that does not disrupt developer workflows."
       ],
       whatILearned: [
         "Low-latency vector indexing techniques in Python for real-time inference guardrails.",
@@ -66,13 +66,13 @@ export const projectsData: Project[] = [
         "Designing resilient microservice boundaries for AI middleware."
       ],
       futureImprovements: [
-        "WebAssembly (Wasm) runtime module for edge execution inside browser extensions & Cloudflare Workers.",
+        "WebAssembly (Wasm) runtime module for edge execution inside browser extensions.",
         "Zero-knowledge proof generation for privacy-preserving policy verification across org boundaries.",
         "Pre-built integrations for LangChain, AutoGen, and CrewAI runtimes."
       ],
       metrics: [
-        { label: "Target Evaluation Latency", value: "< 18ms" },
-        { label: "Policy Accuracy", value: "99.4%" },
+        { label: "Evaluation Latency Target", value: "< 18ms" },
+        { label: "Policy Coverage", value: "99.4%" },
         { label: "Agent Overhead", value: "< 2.1%" }
       ],
       diagramSnippet: `+--------------------+      +-----------------------+      +--------------------+
@@ -101,16 +101,16 @@ export const projectsData: Project[] = [
     caseStudy: {
       thesis: "Modern decision-makers are overwhelmed by fragmented market data. PulseForge AI aggregates disparate digital signals (news, repositories, social trends, filings) and synthesizes actionable strategic matrices using structured LLM reasoning.",
       problem: "Raw data feeds are noisy and lack strategic context. Manual analysis takes hours and suffers from cognitive bias, while existing social listening tools lack deep semantic understanding of technical shifts.",
-      whyIBuiltIt: "Built to solve the problem of market intelligence latency. I wanted a platform that doesn't just display graphs, but provides explicit executive summaries, threat vectors, and growth hypotheses automatically.",
+      whyIBuiltIt: "Built to solve the problem of market intelligence latency. I wanted a platform that does not just display graphs, but provides explicit executive summaries, threat vectors, and growth hypotheses automatically.",
       architecture: [
-        "Data Ingestion Pipeline: Async Python scrapers & RSS webhooks streaming unstructured text into MongoDB.",
+        "Data Ingestion Pipeline: Async Python scrapers and RSS webhooks streaming unstructured text into MongoDB.",
         "Semantic Processing Engine: FastAPI background workers leveraging Gemini 1.5 Flash for high-throughput entity extraction.",
         "Executive Dashboard UI: React + TypeScript frontend with custom SVG charting, responsive filters, and real-time alerts."
       ],
       howItWorks: [
         "1. Ingest continuous data streams across tech domains and competitor movements.",
         "2. Run multi-stage LLM prompts to extract entities, sentiment, confidence scores, and strategic relevance.",
-        "3. Synthesize dynamic matrix view mapping market risk vs. opportunity matrix.",
+        "3. Synthesize dynamic matrix view mapping market risk vs opportunity matrix.",
         "4. Export one-click PDF briefing notes and automated Slack digests for engineering leads."
       ],
       challenges: [
@@ -119,13 +119,13 @@ export const projectsData: Project[] = [
         "Designing a responsive, clutter-free dashboard UI that displays dense data effortlessly."
       ],
       whatILearned: [
-        "Structured output generation using Gemini function calling & JSON schemas.",
+        "Structured output generation using Gemini function calling and JSON schemas.",
         "Designing scalable background task queues with Redis and Celery in Python.",
         "Creating custom accessible data visualizations with pure SVG and Tailwind CSS."
       ],
       futureImprovements: [
-        "Custom fine-tuned domain models for specialized cybersecurity and biotech signals.",
-        "Interactive scenario simulator allowing users to test 'what-if' market condition changes."
+        "Custom fine-tuned domain models for specialized cybersecurity signals.",
+        "Interactive scenario simulator allowing users to test market condition changes."
       ],
       metrics: [
         { label: "Signal Processing Rate", value: "1,200/min" },
@@ -140,7 +140,7 @@ export const projectsData: Project[] = [
     number: "03",
     title: "LOKSETU.AI",
     tagline: "Privacy-First Browser Copilot & CSC Facilitator Application Engine for Indian Welfare Portals.",
-    category: "BROWSER COPILOT • GOVT TECH",
+    category: "BROWSER COPILOT · GOVT TECH",
     year: "2025",
     tech: ["React", "TypeScript", "Chrome Extensions (Manifest V3)", "FastAPI", "Web APIs"],
     githubUrl: "https://github.com/Codexia-afk/loksetu-ai",
@@ -185,7 +185,7 @@ export const projectsData: Project[] = [
     number: "04",
     title: "JEERATYPE",
     tagline: "A fully offline, cross-platform terminal typing speed test for macOS, Windows, and Linux built in Go.",
-    category: "GO DEVELOPER TOOL • TERMINAL TYPING TESTER",
+    category: "GO DEVELOPER TOOL · TERMINAL TYPING TESTER",
     year: "2025",
     tech: ["Go", "Terminal UI", "Cross-Platform", "Zustand", "React"],
     githubUrl: "https://github.com/Codexia-afk/jeeratype",
@@ -201,7 +201,7 @@ export const projectsData: Project[] = [
         "Offline Storage Layer: Embedded key-value store maintaining local WPM history, error heatmaps, and practice statistics."
       ],
       howItWorks: [
-        "1. Launch JeeraType directly from your terminal (`./jeeratype`) or web interface.",
+        "1. Launch JeeraType directly from your terminal (./jeeratype) or web interface.",
         "2. Practice code snippets in Go, Python, Rust, C++, and TypeScript with instant keystroke telemetry.",
         "3. Review detailed terminal diagnostics detailing WPM, accuracy, and key-pair error heatmaps."
       ],
@@ -215,7 +215,7 @@ export const projectsData: Project[] = [
       ],
       futureImprovements: [
         "Terminal multiplayer racing mode over SSH connections.",
-        "VS Code & Neovim plugin integrations."
+        "VS Code and Neovim plugin integrations."
       ],
       metrics: [
         { label: "Binary Overhead", value: "< 5MB" },
@@ -230,7 +230,7 @@ export const projectsData: Project[] = [
     number: "05",
     title: "WASM SANDBOX MANAGER",
     tagline: "Rust-based sandbox runtime for installing and executing small WebAssembly plugins with capability permissions.",
-    category: "RUST • WEBASSEMBLY (WASM)",
+    category: "RUST · WEBASSEMBLY (WASM)",
     year: "2025",
     tech: ["Rust", "WebAssembly (WASM)", "Wasmtime", "Capability Security", "CLI"],
     githubUrl: "https://github.com/Codexia-afk/wasm-sandbox",
@@ -241,11 +241,11 @@ export const projectsData: Project[] = [
       whyIBuiltIt: "Built this Rust systems package manager to explore capability-based security model enforcement for WASM modules, granting granular filesystem and network permissions per plugin.",
       architecture: [
         "Wasmtime Engine Integration: Rust host runtime binding Wasmtime for zero-overhead WebAssembly module instantiations.",
-        "Capability Permission Guard: Fine-grained access controller enforcing explicit CLI flags (`--allow-read`, `--allow-net`) before granting plugin WASI syscall access.",
+        "Capability Permission Guard: Fine-grained access controller enforcing explicit CLI flags (--allow-read, --allow-net) before granting plugin WASI syscall access.",
         "Plugin Registry Manager: Package installer and hash verifier validating plugin SHA-256 integrity."
       ],
       howItWorks: [
-        "1. Install WASM package via Rust CLI manager (`wasm-box install plugin.wasm`).",
+        "1. Install WASM package via Rust CLI manager (wasm-box install plugin.wasm).",
         "2. Execute plugin inside Wasmtime sandbox with explicit capability permissions.",
         "3. Host runtime monitors and blocks any unauthorized syscall or memory violation attempts."
       ],

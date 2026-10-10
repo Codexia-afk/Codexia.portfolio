@@ -1,6 +1,16 @@
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'Clash Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-editorial: 'Instrument Serif', Georgia, Cambria, 'Times New Roman', serif;
+  --font-serif: 'Instrument Serif', Georgia, Cambria, 'Times New Roman', serif;
+  --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
 
 @layer base {
   :root {
@@ -12,10 +22,17 @@
     --text-primary: #09090b;
     --text-secondary: #52525b;
     --text-muted: #71717a;
-    --accent: #0284c7; /* Muted technical electric blue/cyan - NOT neon */
+    --accent: #0284c7;
     --accent-hover: #0369a1;
     --accent-light: #f0f9ff;
-    --accent-glow: rgba(2, 132, 199, 0.12);
+
+    /* Typographic Fluid Scales (CSS clamp) */
+    --type-hero: clamp(2.75rem, 5.8vw + 1rem, 6.5rem);
+    --type-section: clamp(2.125rem, 3.8vw + 0.5rem, 4.25rem);
+    --type-project: clamp(1.625rem, 2.5vw + 0.5rem, 3.25rem);
+    --type-subheading: clamp(1.25rem, 1.5vw + 0.5rem, 2rem);
+    --type-body: clamp(1rem, 0.25vw + 0.92rem, 1.125rem);
+    --type-mono-sm: clamp(0.6875rem, 0.1vw + 0.65rem, 0.8125rem);
   }
 
   html.dark {
@@ -27,128 +44,216 @@
     --text-primary: #f4f4f5;
     --text-secondary: #a1a1aa;
     --text-muted: #71717a;
-    --accent: #06b6d4; /* Muted cyan */
+    --accent: #06b6d4;
     --accent-hover: #22d3ee;
     --accent-light: rgba(6, 182, 212, 0.08);
-    --accent-glow: rgba(6, 182, 212, 0.15);
   }
-}
 
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-  transition: background-color 0.4s ease, color 0.4s ease;
-  overflow-x: hidden;
+  html {
+    font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-size-adjust: from-font;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: var(--type-body);
+    line-height: 1.65;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border-strong);
-  border-radius: 9999px;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
 
-/* Keyframe animations for Orbital Rings */
-@keyframes spin-cw {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+/* Primary Font Family Utilities */
+.font-display {
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-@keyframes spin-ccw {
-  0% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+.font-editorial {
+  font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  font-style: italic;
 }
 
-@keyframes pulse-ring {
-  0%, 100% {
-    opacity: 0.25;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.45;
-    transform: scale(1.015);
-  }
+.font-serif {
+  font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
 }
 
-@keyframes orbit-float {
-  0%, 100% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(-6px) scale(1.02);
-  }
+.font-sans, .font-body {
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-.animate-spin-cw {
-  animation: spin-cw 40s linear infinite;
-}
-
-.animate-spin-ccw {
-  animation: spin-ccw 55s linear infinite;
-}
-
-.animate-spin-slow {
-  animation: spin-cw 90s linear infinite;
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 6s ease-in-out infinite;
-}
-
-.animate-orbit-float {
-  animation: orbit-float 4s ease-in-out infinite;
-}
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-  .animate-spin-cw,
-  .animate-spin-ccw,
-  .animate-spin-slow,
-  .animate-pulse-ring,
-  .animate-orbit-float {
-    animation: none !important;
-  }
-}
-
-/* Utility classes */
 .font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Typographic Hierarchy Classes */
+.hero-title {
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--type-hero);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.section-title {
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--type-section);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.project-title {
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--type-project);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.editorial-italic {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.mono-label {
   font-family: 'JetBrains Mono', monospace;
+  font-size: var(--type-mono-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
-.tracking-widest-xl {
-  letter-spacing: 0.35em;
+.body-editorial {
+  font-family: 'Satoshi', sans-serif;
+  font-size: var(--type-body);
+  line-height: 1.65;
+  max-width: 68ch;
+  text-wrap: pretty;
 }
 
+/* Refined Editorial Interactive Underline */
+.editorial-hover-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.editorial-hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1.5px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.editorial-hover-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Ribbon Marquee Animations */
+@keyframes ribbon-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ribbon-slide-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-ribbon {
+  display: flex;
+  width: max-content;
+  animation: ribbon-slide 38s linear infinite;
+}
+
+.animate-ribbon-reverse {
+  display: flex;
+  width: max-content;
+  animation: ribbon-slide-reverse 42s linear infinite;
+}
+
+.pause-on-hover:hover .animate-ribbon,
+.pause-on-hover:hover .animate-ribbon-reverse {
+  animation-play-state: paused;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-ribbon,
+  .animate-ribbon-reverse {
+    animation: none;
+    overflow-x: auto;
+  }
+  
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Text balance and wrap utilities */
 .text-balance {
   text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
 }
 
 /* Focus styles for accessibility */
 a:focus-visible, button:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 3px;
+  outline-offset: 2px;
   border-radius: 0.25rem;
 }

@@ -2,8 +2,8 @@ export interface SkillNode {
   name: string;
   category: 'AI/ML' | 'Frontend' | 'Backend' | 'Infrastructure' | 'Tools';
   description: string;
-  ring: number; // 1 to 3 inner to outer ring radius multiplier
-  angle: number; // default starting angle in degrees
+  ring: number;
+  angle: number;
   accent?: string;
 }
 
@@ -43,7 +43,7 @@ export const skillOrbitNodes: SkillNode[] = [
   {
     name: "React",
     category: "Frontend",
-    description: "Primary library for building fluid, high-performance web applications and custom design systems.",
+    description: "Primary library for building fluid, high-performance web applications and design systems.",
     ring: 1,
     angle: 240,
     accent: "#0284c7"
@@ -83,7 +83,7 @@ export const skillOrbitNodes: SkillNode[] = [
   {
     name: "Gemini API",
     category: "AI/ML",
-    description: "Leveraged for LLM reasoning, prompt engineering, and Business Twin signal predictions.",
+    description: "Leveraged for LLM reasoning, prompt engineering, and structured signal predictions.",
     ring: 2,
     angle: 210,
     accent: "#0284c7"
@@ -110,7 +110,7 @@ export const skillOrbitNodes: SkillNode[] = [
     description: "Version control, open-source repository maintenance, and collaborative software development.",
     ring: 3,
     angle: 45,
-    accent: "#7c3aed"
+    accent: "#0284c7"
   },
   {
     name: "Docker",
@@ -145,11 +145,11 @@ export const skillCategories: SkillCategoryGroup[] = [
     skills: ["React", "FastAPI", "Flutter", "Tailwind CSS", "Vite", "PyTorch", "TensorFlow"]
   },
   {
-    title: "AI / ML & Intelligence",
+    title: "AI / ML & Systems",
     skills: ["Generative AI", "LLMs", "AI Agents", "Machine Learning", "NLP", "Computer Vision", "Prompt Engineering"]
   },
   {
-    title: "Systems, Web & Tools",
+    title: "Web & Infrastructure",
     skills: ["REST APIs", "Chrome Extensions (Manifest V3)", "WebAssembly (WASM)", "Git & GitHub", "MongoDB", "Firebase", "DigitalOcean", "Google AI Studio"]
   }
 ];

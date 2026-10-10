@@ -42,7 +42,7 @@ export const writingData: Article[] = [
     readTime: "3 min read",
     category: "Engineering Practices",
     content: [
-      "Hackathons are not about writing quick hacky code—they are about rapid scope control and ruthless prioritization. Having completed 7+ hackathons and placing 1st Runner-Up at CrazyBuild, here are 5 patterns that ensure your system actually works when judges test it."
+      "Hackathons are not about writing quick hacky code: they are about rapid scope control and ruthless prioritization. Having completed 7+ hackathons and placing 1st Runner-Up at CrazyBuild, here are 5 patterns that ensure your system actually works when judges test it."
     ]
   }
 ];

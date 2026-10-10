@@ -15,7 +15,7 @@ export const experienceData: ExperienceItem[] = [
     id: "techverse",
     role: "Community Contributor",
     organization: "TechVerse",
-    period: "Sep 2025 – Present",
+    period: "Sep 2025 - Present",
     type: "Community Leadership",
     description: "Active contributor to technical discussions, development challenges, and open-source collaboration.",
     achievements: [
@@ -28,11 +28,11 @@ export const experienceData: ExperienceItem[] = [
     id: "coding-club",
     role: "Core Member",
     organization: "College Coding Club",
-    period: "Sep 2025 – Present",
+    period: "Sep 2025 - Present",
     type: "College Leadership",
     description: "Core organizer and mentor leading hackathons, coding activities, and technical events.",
     achievements: [
-      "Participate in regional & national hackathons and technical events.",
+      "Participate in regional and national hackathons and technical events.",
       "Provide peer mentoring and support junior developers in problem solving and full-stack development."
     ],
     tech: ["Algorithms", "Hackathons", "Mentoring", "C++", "Python"]
@@ -41,7 +41,7 @@ export const experienceData: ExperienceItem[] = [
     id: "gaming-club",
     role: "Extended Member",
     organization: "JIS Gaming Club",
-    period: "2025 – Present",
+    period: "2025 - Present",
     type: "Community Coordination",
     description: "Event coordinator and extended member supporting gaming community initiatives.",
     achievements: [
