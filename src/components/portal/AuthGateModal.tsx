@@ -7,12 +7,10 @@ import {
   AlertCircle,
   CheckCircle2,
   ExternalLink,
-  Search,
   BookOpen,
   Users,
   Building2,
-  MapPin,
-  Sparkles
+  MapPin
 } from 'lucide-react';
 import { authService, DraftNote, GitHubAccountDetails } from './authService';
 import { AuthUser } from './types';
@@ -22,16 +20,18 @@ interface AuthGateModalProps {
   onClose: () => void;
   onSuccess: (user: AuthUser) => void;
   draft?: DraftNote;
+  defaultTab?: 'github' | 'google';
 }
 
 export const AuthGateModal: React.FC<AuthGateModalProps> = ({
   isOpen,
   onClose,
   onSuccess,
-  draft
+  draft,
+  defaultTab = 'github'
 }) => {
   const isCloudActive = authService.isCloudConfigured();
-  const [activeTab, setActiveTab] = useState<'github' | 'google'>('github');
+  const [activeTab, setActiveTab] = useState<'github' | 'google'>(defaultTab);
   const [loadingProvider, setLoadingProvider] = useState<'github' | 'google' | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -48,8 +48,11 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       setErrorMessage(null);
+      if (defaultTab) {
+        setActiveTab(defaultTab);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, defaultTab]);
 
   if (!isOpen) return null;
 
@@ -173,7 +176,7 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
           </p>
 
           <p className="font-sans text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
-            Verify your public GitHub account to fetch your live profile picture, username, and repository details for your review on <span className="font-editorial font-bold italic">The Margins</span>.
+            Choose your account to sign in and share your thoughts on <span className="font-editorial font-bold italic">The Margins</span>.
           </p>
         </div>
 
@@ -189,7 +192,7 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
             }`}
           >
             <Github className="w-3.5 h-3.5" />
-            <span>GitHub Profile</span>
+            <span>GitHub</span>
           </button>
           <button
             type="button"
@@ -206,7 +209,7 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
             </svg>
-            <span>Google Account</span>
+            <span>Google</span>
           </button>
         </div>
 
@@ -221,44 +224,42 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
         {/* TAB 1: GITHUB USERNAME LOOKUP & VERIFICATION */}
         {activeTab === 'github' && (
           <div className="space-y-4">
-            {/* Search Input Bar */}
-            <form onSubmit={handleLookupGithub} className="space-y-2">
-              <label className="block font-mono text-[11px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                Type Your GitHub Username
-              </label>
-              <div className="flex gap-2">
-                <div className="relative flex-1">
-                  <span className="absolute left-3.5 top-2.5 text-zinc-400 font-mono text-sm font-bold">@</span>
-                  <input
-                    type="text"
-                    value={githubUsername}
-                    onChange={(e) => setGithubUsername(e.target.value)}
-                    placeholder="srinjoypramanick or torvalds"
-                    className="w-full pl-8 pr-4 py-2.5 rounded-xl bg-stone-50 dark:bg-zinc-800/90 border border-stone-200 dark:border-zinc-700 text-xs sm:text-sm font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                  />
+            {/* If account not yet fetched, show simple clean username input */}
+            {!fetchedAccount ? (
+              <form onSubmit={handleLookupGithub} className="space-y-3">
+                <label className="block font-mono text-[11px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                  GitHub Username
+                </label>
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <span className="absolute left-3.5 top-2.5 text-zinc-400 font-mono text-sm font-bold">@</span>
+                    <input
+                      type="text"
+                      value={githubUsername}
+                      onChange={(e) => setGithubUsername(e.target.value)}
+                      placeholder="username"
+                      autoFocus
+                      className="w-full pl-8 pr-4 py-2.5 rounded-xl bg-stone-50 dark:bg-zinc-800/90 border border-stone-200 dark:border-zinc-700 text-xs sm:text-sm font-mono text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSearchingGithub || !githubUsername.trim()}
+                    className="px-5 py-2.5 rounded-xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors disabled:opacity-50 flex items-center gap-1.5 cursor-pointer shrink-0"
+                  >
+                    {isSearchingGithub ? (
+                      <>
+                        <span className="w-3.5 h-3.5 rounded-full border-2 border-white dark:border-zinc-950 border-t-transparent animate-spin" />
+                        <span>Checking...</span>
+                      </>
+                    ) : (
+                      <span>Continue</span>
+                    )}
+                  </button>
                 </div>
-                <button
-                  type="submit"
-                  disabled={isSearchingGithub || !githubUsername.trim()}
-                  className="px-4 py-2.5 rounded-xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors disabled:opacity-50 flex items-center gap-1.5 cursor-pointer shrink-0"
-                >
-                  {isSearchingGithub ? (
-                    <>
-                      <span className="w-3.5 h-3.5 rounded-full border-2 border-white dark:border-zinc-950 border-t-transparent animate-spin" />
-                      <span>Fetching...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Search className="w-3.5 h-3.5" />
-                      <span>Fetch Details</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
-
-            {/* FETCHED GITHUB PROFILE CARD */}
-            {fetchedAccount ? (
+              </form>
+            ) : (
+              /* FETCHED GITHUB PROFILE CARD: Show everything fetched */
               <div className="p-4 sm:p-5 rounded-2xl bg-stone-50 dark:bg-zinc-800/80 border border-emerald-500/40 dark:border-emerald-500/30 space-y-4 animate-fadeIn shadow-xs">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3.5">
@@ -294,6 +295,14 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
                       </a>
                     </div>
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setFetchedAccount(null)}
+                    className="font-mono text-[10px] text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 underline cursor-pointer"
+                  >
+                    Change
+                  </button>
                 </div>
 
                 {/* Bio text */}
@@ -348,17 +357,6 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
                   )}
                 </button>
               </div>
-            ) : (
-              /* Fallback / Quick Connect Info */
-              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-zinc-800/60 border border-stone-200/80 dark:border-zinc-700/80 space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold font-mono text-zinc-700 dark:text-zinc-300">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Instant GitHub Verification</span>
-                </div>
-                <p className="font-sans text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                  Enter your GitHub username above to instantly verify your profile. Your live avatar, repository stats, and profile link will be tied to your reviews in The Margins.
-                </p>
-              </div>
             )}
 
             {/* Standard OAuth Redirect Link */}
@@ -366,9 +364,9 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
               <button
                 type="button"
                 onClick={handleStandardGithubOAuth}
-                className="text-[11px] font-mono text-zinc-500 hover:text-sky-600 dark:hover:text-cyan-400 underline cursor-pointer"
+                className="text-[11px] font-mono text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 underline cursor-pointer"
               >
-                Or initiate full GitHub OAuth redirect
+                Or sign in via GitHub OAuth redirect
               </button>
             </div>
           </div>
