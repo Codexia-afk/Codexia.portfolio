@@ -145,6 +145,15 @@ export const authService = {
     return updated;
   },
 
+  // Save session directly from OAuth callback
+  handleSession(session: any): AuthUser | null {
+    if (!session?.user) return null;
+    const mapped = mapSupabaseUser(session.user);
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(mapped));
+    notifyListeners(mapped);
+    return mapped;
+  },
+
   // Initiate real Google OAuth with PKCE redirect
   async signInWithGoogleOAuth(draft?: DraftNote): Promise<{ error?: string }> {
     if (draft) {
@@ -160,7 +169,7 @@ export const authService = {
     }
 
     try {
-      const redirectTo = `${window.location.origin}/auth/callback`;
+      const redirectTo = `${window.location.origin}/guestbook`;
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -172,9 +181,13 @@ export const authService = {
         }
       });
 
-      if (error) return { error: error.message };
+      if (error) {
+        console.error('Google OAuth initiation error:', error.message);
+        return { error: error.message };
+      }
       return {};
     } catch (err: any) {
+      console.error('Google OAuth unexpected error:', err);
       return { error: err?.message || 'Failed to initiate Google OAuth.' };
     }
   },

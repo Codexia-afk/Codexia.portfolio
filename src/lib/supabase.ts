@@ -1,36 +1,43 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const DEFAULT_SUPABASE_URL = 'https://ksrmdlbuyqmcmmfoiomt.supabase.co';
+const DEFAULT_SUPABASE_ANON_KEY = 'sb_publishable_r7FP8X4UKoUH-PU4pFM-rQ_eNUpVZ5a';
+
+export const getSupabaseUrl = (): string => {
+  const envUrl = import.meta.env.VITE_SUPABASE_URL;
+  if (typeof envUrl === 'string' && envUrl.trim() && !envUrl.includes('your-project-url') && !envUrl.includes('YOUR_SUPABASE')) {
+    return envUrl.trim();
+  }
+  return DEFAULT_SUPABASE_URL;
+};
+
+export const getSupabaseAnonKey = (): string => {
+  const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  if (typeof envKey === 'string' && envKey.trim() && !envKey.includes('your-anon-key') && !envKey.includes('YOUR_SUPABASE')) {
+    return envKey.trim();
+  }
+  return DEFAULT_SUPABASE_ANON_KEY;
+};
 
 export const isSupabaseConfigured = (): boolean => {
-  return (
-    typeof supabaseUrl === 'string' &&
-    supabaseUrl.trim() !== '' &&
-    !supabaseUrl.includes('your-project-url') &&
-    typeof supabaseAnonKey === 'string' &&
-    supabaseAnonKey.trim() !== '' &&
-    !supabaseAnonKey.includes('your-anon-key')
+  const url = getSupabaseUrl();
+  const key = getSupabaseAnonKey();
+  return Boolean(
+    url && 
+    key && 
+    url.startsWith('https://') && 
+    url.includes('.supabase.co') &&
+    key.length > 20
   );
 };
 
-// Fallback dummy client for when Supabase credentials are not yet configured in .env
 let supabaseInstance: SupabaseClient | null = null;
 
-if (isSupabaseConfigured() && supabaseUrl && supabaseAnonKey) {
-  supabaseInstance = createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      flowType: 'pkce',
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true
-    }
-  });
-}
-
 export const getSupabase = (): SupabaseClient | null => {
-  if (!supabaseInstance && isSupabaseConfigured() && supabaseUrl && supabaseAnonKey) {
-    supabaseInstance = createClient(supabaseUrl, supabaseAnonKey, {
+  if (!supabaseInstance && isSupabaseConfigured()) {
+    const url = getSupabaseUrl();
+    const key = getSupabaseAnonKey();
+    supabaseInstance = createClient(url, key, {
       auth: {
         flowType: 'pkce',
         persistSession: true,
@@ -42,4 +49,4 @@ export const getSupabase = (): SupabaseClient | null => {
   return supabaseInstance;
 };
 
-export const supabase = supabaseInstance;
+export const supabase = getSupabase();

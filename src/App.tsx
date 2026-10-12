@@ -11,6 +11,15 @@ import { PortalOS } from './components/portal/PortalOS';
 import { MobilePortalLauncher } from './components/portal/MobilePortalLauncher';
 import { PortalView } from './components/portal/types';
 
+// Helper to route /guestbook (and forward OAuth PKCE codes if present)
+const GuestbookRedirect: React.FC = () => {
+  const location = useLocation();
+  if (location.search.includes('code=')) {
+    return <Navigate to={`/auth/callback${location.search}`} replace />;
+  }
+  return <Navigate to="/?portal=margins" replace />;
+};
+
 // Inner component to access router location and navigation
 const AppContent: React.FC<{
   darkMode: boolean;
@@ -85,6 +94,7 @@ const AppContent: React.FC<{
         <Route path="/terms" element={<Terms />} />
         <Route path="/terms-and-conditions" element={<Terms />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/guestbook" element={<GuestbookRedirect />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShieldCheck, CheckCircle2, AlertCircle, ArrowRight } from 'lucide-react';
 import { getSupabase } from '../lib/supabase';
+import { authService } from '../components/portal/authService';
 
 export const AuthCallback: React.FC = () => {
   const navigate = useNavigate();
@@ -37,12 +38,13 @@ export const AuthCallback: React.FC = () => {
         if (sessionError) throw sessionError;
 
         if (session?.user) {
+          authService.handleSession(session);
           if (isMounted) {
             setStatus('success');
             // Brief moment for visual feedback before seamless return
             setTimeout(() => {
               navigate('/?portal=margins&restored=true', { replace: true });
-            }, 800);
+            }, 600);
           }
         } else {
           // If no session found in URL, wait a moment or redirect

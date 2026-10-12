@@ -267,5 +267,50 @@ export const projectsData: Project[] = [
         { label: "Permission Enforcement", value: "Zero Trust" }
       ]
     }
+  },
+  {
+    id: "pushguard",
+    slug: "pushguard",
+    number: "06",
+    title: "PUSHGUARD",
+    tagline: "Zero-dependency pre-commit secret scanner and Git push security guard written in Go.",
+    category: "GO · DEVSECOPS & SYSTEM SECURITY",
+    year: "2026",
+    tech: ["Go", "Git Hooks", "Entropy Detection", "Regex AST", "CLI"],
+    githubUrl: "https://github.com/Codexia-afk/PushGuard",
+    accentColor: "#ef4444",
+    caseStudy: {
+      thesis: "Accidental credential leakage in public repositories is a leading vector for production breaches. PushGuard is a single-binary, sub-5ms Git push guard and pre-commit secret scanner built in Go that halts unauthorized commits before they reach remotes.",
+      problem: "Traditional CI/CD secret scanning operates post-commit or post-push, meaning secrets are already compromised in git commit history and require tedious key revocation and reflog purging.",
+      whyIBuiltIt: "Engineered PushGuard in Go to provide an instant, zero-dependency local pre-push firewall that inspects staged diffs and unstaged working trees with high-speed Shannon entropy analysis and custom pattern matching.",
+      architecture: [
+        "Git Hook Interceptor: Automated pre-commit and pre-push hook manager that intercepts git commands natively without requiring Python or Node runtime dependencies.",
+        "Shannon Entropy Analyzer: Mathematical entropy calculation engine identifying high-randomness string tokens like AWS keys, private RSA keys, and API tokens.",
+        "Regex Rule Evaluator: High-throughput pattern compiler scanning for 120+ known secret signatures with low false-positive heuristics."
+      ],
+      howItWorks: [
+        "1. Install PushGuard globally or enable it per-repo via single command (pushguard init).",
+        "2. Intercepts staged files during git commit or git push attempts.",
+        "3. Scans diff chunks in under 5ms using parallel worker pools across file boundaries.",
+        "4. Halts the push with highlighted diff locations if high-entropy secrets or private keys are detected."
+      ],
+      challenges: [
+        "Minimizing false positives on hashed asset filenames, UUIDs, and test fixtures without sacrificing detection rate.",
+        "Ensuring the hook executes in under 5ms so developers never experience git latency."
+      ],
+      whatILearned: [
+        "Go high-performance diff parsing, concurrency channels, and CLI ergonomics.",
+        "DevSecOps shift-left security principles and Shannon entropy mathematics."
+      ],
+      futureImprovements: [
+        "Automated secret redaction and git reflog scrubbing commands.",
+        "GitHub Actions verification integration."
+      ],
+      metrics: [
+        { label: "Scan Latency Target", value: "< 5ms" },
+        { label: "Signature Library", value: "120+ rules" },
+        { label: "Binary Footprint", value: "< 4MB" }
+      ]
+    }
   }
 ];

@@ -83,6 +83,7 @@ const routes = [
             <li><a href="/projects/loksetu-ai"><strong>Loksetu.ai</strong> - Browser copilot for Indian welfare portals.</a></li>
             <li><a href="/projects/jeeratype"><strong>JeeraType</strong> - Offline terminal typing speed test in Go.</a></li>
             <li><a href="/projects/wasm-sandbox"><strong>WASM Sandbox Manager</strong> - Rust WebAssembly plugin runtime.</a></li>
+            <li><a href="/projects/pushguard"><strong>PushGuard</strong> - Zero-dependency pre-commit secret scanner in Go.</a></li>
           </ul>
         </section>
       </main>
@@ -232,6 +233,35 @@ const routes = [
         <h2>Built By</h2>
         <p>Srinjoy Pramanick using Rust, WebAssembly, Wasmtime, and Capability Security primitives.</p>
         <p><a href="https://github.com/Codexia-afk/wasm-sandbox">View Repository on GitHub</a></p>
+      </article>
+    `
+  },
+  {
+    route: '/projects/pushguard',
+    title: 'PushGuard - Pre-Commit Secret Scanner in Go by Srinjoy Pramanick',
+    description: 'PushGuard is a zero-dependency pre-commit secret scanner and Git push security guard written in Go by Srinjoy Pramanick.',
+    canonical: 'https://codexia-portfolio.vercel.app/projects/pushguard',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      "name": "PushGuard",
+      "description": "Zero-dependency pre-commit secret scanner and Git push security guard written in Go.",
+      "url": "https://codexia-portfolio.vercel.app/projects/pushguard",
+      "codeRepository": "https://github.com/Codexia-afk/PushGuard",
+      "programmingLanguage": ["Go", "Git Hooks", "Entropy Detection", "Regex AST", "CLI"],
+      "author": {
+        "@type": "Person",
+        "name": "Srinjoy Pramanick",
+        "url": "https://codexia-portfolio.vercel.app/"
+      }
+    },
+    htmlContent: `
+      <article>
+        <h1>PushGuard - Pre-Commit Secret Scanner in Go by Srinjoy Pramanick</h1>
+        <p>Zero-dependency pre-commit secret scanner and Git push security guard written in Go.</p>
+        <h2>Built By</h2>
+        <p>Srinjoy Pramanick using Go, Git Hooks, Shannon Entropy, and DevSecOps primitives.</p>
+        <p><a href="https://github.com/Codexia-afk/PushGuard">View Repository on GitHub</a></p>
       </article>
     `
   },

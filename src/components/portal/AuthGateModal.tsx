@@ -378,7 +378,7 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
             <button
               onClick={handleGoogleAuth}
               disabled={loadingProvider !== null}
-              className="w-full group p-4 rounded-2xl bg-white hover:bg-stone-50 dark:bg-zinc-850 dark:hover:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border border-stone-200 dark:border-zinc-700 flex items-center justify-between transition-all cursor-pointer shadow-xs hover:border-stone-400 dark:hover:border-zinc-600 disabled:opacity-50"
+              className="w-full group p-4 rounded-2xl bg-zinc-950 hover:bg-zinc-850 dark:bg-zinc-800/90 dark:hover:bg-zinc-750 text-white border border-zinc-800 dark:border-zinc-700/80 backdrop-blur-sm flex items-center justify-between transition-all cursor-pointer shadow-xs hover:border-zinc-600 disabled:opacity-50"
             >
               <div className="flex items-center gap-3.5">
                 <div className="w-9 h-9 rounded-xl bg-stone-50 dark:bg-zinc-800 border border-stone-200/80 dark:border-zinc-700 flex items-center justify-center shrink-0">
