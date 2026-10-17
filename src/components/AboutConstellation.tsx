@@ -80,21 +80,30 @@ export const AboutConstellation: React.FC = () => {
           {/* Left Column: Portrait & Margin Annotations (5 cols) */}
           <div className="lg:col-span-5 flex flex-col space-y-6">
             
-            {/* Art-Directed Archival Portrait Frame */}
+            {/* Art-Directed Archival Portrait Frame with Live Hover Image Swap */}
             <div className="relative rounded-xl border border-[#dcd6c8] dark:border-[#2d2c27] bg-[#eeeae0] dark:bg-[#1a1917] p-3 shadow-xs">
-              <div className="relative aspect-[4/5] rounded-lg overflow-hidden bg-[#131312]">
+              <div className="group relative aspect-[4/5] rounded-lg overflow-hidden bg-[#131312] cursor-pointer select-none">
+                {/* Base Image: Archival B&W Portrait */}
                 <img
                   src="/profile-bw.jpg"
                   alt="Srinjoy Pramanick - AI Engineer & Systems Builder"
-                  className="w-full h-full object-cover object-[center_18%] filter grayscale contrast-115 brightness-95"
+                  className="w-full h-full object-cover object-[center_18%] filter grayscale contrast-115 brightness-95 transition-all duration-700 ease-out group-hover:scale-105"
+                  loading="lazy"
+                />
+
+                {/* Hover Reveal Image: Speaking / Field Capture */}
+                <img
+                  src="/profile-speaking.jpg"
+                  alt="Srinjoy Pramanick - Speaker & Systems Builder"
+                  className="absolute inset-0 w-full h-full object-cover object-[center_20%] transition-all duration-700 ease-out opacity-0 group-hover:opacity-100 group-hover:scale-105"
                   loading="lazy"
                 />
                 
-                {/* Editorial Corner Vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#131312]/90 via-[#131312]/20 to-transparent pointer-events-none" />
+                {/* Editorial Vignette Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#131312]/90 via-[#131312]/25 to-transparent pointer-events-none z-10 transition-opacity duration-500" />
 
                 {/* Overlaid Editorial Metadata Badges */}
-                <div className="absolute top-3 left-3 flex flex-wrap gap-2">
+                <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-20 pointer-events-none">
                   <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs bg-[#131312]/85 text-[#d5ef9c] border border-[#d5ef9c]/30 backdrop-blur-xs">
                     SRINJOY PRAMANICK
                   </span>
@@ -104,7 +113,15 @@ export const AboutConstellation: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="absolute bottom-4 left-4 right-4 text-white">
+                {/* Live Tag on Hover in Top Right */}
+                <div className="absolute top-3 right-3 z-20 pointer-events-none transition-all duration-300 opacity-0 group-hover:opacity-100 transform -translate-y-1 group-hover:translate-y-0">
+                  <span className="inline-flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs bg-[#131312]/90 text-[#d5ef9c] border border-[#d5ef9c]/40 backdrop-blur-xs">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#d5ef9c] animate-pulse" />
+                    <span>FIELD DISPATCH</span>
+                  </span>
+                </div>
+
+                <div className="absolute bottom-4 left-4 right-4 text-white z-20 pointer-events-none">
                   <div className="font-mono text-[10px] text-[#d5ef9c] uppercase tracking-widest">
                     AFFILIATION
                   </div>
