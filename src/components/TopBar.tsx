@@ -112,15 +112,26 @@ export const TopBar: React.FC<TopBarProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={() => handleNavClick('hero')}
-            className="flex items-center gap-2.5 text-left cursor-pointer group"
+            className="flex items-center gap-2.5 sm:gap-3 text-left cursor-pointer group"
           >
-            <span className="w-2 h-2 rounded-full bg-[#486616] dark:bg-[#d5ef9c] animate-pulse" />
-            <span className="font-display font-bold text-sm sm:text-base tracking-tight text-[#1a1917] dark:text-[#f0ede5] group-hover:text-[#486616] dark:group-hover:text-[#d5ef9c] transition-colors">
-              SRINJOY PRAMANICK
-            </span>
-            <span className="hidden sm:inline font-mono text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-widest">
-              // ATELIER
-            </span>
+            {/* Avatar Brand Logo */}
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#dcd6c8] dark:border-[#2d2c27] group-hover:border-[#486616] dark:group-hover:border-[#d5ef9c] transition-all duration-300 shadow-2xs shrink-0 bg-[#131312]">
+              <img
+                src="/avatar.jpg"
+                alt="Srinjoy Pramanick"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#486616] dark:bg-[#d5ef9c] ring-2 ring-[#f8f6f0] dark:ring-[#131312] animate-pulse" />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="font-display font-bold text-sm sm:text-base tracking-tight text-[#1a1917] dark:text-[#f0ede5] group-hover:text-[#486616] dark:group-hover:text-[#d5ef9c] transition-colors">
+                SRINJOY PRAMANICK
+              </span>
+              <span className="hidden sm:inline font-mono text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-widest">
+                // ATELIER
+              </span>
+            </div>
           </button>
         </div>
 
