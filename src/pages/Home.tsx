@@ -14,11 +14,35 @@ const homepageJsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": "https://codexia-portfolio.vercel.app/#person",
     "name": "Srinjoy Pramanick",
+    "alternateName": [
+      "Codexia-afk",
+      "Codexia-afk Srinjoy",
+      "Codexia",
+      "Srinjoy",
+      "Srinjoy Pramanick (Codexia-afk)"
+    ],
+    "givenName": "Srinjoy",
+    "familyName": "Pramanick",
+    "additionalName": "Codexia-afk",
     "url": "https://codexia-portfolio.vercel.app/",
-    "image": "https://codexia-portfolio.vercel.app/profile-bw.jpg",
-    "jobTitle": ["AI Engineer", "ML Engineer", "Full-Stack Developer"],
-    "description": "Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems.",
+    "image": "https://codexia-portfolio.vercel.app/avatar.jpg",
+    "jobTitle": ["AI Engineer", "Systems Builder", "Full-Stack Developer"],
+    "description": "Srinjoy Pramanick (known online as Codexia-afk) is an AI Engineer and Systems Builder studying Computer Science & Engineering at JIS College of Engineering (2024–2028). Creator of TrustOS and PushGuard.",
+    "gender": "Male",
+    "nationality": "Indian",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ichapore, Kolkata",
+      "addressRegion": "West Bengal",
+      "addressCountry": "India"
+    },
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "JIS College of Engineering",
+      "url": "https://www.jiscollege.ac.in/"
+    },
     "sameAs": [
       "https://github.com/Codexia-afk",
       "https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/",
@@ -27,38 +51,97 @@ const homepageJsonLd = [
     "knowsAbout": [
       "Artificial Intelligence",
       "Machine Learning",
-      "Full-Stack Development",
-      "Cybersecurity",
       "AI Agents",
+      "Deterministic Guardrails",
       "FastAPI",
       "Python",
+      "Go",
+      "Rust",
+      "WebAssembly",
       "React",
       "TypeScript",
-      "Rust",
-      "Go",
-      "WebAssembly"
-    ],
-    "almamater": {
-      "@type": "EducationalOrganization",
-      "name": "JIS College of Engineering"
+      "Vector Search (FAISS)",
+      "Cybersecurity"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": "https://codexia-portfolio.vercel.app/#profilepage",
+    "url": "https://codexia-portfolio.vercel.app/",
+    "name": "Srinjoy Pramanick (Codexia-afk) — Official Developer Portfolio",
+    "description": "The official portfolio, biography, and engineering works of Srinjoy Pramanick (Codexia-afk).",
+    "mainEntity": {
+      "@id": "https://codexia-portfolio.vercel.app/#person"
     }
   },
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Srinjoy Pramanick Portfolio",
+    "@id": "https://codexia-portfolio.vercel.app/#website",
+    "name": "Srinjoy Pramanick (Codexia-afk) Portfolio",
+    "alternateName": [
+      "Codexia-afk Srinjoy",
+      "Codexia Portfolio",
+      "Srinjoy Pramanick"
+    ],
     "url": "https://codexia-portfolio.vercel.app/",
-    "author": {
-      "@type": "Person",
-      "name": "Srinjoy Pramanick"
+    "publisher": {
+      "@id": "https://codexia-portfolio.vercel.app/#person"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "SiteNavigationElement",
+        "position": 1,
+        "name": "About Srinjoy Pramanick (Codexia-afk)",
+        "description": "Biography, background, education at JIS College of Engineering, and engineering philosophy.",
+        "url": "https://codexia-portfolio.vercel.app/#about"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 2,
+        "name": "Capabilities & Technical Stack",
+        "description": "Core competencies in AI Middleware, Systems in Go & WASM, and Frontend Craft.",
+        "url": "https://codexia-portfolio.vercel.app/#skills"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 3,
+        "name": "Selected Builds & Projects",
+        "description": "Flagship builds including TrustOS, PushGuard, PulseForge AI, Loksetu.ai, and JeeraType.",
+        "url": "https://codexia-portfolio.vercel.app/#projects"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 4,
+        "name": "Hackathon Log & Awards",
+        "description": "Competitive engineering logs including CrazyBuild 1st Runner-Up and Smart India Hackathon.",
+        "url": "https://codexia-portfolio.vercel.app/#hackathons"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 5,
+        "name": "Contact Srinjoy Pramanick",
+        "description": "Get in touch for engineering roles, technical collaborations, and hackathons.",
+        "url": "https://codexia-portfolio.vercel.app/#contact"
+      }
+    ]
   }
 ];
 
 export const Home: React.FC = () => {
   return (
     <>
-      <SEO jsonLd={homepageJsonLd} />
+      <SEO 
+        title="Srinjoy Pramanick (@Codexia-afk) — AI Systems Engineer & Developer Portfolio"
+        description="Official portfolio and biography of Srinjoy Pramanick (Codexia-afk). AI Systems Engineer and CSE student at JIS College of Engineering. Building deterministic AI guardrails, WebAssembly sandboxes, and developer tooling in Go & Rust."
+        keywords="Srinjoy Pramanick, Codexia-afk, Codexia-afk Srinjoy, Srinjoy Pramanick Codexia-afk, Codexia, Srinjoy, Srinjoy Pramanick portfolio, Srinjoy Pramanick about, Srinjoy Pramanick bio, Srinjoy Pramanick GitHub, Codexia-afk GitHub, Srinjoy Pramanick JIS College of Engineering, AI Engineer Srinjoy Pramanick, ML Engineer, Systems Engineer, TrustOS, PushGuard, Loksetu.ai, Kolkata developer"
+        jsonLd={homepageJsonLd} 
+      />
       <main className="relative w-full overflow-hidden">
         <OrbitalHero />
         <AboutConstellation />

@@ -18,18 +18,42 @@ const baseTemplate = fs.readFileSync(templatePath, 'utf-8');
 const routes = [
   {
     route: '/',
-    title: 'Srinjoy Pramanick - AI Engineer & ML Engineer | Full-Stack Developer',
-    description: 'Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems. Explore projects including TrustOS, PulseForge AI, Loksetu.ai, and JeeraType.',
+    title: 'Srinjoy Pramanick (@Codexia-afk) — AI Systems Engineer & Developer Portfolio',
+    description: 'Official portfolio and biography of Srinjoy Pramanick (Codexia-afk). AI Systems Engineer and CSE student at JIS College of Engineering. Building deterministic AI guardrails, WebAssembly sandboxes, and developer tooling in Go & Rust.',
     canonical: 'https://codexia-portfolio.vercel.app/',
     jsonLd: [
       {
         "@context": "https://schema.org",
         "@type": "Person",
+        "@id": "https://codexia-portfolio.vercel.app/#person",
         "name": "Srinjoy Pramanick",
+        "alternateName": [
+          "Codexia-afk",
+          "Codexia-afk Srinjoy",
+          "Codexia",
+          "Srinjoy",
+          "Srinjoy Pramanick (Codexia-afk)"
+        ],
+        "givenName": "Srinjoy",
+        "familyName": "Pramanick",
+        "additionalName": "Codexia-afk",
         "url": "https://codexia-portfolio.vercel.app/",
-        "image": "https://codexia-portfolio.vercel.app/profile-bw.jpg",
-        "jobTitle": ["AI Engineer", "ML Engineer", "Full-Stack Developer"],
-        "description": "Srinjoy Pramanick is an AI Engineer, ML Engineer, and Full-Stack Developer building intelligent applications, AI agents, and experimental systems.",
+        "image": "https://codexia-portfolio.vercel.app/avatar.jpg",
+        "jobTitle": ["AI Engineer", "Systems Builder", "Full-Stack Developer"],
+        "description": "Srinjoy Pramanick (known online as Codexia-afk) is an AI Engineer and Systems Builder studying Computer Science & Engineering at JIS College of Engineering (2024–2028). Creator of TrustOS and PushGuard.",
+        "gender": "Male",
+        "nationality": "Indian",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ichapore, Kolkata",
+          "addressRegion": "West Bengal",
+          "addressCountry": "India"
+        },
+        "alumniOf": {
+          "@type": "EducationalOrganization",
+          "name": "JIS College of Engineering",
+          "url": "https://www.jiscollege.ac.in/"
+        },
         "sameAs": [
           "https://github.com/Codexia-afk",
           "https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/",
@@ -38,53 +62,150 @@ const routes = [
         "knowsAbout": [
           "Artificial Intelligence",
           "Machine Learning",
-          "Full-Stack Development",
-          "Cybersecurity",
           "AI Agents",
+          "Deterministic Guardrails",
           "FastAPI",
           "Python",
+          "Go",
+          "Rust",
+          "WebAssembly",
           "React",
           "TypeScript",
-          "Rust",
-          "Go",
-          "WebAssembly"
-        ],
-        "almamater": {
-          "@type": "EducationalOrganization",
-          "name": "JIS College of Engineering"
+          "Vector Search (FAISS)",
+          "Cybersecurity"
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        "@id": "https://codexia-portfolio.vercel.app/#profilepage",
+        "url": "https://codexia-portfolio.vercel.app/",
+        "name": "Srinjoy Pramanick (Codexia-afk) — Official Developer Portfolio",
+        "description": "The official portfolio, biography, and engineering works of Srinjoy Pramanick (Codexia-afk).",
+        "mainEntity": {
+          "@id": "https://codexia-portfolio.vercel.app/#person"
         }
       },
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Srinjoy Pramanick Portfolio",
+        "@id": "https://codexia-portfolio.vercel.app/#website",
+        "name": "Srinjoy Pramanick (Codexia-afk) Portfolio",
+        "alternateName": [
+          "Codexia-afk Srinjoy",
+          "Codexia Portfolio",
+          "Srinjoy Pramanick"
+        ],
         "url": "https://codexia-portfolio.vercel.app/",
-        "author": {
-          "@type": "Person",
-          "name": "Srinjoy Pramanick"
+        "publisher": {
+          "@id": "https://codexia-portfolio.vercel.app/#person"
         }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "SiteNavigationElement",
+            "position": 1,
+            "name": "About Srinjoy Pramanick (Codexia-afk)",
+            "description": "Biography, background, education at JIS College of Engineering, and engineering philosophy.",
+            "url": "https://codexia-portfolio.vercel.app/#about"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 2,
+            "name": "Capabilities & Technical Stack",
+            "description": "Core competencies in AI Middleware, Systems in Go & WASM, and Frontend Craft.",
+            "url": "https://codexia-portfolio.vercel.app/#skills"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 3,
+            "name": "Selected Builds & Projects",
+            "description": "Flagship builds including TrustOS, PushGuard, PulseForge AI, Loksetu.ai, and JeeraType.",
+            "url": "https://codexia-portfolio.vercel.app/#projects"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 4,
+            "name": "Hackathon Log & Awards",
+            "description": "Competitive engineering logs including CrazyBuild 1st Runner-Up and Smart India Hackathon.",
+            "url": "https://codexia-portfolio.vercel.app/#hackathons"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 5,
+            "name": "Contact Srinjoy Pramanick",
+            "description": "Get in touch for engineering roles, technical collaborations, and hackathons.",
+            "url": "https://codexia-portfolio.vercel.app/#contact"
+          }
+        ]
       }
     ],
     htmlContent: `
       <main className="relative w-full">
         <header>
-          <h1>Srinjoy Pramanick - AI Engineer, ML Engineer & Full-Stack Developer</h1>
-          <p>AI Engineer · Machine Learning Developer · Full-Stack Developer · Python Developer · Backend Developer · AI Agent Builder · Software Engineer · Hackathon Builder</p>
+          <h1>Srinjoy Pramanick (Codexia-afk) — AI Systems Engineer &amp; Developer Portfolio</h1>
+          <p>AI Engineer · Systems Builder · Full-Stack Developer · B.Tech CSE @ JIS College of Engineering (2024–2028)</p>
+          <p>Online Handles: @Codexia-afk · Codexia · Srinjoy Pramanick</p>
+          <nav aria-label="Quick directory">
+            <ul>
+              <li><a href="#about">01 // About Srinjoy Pramanick (Codexia-afk) — Intent &amp; Biography</a></li>
+              <li><a href="#skills">02 // Technical Capabilities &amp; Systems Architecture</a></li>
+              <li><a href="#projects">03 // Selected Builds &amp; Projects</a></li>
+              <li><a href="#hackathons">04 // Hackathon Log &amp; Achievements</a></li>
+              <li><a href="#contact">05 // Contact &amp; Inquiries</a></li>
+            </ul>
+          </nav>
         </header>
-        <section>
-          <h2>About Srinjoy Pramanick</h2>
-          <p>I'm Srinjoy Pramanick, an AI Engineer and Full-Stack Developer. I view software development as turning complex abstractions into deterministic, resilient, production-ready systems.</p>
-        </section>
-        <section>
-          <h2>Selected Engineering Projects</h2>
+
+        <section id="about">
+          <h2>About Srinjoy Pramanick (@Codexia-afk) — Intent, Biography &amp; Background</h2>
+          <p>I am Srinjoy Pramanick, also known by my developer handle <strong>Codexia-afk</strong> (or Codexia). I am an AI Engineer, systems builder, and Computer Science &amp; Engineering undergraduate at <strong>JIS College of Engineering</strong> (2024–2028), based in Kolkata / Ichapore, West Bengal, India.</p>
+          <p>I engineer runtime guardrails for autonomous AI agents, capability sandboxes in WebAssembly and Rust, and zero-dependency developer tools in Go. Bridging low-level systems precision with creative interface craft.</p>
+          <h3>Education &amp; Academic Affiliation</h3>
+          <p>Bachelor of Technology in Computer Science and Engineering (B.Tech CSE), JIS College of Engineering, Kalyani, West Bengal (2024–2028).</p>
+          <h3>Accolades &amp; Hackathons</h3>
+          <p>1st Runner-Up @ CrazyBuild Hackathon (2025) · Smart India Hackathon Internal Qualifier (2025).</p>
+          <h3>Verified Profiles &amp; Links</h3>
           <ul>
-            <li><a href="/projects/trustos"><strong>TrustOS</strong> - An explainable digital trust layer for autonomous AI agents.</a></li>
-            <li><a href="/projects/pulseforge-ai"><strong>PulseForge AI</strong> - Strategic intelligence platform for market signals.</a></li>
-            <li><a href="/projects/loksetu-ai"><strong>Loksetu.ai</strong> - Browser copilot for Indian welfare portals.</a></li>
-            <li><a href="/projects/jeeratype"><strong>JeeraType</strong> - Offline terminal typing speed test in Go.</a></li>
-            <li><a href="/projects/wasm-sandbox"><strong>WASM Sandbox Manager</strong> - Rust WebAssembly plugin runtime.</a></li>
-            <li><a href="/projects/pushguard"><strong>PushGuard</strong> - Zero-dependency pre-commit secret scanner in Go.</a></li>
+            <li>GitHub: <a href="https://github.com/Codexia-afk">https://github.com/Codexia-afk</a> (Codexia-afk)</li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/">Srinjoy Pramanick</a></li>
+            <li>Bento: <a href="https://bento.me/srinjoy19">https://bento.me/srinjoy19</a></li>
+            <li>Email: srinjoypramanick19@gmail.com</li>
           </ul>
+        </section>
+
+        <section id="skills">
+          <h2>Technical Capabilities &amp; Architecture</h2>
+          <ul>
+            <li>AI Middleware &amp; Runtimes: FastAPI, FAISS vector search, LLM tool-calling guardrails, prompt boundary enforcement.</li>
+            <li>Systems &amp; Low-Latency: Go concurrency, PushGuard pre-push scanner, Wasmtime sandboxing, cross-platform TUIs (JeeraType), Rust plugins.</li>
+            <li>Full-Stack &amp; Web: React 19, TypeScript, Tailwind CSS, Vite, Supabase OAuth, WebSockets.</li>
+          </ul>
+        </section>
+
+        <section id="projects">
+          <h2>Selected Engineering Builds by Srinjoy Pramanick (Codexia-afk)</h2>
+          <ul>
+            <li><a href="/projects/trustos"><strong>TrustOS</strong></a> — An explainable digital trust layer for autonomous AI agents (Python, FastAPI, FAISS, Cryptographic Proofs).</li>
+            <li><a href="/projects/pushguard"><strong>PushGuard</strong></a> — Ultra-fast zero-dependency pre-push secret and credential scanner built in Go.</li>
+            <li><a href="/projects/pulseforge-ai"><strong>PulseForge AI</strong></a> — Strategic intelligence platform for market signals (React, FastAPI, Gemini, MongoDB).</li>
+            <li><a href="/projects/loksetu-ai"><strong>Loksetu.ai</strong></a> — Browser copilot for Indian welfare portals built as a Manifest V3 Chrome Extension.</li>
+            <li><a href="/projects/jeeratype"><strong>JeeraType</strong></a> — Terminal typing speed test built in Go with native cross-platform binaries.</li>
+            <li><a href="/projects/wasm-sandbox"><strong>WASM Sandbox Manager</strong></a> — High-performance Rust WebAssembly plugin runtime.</li>
+          </ul>
+        </section>
+
+        <section id="hackathons">
+          <h2>Hackathon Field Log</h2>
+          <p>Active competitive builder with 7+ hackathons completed. 1st Runner-Up @ CrazyBuild 2025, Smart India Hackathon 2025 Qualifier.</p>
+        </section>
+
+        <section id="contact">
+          <h2>Contact Srinjoy Pramanick (Codexia-afk)</h2>
+          <p>Open for engineering roles, technical collaborations, and hackathons. Reach out via email or GitHub.</p>
         </section>
       </main>
     `

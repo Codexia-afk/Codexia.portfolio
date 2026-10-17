@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://codexia-portfolio.vercel.app/sitemap.xml
+Host: https://codexia-portfolio.vercel.app

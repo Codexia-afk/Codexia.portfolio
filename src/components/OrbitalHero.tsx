@@ -110,7 +110,7 @@ export const OrbitalHero: React.FC = () => {
               </MonoLabel>
               <span className="text-[#bfb8a6] dark:text-[#494841] font-mono text-xs">·</span>
               <span className="font-mono text-[11px] text-[#8c877b] dark:text-[#a8a69f] tracking-wider uppercase">
-                SRINJOY PRAMANICK
+                SRINJOY PRAMANICK (@CODEXIA-AFK)
               </span>
             </motion.div>
 

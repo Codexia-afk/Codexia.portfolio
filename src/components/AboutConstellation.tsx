@@ -59,7 +59,7 @@ export const AboutConstellation: React.FC = () => {
           <div>
             <div className="mb-2.5">
               <MonoLabel dot dotColor="bg-[#486616] dark:bg-[#d5ef9c]">
-                01 // INTENT, BACKGROUND & CRAFT
+                01 // ABOUT SRINJOY PRAMANICK (CODEXIA-AFK) · INTENT &amp; CRAFT
               </MonoLabel>
             </div>
             <h2 className="section-title text-[#1a1917] dark:text-[#f0ede5]">
@@ -190,7 +190,7 @@ export const AboutConstellation: React.FC = () => {
                     Building at the intersection of AI inference & systems engineering.
                   </h3>
                   <p className="text-[#58554d] dark:text-[#a8a69f] text-base leading-relaxed">
-                    I am a Computer Science Engineering student currently based in West Bengal, India. Rather than treating artificial intelligence as a magic wrapper around opaque cloud APIs, I focus on the architectural scaffolding that makes AI systems reliable: in-flight tool-call interception, explainable decision vectors, and non-repudiable cryptographic audit trails.
+                    I am Srinjoy Pramanick (known online as <strong className="text-[#1a1917] dark:text-[#f0ede5]">Codexia-afk</strong>), a Computer Science & Engineering student at <strong className="text-[#1a1917] dark:text-[#f0ede5]">JIS College of Engineering</strong> (2024–2028) based in West Bengal, India. Rather than treating artificial intelligence as a magic wrapper around opaque cloud APIs, I focus on the architectural scaffolding that makes AI systems reliable: in-flight tool-call interception, explainable decision vectors, and non-repudiable cryptographic audit trails.
                   </p>
                   <p className="text-[#58554d] dark:text-[#a8a69f] text-base leading-relaxed">
                     My engineering work spans languages and runtimes chosen for the problem: <strong>Python & FastAPI</strong> for high-throughput AI middleware, <strong>Go</strong> for single-binary developer productivity and Git security tooling, and <strong>Rust & WebAssembly</strong> for sandboxed execution of untrusted third-party plugins.
