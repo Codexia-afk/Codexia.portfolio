@@ -1,140 +1,200 @@
 import React, { useState } from 'react';
-import { skillOrbitNodes, skillCategories, SkillNode } from '../data/skills';
-import { Terminal, Cpu, Layers, Database, Wrench } from 'lucide-react';
-import { SectionHeading, MonoLabel } from './typography/Typography';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, Cpu, Server, Globe, Wrench } from 'lucide-react';
+import { skillOrbitNodes, SkillNode } from '../data/skills';
+import { projectsData } from '../data/projects';
+import { SectionHeading } from './typography/Typography';
 
 export const SkillOrbit: React.FC = () => {
-  const [activeSkill, setActiveSkill] = useState<SkillNode>(skillOrbitNodes[0]);
+  const [selectedSkill, setSelectedSkill] = useState<SkillNode>(skillOrbitNodes[0]);
 
-  const getCategoryTheme = (category: string) => {
-    switch (category) {
-      case 'AI/ML':
-        return {
-          icon: Cpu,
-          badgeBg: 'bg-sky-100 text-sky-800 border-sky-300 dark:bg-sky-950 dark:text-sky-300 dark:border-sky-800',
-          btnActive: 'bg-sky-600 text-white border-sky-500 shadow-md',
-          tagBg: 'bg-sky-50 text-sky-700 border-sky-200 dark:bg-zinc-800/60 dark:text-zinc-300 dark:border-zinc-700'
-        };
-      case 'Frontend':
-        return {
-          icon: Layers,
-          badgeBg: 'bg-indigo-100 text-indigo-800 border-indigo-300 dark:bg-indigo-950 dark:text-indigo-300 dark:border-indigo-800',
-          btnActive: 'bg-indigo-600 text-white border-indigo-500 shadow-md',
-          tagBg: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-zinc-800/60 dark:text-zinc-300 dark:border-zinc-700'
-        };
-      case 'Backend':
-        return {
-          icon: Database,
-          badgeBg: 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800',
-          btnActive: 'bg-emerald-600 text-white border-emerald-500 shadow-md',
-          tagBg: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-zinc-800/60 dark:text-zinc-300 dark:border-zinc-700'
-        };
-      case 'Infrastructure':
-        return {
-          icon: Terminal,
-          badgeBg: 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800',
-          btnActive: 'bg-amber-600 text-white border-amber-500 shadow-md',
-          tagBg: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-zinc-800/60 dark:text-zinc-300 dark:border-zinc-700'
-        };
-      default:
-        return {
-          icon: Wrench,
-          badgeBg: 'bg-teal-100 text-teal-800 border-teal-300 dark:bg-teal-950 dark:text-teal-300 dark:border-teal-800',
-          btnActive: 'bg-teal-600 text-white border-teal-500 shadow-md',
-          tagBg: 'bg-teal-50 text-teal-700 border-teal-200 dark:bg-zinc-800/60 dark:text-zinc-300 dark:border-zinc-700'
-        };
+  // Find all projects that use the selected skill
+  const relatedProjects = projectsData.filter((p) => {
+    const sName = selectedSkill.name.toLowerCase();
+    return p.tech.some((t) => {
+      const tLower = t.toLowerCase();
+      if (sName === 'python' && tLower.includes('python')) return true;
+      if (sName === 'go' && tLower.includes('go')) return true;
+      if (sName === 'rust' && tLower.includes('rust')) return true;
+      if (sName === 'webassembly' && (tLower.includes('wasm') || tLower.includes('webassembly'))) return true;
+      if (sName === 'fastapi' && tLower.includes('fastapi')) return true;
+      if (sName === 'react' && tLower.includes('react')) return true;
+      if (sName === 'typescript' && tLower.includes('typescript')) return true;
+      if (sName === 'manifest v3' && tLower.includes('manifest')) return true;
+      if (sName === 'gemini api' && tLower.includes('gemini')) return true;
+      if (sName === 'mongodb' && tLower.includes('mongodb')) return true;
+      return tLower.includes(sName);
+    });
+  });
+
+  const disciplines = [
+    {
+      title: 'AI & Automation',
+      icon: Cpu,
+      skills: ['Python', 'PyTorch', 'Gemini API', 'LLMs', 'Vector Search'],
+      desc: 'Runtime guardrails, FAISS embeddings, entity extraction, stochastic bounds.'
+    },
+    {
+      title: 'Systems & Backend',
+      icon: Server,
+      skills: ['Go', 'Rust', 'FastAPI', 'WebAssembly', 'MongoDB', 'C / C++'],
+      desc: 'Sub-5ms CLI scanners, capability sandboxing, async WebSocket servers.'
+    },
+    {
+      title: 'Frontend & Extensions',
+      icon: Globe,
+      skills: ['React', 'TypeScript', 'Manifest V3', 'Tailwind CSS'],
+      desc: 'Zero-telemetry browser copilots, fluid editorial design systems, accessible UI.'
+    },
+    {
+      title: 'Developer Tooling',
+      icon: Wrench,
+      skills: ['Git & GitHub', 'Docker', 'DigitalOcean', 'Terminal UI'],
+      desc: 'Pre-push Git hooks, microservices, containerization, reproducible builds.'
     }
-  };
-
-  const activeTheme = getCategoryTheme(activeSkill.category);
+  ];
 
   return (
     <section 
       id="skills" 
-      className="relative min-h-screen w-full flex flex-col justify-center py-24 px-4 sm:px-6 lg:px-8 bg-stone-100/50 dark:bg-zinc-900/20 border-y border-stone-200/80 dark:border-zinc-800/60 overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col justify-center py-24 px-4 sm:px-6 lg:px-12 bg-[#f8f6f0] dark:bg-[#131312] text-[#1a1917] dark:text-[#f0ede5] border-b border-[#dcd6c8] dark:border-[#2d2c27] overflow-hidden"
     >
-      <div className="relative z-10 max-w-6xl mx-auto w-full">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         
         {/* Section Header */}
         <SectionHeading
-          number="03"
-          label="TECHNICAL PROFICIENCY & STACK"
-          title="CAPABILITIES"
-          italicWord="*& technical tooling.*"
-          subtitle="Click any technology to inspect implementation context & real project evidence."
+          number="02"
+          label="CAPABILITIES & PROJECT CONNECTIONS"
+          title="TECHNICAL PROFICIENCY"
+          italicWord="*& engineering tooling.*"
+          subtitle="Click any technology to discover how it is used and view real projects that implement it."
         />
 
-        {/* Interactive Skills Matrix Selector */}
-        <div className="max-w-4xl mx-auto mb-14">
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-8">
+        {/* Interactive Skill Selector Pill Bar */}
+        <div className="mb-10">
+          <div className="font-mono text-[11px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-wider mb-3">
+            SELECT A TECHNOLOGY TO DISCOVER IMPLEMENTATIONS:
+          </div>
+          
+          <div className="flex flex-wrap gap-2">
             {skillOrbitNodes.map((skill) => {
-              const isSelected = activeSkill.name === skill.name;
-              const theme = getCategoryTheme(skill.category);
-              const Icon = theme.icon;
+              const isSelected = selectedSkill.name === skill.name;
 
               return (
                 <button
                   key={skill.name}
-                  onClick={() => setActiveSkill(skill)}
-                  className={`px-3 py-2 rounded-lg font-mono text-xs font-semibold flex items-center space-x-2 border transition-all cursor-pointer ${
+                  onClick={() => setSelectedSkill(skill)}
+                  className={`px-3 py-2 rounded-xs font-mono text-xs flex items-center space-x-2 border transition-all cursor-pointer ${
                     isSelected
-                      ? theme.btnActive
-                      : 'bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-stone-300 dark:border-zinc-800 hover:border-sky-500 hover:text-sky-600 dark:hover:text-cyan-400 shadow-2xs'
+                      ? 'bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] border-[#1a1917] dark:border-[#d5ef9c] font-bold shadow-xs'
+                      : 'bg-[#eeeae0] dark:bg-[#1a1917] text-[#58554d] dark:text-[#a8a69f] border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#bfb8a6] hover:text-[#1a1917] dark:hover:text-[#f0ede5]'
                   }`}
                 >
-                  <Icon className="w-3.5 h-3.5" />
                   <span>{skill.name}</span>
                 </button>
               );
             })}
           </div>
+        </div>
 
-          {/* Active Skill Context Card */}
-          <div className="bg-white/95 dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-xs max-w-2xl mx-auto text-center">
-            <div className="flex items-center justify-center space-x-3 mb-3">
-              <span className={`text-[11px] font-mono uppercase px-2.5 py-0.5 rounded-md font-bold tracking-wider border ${activeTheme.badgeBg}`}>
-                {activeSkill.category}
-              </span>
-              <span className="font-display text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-                {activeSkill.name}
-              </span>
+        {/* Active Skill Inspection & Real Project Evidence Card */}
+        <div className="rounded-2xl bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] p-6 sm:p-8 lg:p-10 mb-14 shadow-xs">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            {/* Left Column: Skill Context & Architectural Scope (6 cols) */}
+            <div className="lg:col-span-6 space-y-4">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] text-[#486616] dark:text-[#d5ef9c] border border-[#dcd6c8] dark:border-[#383731]">
+                  CATEGORY // {selectedSkill.category}
+                </span>
+                <span className="font-mono text-xs text-[#8c877b] dark:text-[#a8a69f]">
+                  DISCIPLINE INDEX
+                </span>
+              </div>
+
+              <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
+                {selectedSkill.name}
+              </h3>
+
+              <p className="font-sans text-base sm:text-lg text-[#58554d] dark:text-[#a8a69f] leading-relaxed">
+                {selectedSkill.description}
+              </p>
             </div>
-            <p className="font-sans text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl mx-auto text-pretty">
-              "{activeSkill.description}"
-            </p>
+
+            {/* Right Column: Connected Projects (6 cols) */}
+            <div className="lg:col-span-6 space-y-3">
+              <div className="font-mono text-xs font-bold text-[#1a1917] dark:text-[#f0ede5] uppercase tracking-wider flex items-center justify-between pb-2 border-b border-[#dcd6c8] dark:border-[#2d2c27]">
+                <span>EVIDENCE IN PORTFOLIO BUILDS</span>
+                <span className="text-[#486616] dark:text-[#d5ef9c]">
+                  {relatedProjects.length} {relatedProjects.length === 1 ? 'BUILD' : 'BUILDS'} FOUND
+                </span>
+              </div>
+
+              {relatedProjects.length > 0 ? (
+                <div className="space-y-2.5">
+                  {relatedProjects.map((proj) => (
+                    <Link
+                      key={proj.id}
+                      to={`/projects/${proj.slug}`}
+                      className="group p-4 rounded-xl bg-[#f8f6f0] dark:bg-[#131312] border border-[#dcd6c8] dark:border-[#2d2c27] flex items-center justify-between hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors"
+                    >
+                      <div className="space-y-1">
+                        <div className="font-mono text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase">
+                          CHAPTER {proj.number} · {proj.category}
+                        </div>
+                        <div className="font-display font-bold text-base text-[#1a1917] dark:text-[#f0ede5] group-hover:text-[#486616] dark:group-hover:text-[#d5ef9c] transition-colors">
+                          {proj.title}
+                        </div>
+                        <p className="font-sans text-xs text-[#58554d] dark:text-[#a8a69f] line-clamp-1">
+                          {proj.tagline}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-1 font-mono text-xs font-bold text-[#486616] dark:text-[#d5ef9c] pl-3 shrink-0">
+                        <span className="hidden sm:inline">INSPECT</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-6 rounded-xl bg-[#f8f6f0] dark:bg-[#131312] border border-[#dcd6c8] dark:border-[#2d2c27] text-center font-mono text-xs text-[#8c877b] dark:text-[#a8a69f]">
+                  Utilized in core systems infrastructure, background services & hackathon prototypes.
+                </div>
+              )}
+            </div>
+
           </div>
         </div>
 
-        {/* Structured Category List */}
+        {/* Structured Disciplines Matrix */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {skillCategories.map((cat) => {
-            const categoryTheme = getCategoryTheme(
-              cat.title === 'AI / ML & Systems' ? 'AI/ML' :
-              cat.title === 'Frameworks & UI' ? 'Frontend' :
-              cat.title === 'Languages' ? 'Backend' : 'Infrastructure'
-            );
-
+          {disciplines.map((d) => {
+            const Icon = d.icon;
             return (
               <div
-                key={cat.title}
-                className="p-5 rounded-xl bg-white dark:bg-zinc-900/60 border border-stone-200/90 dark:border-zinc-800/70 shadow-2xs flex flex-col justify-between"
+                key={d.title}
+                className="p-5 sm:p-6 rounded-xl bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] flex flex-col justify-between space-y-4"
               >
                 <div>
-                  <div className="mb-3">
-                    <MonoLabel className="text-[10px] text-sky-600 dark:text-cyan-400">
-                      {cat.title}
-                    </MonoLabel>
+                  <div className="flex items-center gap-2 mb-2 font-mono text-[11px] font-bold text-[#486616] dark:text-[#d5ef9c] uppercase">
+                    <Icon className="w-4 h-4" />
+                    <span>{d.title}</span>
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {cat.skills.map((s) => (
-                      <span
-                        key={s}
-                        className={`text-xs px-2.5 py-1 rounded-md font-mono border ${categoryTheme.tagBg}`}
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="font-sans text-xs text-[#58554d] dark:text-[#a8a69f] leading-relaxed mb-4">
+                    {d.desc}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#dcd6c8] dark:border-[#2d2c27] font-mono text-[11px]">
+                  {d.skills.map((s) => (
+                    <span
+                      key={s}
+                      className="px-2 py-0.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#383731]"
+                    >
+                      {s}
+                    </span>
+                  ))}
                 </div>
               </div>
             );

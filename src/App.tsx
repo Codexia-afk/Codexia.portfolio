@@ -76,7 +76,7 @@ const AppContent: React.FC<{
   }, [location.pathname, navigate]);
 
   return (
-    <div className="min-h-screen bg-stone-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300 relative selection:bg-cyan-500/20 selection:text-cyan-400">
+    <div className="min-h-screen bg-[#f8f6f0] dark:bg-[#131312] text-[#1a1917] dark:text-[#f0ede5] transition-colors duration-300 relative selection:bg-[#486616]/20 selection:text-[#1a1917] dark:selection:bg-[#d5ef9c]/30 dark:selection:text-[#d5ef9c]">
       <TopBar 
         darkMode={darkMode} 
         setDarkMode={setDarkMode} 

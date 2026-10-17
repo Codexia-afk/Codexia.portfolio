@@ -1,9 +1,8 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, Github, FileText, ArrowUpRight, Award, Shield, Terminal } from 'lucide-react';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import { ArrowDown, ArrowUpRight, FileText, Github, Sparkles } from 'lucide-react';
 import { personalData } from '../data/personal';
 import { MonoLabel } from './typography/Typography';
-import type { Variants } from 'framer-motion';
 
 export const OrbitalHero: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -44,212 +43,341 @@ export const OrbitalHero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-[92vh] w-full flex flex-col items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-stone-50 dark:bg-zinc-950 transition-colors duration-300">
+    <section className="relative min-h-[96vh] w-full flex flex-col justify-between pt-28 sm:pt-32 pb-16 px-4 sm:px-6 lg:px-12 bg-[#f8f6f0] dark:bg-[#131312] text-[#1a1917] dark:text-[#f0ede5] transition-colors duration-300 overflow-hidden">
       
-      {/* Background Subtle Technical Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e0f2fe_1px,transparent_1px),linear-gradient(to_bottom,#e0f2fe_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_40%,#000_70%,transparent_100%)] opacity-40 dark:opacity-30 pointer-events-none" />
+      {/* Subtle Editorial Background Architectural Rules */}
+      <div 
+        aria-hidden="true" 
+        className="absolute inset-0 pointer-events-none opacity-40 dark:opacity-20"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, currentColor 1px, transparent 1px),
+            linear-gradient(to bottom, currentColor 1px, transparent 1px)
+          `,
+          backgroundSize: '6rem 6rem',
+          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 35%, black 40%, transparent 90%)'
+        }}
+      />
 
-      <div className="relative z-10 max-w-5xl mx-auto w-full flex flex-col items-center text-center">
-        
-        {/* Top Technical Telemetry Strip */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-8 text-zinc-500 dark:text-zinc-400"
-        >
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-zinc-900/80 border border-stone-200 dark:border-zinc-800 shadow-2xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <MonoLabel className="text-[10px] sm:text-[11px] text-zinc-700 dark:text-zinc-300">
-              PORTFOLIO V2 // SHIPPING ARCHITECTURE
-            </MonoLabel>
-          </div>
-
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100/70 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60">
-            <MonoLabel className="text-[10px] sm:text-[11px]">
-              LOC // 22.57°N, 88.36°E
-            </MonoLabel>
-          </div>
-
-          <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100/70 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60">
-            <MonoLabel className="text-[10px] sm:text-[11px]">
-              SPECIALIZATION // AI RUNTIMES & SYSTEMS
-            </MonoLabel>
-          </div>
-        </motion.div>
-
-        {/* Profile Card & Identity Pill */}
-        <div className="flex items-center gap-4 mb-6">
-          <motion.div
-            initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-0.5 border border-stone-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-md overflow-hidden ring-2 ring-sky-500/20 dark:ring-cyan-500/20">
-              <img
-                src="/profile-bw.jpg"
-                alt="Srinjoy Pramanick"
-                className="w-full h-full rounded-full object-cover object-[center_20%] filter-none dark:filter dark:grayscale dark:contrast-110 dark:brightness-95 transition-all duration-500"
-              />
-            </div>
-          </motion.div>
-
-          <div className="text-left">
-            <div className="font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-sky-600 dark:text-cyan-400">
-              SRINJOY PRAMANICK
-            </div>
-            <div className="font-mono text-[10px] sm:text-[11px] text-zinc-500 dark:text-zinc-400">
-              AI Engineer & Systems Builder
-            </div>
-          </div>
+      {/* Top Editorial Telemetry Header Band */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative z-10 max-w-7xl mx-auto w-full flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#dcd6c8] dark:border-[#2d2c27]"
+      >
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 font-mono text-[11px] sm:text-xs">
+          <span className="font-bold text-[#1a1917] dark:text-[#f0ede5] tracking-widest uppercase">
+            THE PERSONAL INTERNET
+          </span>
+          <span className="text-[#bfb8a6] dark:text-[#494841]">/</span>
+          <span className="text-[#8c877b] dark:text-[#a8a69f] tracking-wider">
+            VOL. 2026 · ISSUE 02
+          </span>
+          <span className="hidden sm:inline text-[#bfb8a6] dark:text-[#494841]">/</span>
+          <span className="hidden sm:inline text-[#8c877b] dark:text-[#a8a69f]">
+            22.57°N, 88.36°E (KOLKATA)
+          </span>
         </div>
 
-        {/* Primary SEO Heading */}
-        <h1 className="sr-only">Srinjoy Pramanick - AI Engineer, ML Engineer & Full-Stack Developer</h1>
+        <div className="flex items-center gap-3 font-mono text-[11px]">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs bg-[#eeeae0] dark:bg-[#201f1c] text-[#486616] dark:text-[#d5ef9c] border border-[#dcd6c8] dark:border-[#383731] font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#486616] dark:bg-[#d5ef9c] animate-pulse" />
+            <span>ACTIVE // AI RUNTIMES & SYSTEMS</span>
+          </span>
+          <span className="hidden lg:inline text-[#8c877b] dark:text-[#6e6b63]">
+            LATENCY: &lt; 18ms
+          </span>
+        </div>
+      </motion.div>
 
-        {/* Master Typographic Composition */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="w-full mb-6 select-none"
-        >
-          {/* Line 1: Clash Display */}
-          <div className="overflow-hidden py-1">
+      {/* Primary Hero Master Composition */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full my-auto py-10 sm:py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          
+          {/* Left Column: Typographic Sculpture (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col justify-start">
+            
+            {/* Editorial Kicker & Issue Number */}
             <motion.div
-              variants={lineVariants}
-              className="font-display text-[2.75rem] sm:text-[4.25rem] lg:text-[5.75rem] font-bold uppercase tracking-[-0.04em] text-zinc-900 dark:text-zinc-50 leading-[0.92]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4 }}
+              className="mb-5 flex items-center gap-3"
             >
-              BUILDING
+              <MonoLabel dot dotColor="bg-[#486616] dark:bg-[#d5ef9c]">
+                N° 01 — RUNTIME ARCHITECTURE
+              </MonoLabel>
+              <span className="text-[#bfb8a6] dark:text-[#494841] font-mono text-xs">·</span>
+              <span className="font-mono text-[11px] text-[#8c877b] dark:text-[#a8a69f] tracking-wider uppercase">
+                SRINJOY PRAMANICK
+              </span>
             </motion.div>
-          </div>
 
-          {/* Line 2: Clash Display */}
-          <div className="overflow-hidden py-1">
+            {/* Sculptural Headlines */}
             <motion.div
-              variants={lineVariants}
-              className="font-display text-[2.5rem] sm:text-[4rem] lg:text-[5.25rem] font-bold uppercase tracking-[-0.035em] text-zinc-900 dark:text-zinc-100 leading-[0.92]"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="select-none mb-8"
             >
-              INTELLIGENT SYSTEMS
-            </motion.div>
-          </div>
+              {/* Line 1 */}
+              <div className="overflow-hidden py-0.5">
+                <motion.h1
+                  variants={lineVariants}
+                  className="font-display text-[2.75rem] sm:text-[4.25rem] lg:text-[5.5rem] font-bold uppercase tracking-[-0.04em] text-[#1a1917] dark:text-[#f0ede5] leading-[0.92]"
+                >
+                  ENGINEERING
+                </motion.h1>
+              </div>
 
-          {/* Line 3: Instrument Serif Expressive Italic Phrase */}
-          <div className="overflow-hidden py-1">
+              {/* Line 2 */}
+              <div className="overflow-hidden py-0.5">
+                <motion.div
+                  variants={lineVariants}
+                  className="font-display text-[2.5rem] sm:text-[4rem] lg:text-[5.15rem] font-bold uppercase tracking-[-0.035em] text-[#1a1917] dark:text-[#f0ede5] leading-[0.92]"
+                >
+                  DETERMINISTIC
+                </motion.div>
+              </div>
+
+              {/* Line 3: Instrument Serif Contrast Phrase */}
+              <div className="overflow-hidden py-0.5">
+                <motion.div
+                  variants={lineVariants}
+                  className="font-editorial text-[2.5rem] sm:text-[3.85rem] lg:text-[4.75rem] font-normal italic lowercase tracking-normal text-[#486616] dark:text-[#d5ef9c] leading-[1.0]"
+                >
+                  *systems & runtimes.*
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Grounded Narrative Description */}
+            <motion.p
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: 0.35 }}
+              className="font-sans text-base sm:text-lg lg:text-[1.125rem] text-[#58554d] dark:text-[#a8a69f] leading-relaxed max-w-2xl mb-8 font-normal text-pretty"
+            >
+              I engineer runtime guardrails for autonomous AI agents, capability sandboxes in WebAssembly and Rust, and zero-dependency developer tools in Go. Bridging low-level systems precision with creative interface craft.
+            </motion.p>
+
+            {/* Direct Action Hub */}
             <motion.div
-              variants={lineVariants}
-              className="font-editorial text-[2.25rem] sm:text-[3.75rem] lg:text-[4.75rem] font-normal italic lowercase tracking-normal text-sky-600 dark:text-cyan-400 leading-[1.0] drop-shadow-xs"
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: 0.45 }}
+              className="flex flex-wrap items-center gap-3 sm:gap-4 mb-10"
             >
-              *with precision & intent.*
+              <a
+                href="#projects"
+                className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-md bg-[#1a1917] dark:bg-[#f0ede5] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#d5ef9c] dark:hover:text-[#131312] transition-colors shadow-xs"
+              >
+                <span>EXPLORE SELECTED BUILDS</span>
+                <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
+              </a>
+
+              <a
+                href={personalData.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
+              >
+                <Github className="w-3.5 h-3.5 text-current opacity-80" />
+                <span>GITHUB REPOS</span>
+                <ArrowUpRight className="w-3 h-3 opacity-60 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+
+              <a
+                href="/resume.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
+              >
+                <FileText className="w-3.5 h-3.5 text-current opacity-80" />
+                <span>RÉSUMÉ</span>
+              </a>
             </motion.div>
-          </div>
-        </motion.div>
 
-        {/* Sophisticated Satoshi Introductory Paragraph */}
-        <motion.p
-          variants={fadeUpVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.4 }}
-          className="font-sans text-base sm:text-lg lg:text-[1.1875rem] text-zinc-600 dark:text-zinc-300 max-w-2xl leading-relaxed mb-8 font-normal text-pretty"
-        >
-          Computer Science Engineering student crafting deterministic AI guardrails, WebAssembly micro-runtimes, low-latency microservices, and human-first developer tooling.
-        </motion.p>
+            {/* Editorial Footnote Annotation */}
+            <motion.div
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: 0.55 }}
+              className="flex items-center gap-4 text-xs font-mono text-[#8c877b] dark:text-[#6e6b63] pt-4 border-t border-[#dcd6c8]/60 dark:border-[#2d2c27]/60"
+            >
+              <span>CURRENT DISPATCH:</span>
+              <span className="text-[#1a1917] dark:text-[#f0ede5] font-semibold">
+                JIS College of Engineering (2024–2028)
+              </span>
+              <span>·</span>
+              <span>1st Runner-Up @ CrazyBuild</span>
+            </motion.div>
 
-        {/* Technical Highlights / Awards Badges */}
-        <motion.div
-          variants={fadeUpVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.45 }}
-          className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 font-mono text-xs mb-10"
-        >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-50 dark:bg-zinc-900/90 text-amber-800 dark:text-amber-400 border border-amber-200/80 dark:border-zinc-800 font-semibold shadow-2xs">
-            <Award className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-            <span>1st Runner-Up @ CrazyBuild</span>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-50 dark:bg-zinc-900/90 text-emerald-800 dark:text-emerald-400 border border-emerald-200/80 dark:border-zinc-800 font-semibold shadow-2xs">
-            <Shield className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-            <span>SIH 2025 Qualifier</span>
-          </div>
-
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-sky-50 dark:bg-zinc-900/90 text-sky-800 dark:text-cyan-400 border border-sky-200/80 dark:border-zinc-800 font-semibold shadow-2xs">
-            <Terminal className="w-3.5 h-3.5 text-sky-600 dark:text-cyan-400" />
-            <span>7+ Hackathons Completed</span>
-          </div>
-        </motion.div>
-
-        {/* Clear Actions / CTAs with Editorial Balance */}
-        <motion.div
-          variants={fadeUpVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.5 }}
-          className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-12"
-        >
-          <a
-            href="#projects"
-            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs font-bold uppercase tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-all shadow-sm hover:shadow-md"
+          {/* Right Column: Interactive Digital Atelier Lab (5 cols) */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-5 w-full flex flex-col space-y-5"
           >
-            <span>SELECTED BUILDS</span>
-            <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
-          </a>
+            
+            {/* Atelier Card: Art-Directed Portrait Frame with "Banda Kaam ka" Hover Interaction */}
+            <div className="rounded-xl bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] p-4 sm:p-5 shadow-xs relative overflow-hidden transition-all duration-300">
+              
+              {/* Header: Status HUD */}
+              <div className="flex items-center justify-between pb-3.5 border-b border-[#dcd6c8] dark:border-[#2d2c27] mb-3.5">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#486616] dark:bg-[#d5ef9c]" />
+                  <span className="font-mono text-xs font-bold text-[#1a1917] dark:text-[#f0ede5] uppercase tracking-wider">
+                    ATELIER LAB // SRINJOY PRAMANICK
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#486616] dark:text-[#d5ef9c] font-semibold bg-[#f8f6f0] dark:bg-[#201f1c] px-2 py-0.5 rounded-xs border border-[#dcd6c8] dark:border-[#383731]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#486616] dark:bg-[#d5ef9c] animate-pulse" />
+                  <span>ONLINE</span>
+                </div>
+              </div>
 
-          <a
-            href={personalData.socials.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-mono text-xs font-semibold uppercase tracking-wider border border-stone-300 dark:border-zinc-800 hover:border-sky-500 hover:text-sky-600 dark:hover:border-cyan-500 dark:hover:text-cyan-400 transition-all shadow-2xs"
-          >
-            <Github className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400 group-hover:text-current" />
-            <span>GITHUB</span>
-            <ArrowUpRight className="w-3 h-3 opacity-60 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
+              {/* Interactive Picture Frame */}
+              <div className="group relative aspect-[16/11] sm:aspect-[16/10] w-full rounded-lg overflow-hidden bg-[#131312] border border-[#dcd6c8] dark:border-[#2d2c27] select-none cursor-pointer">
+                {/* Portrait Photo */}
+                <img
+                  src="/srinjoy.jpg"
+                  alt="Srinjoy Pramanick - Banda Kaam ka"
+                  className="w-full h-full object-cover object-[center_32%] filter saturate-[1.05] contrast-[1.02] transition-transform duration-700 ease-out group-hover:scale-105"
+                  loading="eager"
+                  fetchPriority="high"
+                />
 
-          <a
-            href="/resume.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 font-mono text-xs font-semibold uppercase tracking-wider border border-stone-300 dark:border-zinc-800 hover:border-sky-500 hover:text-sky-600 dark:hover:border-cyan-500 dark:hover:text-cyan-400 transition-all shadow-2xs"
-          >
-            <FileText className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400" />
-            <span>RESUME</span>
-          </a>
-        </motion.div>
+                {/* Ambient Cinematic Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25 pointer-events-none transition-all duration-300 group-hover:from-black/85 group-hover:via-black/20" />
 
-        {/* Inline Section Index Navigation with Refined Tracking */}
-        <nav
-          aria-label="Section navigation"
-          className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 font-mono text-[11px] sm:text-xs tracking-[0.16em] uppercase text-zinc-500 dark:text-zinc-400 pt-2 border-t border-stone-200/60 dark:border-zinc-900/60"
-        >
-          <a href="#about" className="editorial-hover-underline hover:text-sky-600 dark:hover:text-cyan-400 transition-colors">
-            ABOUT
-          </a>
-          <span className="text-stone-300 dark:text-zinc-700">·</span>
-          <a href="#experience" className="editorial-hover-underline hover:text-sky-600 dark:hover:text-cyan-400 transition-colors">
-            EXPERIENCE
-          </a>
-          <span className="text-stone-300 dark:text-zinc-700">·</span>
-          <a href="#skills" className="editorial-hover-underline hover:text-sky-600 dark:hover:text-cyan-400 transition-colors">
-            SKILLS
-          </a>
-          <span className="text-stone-300 dark:text-zinc-700">·</span>
-          <a href="#projects" className="editorial-hover-underline hover:text-sky-600 dark:hover:text-cyan-400 transition-colors">
-            PROJECTS
-          </a>
-          <span className="text-stone-300 dark:text-zinc-700">·</span>
-          <a href="#hackathons" className="editorial-hover-underline hover:text-sky-600 dark:hover:text-cyan-400 transition-colors">
-            HACKATHONS
-          </a>
-          <span className="text-stone-300 dark:text-zinc-700">·</span>
-          <a href="#contact" className="editorial-hover-underline hover:text-sky-600 dark:hover:text-cyan-400 transition-colors">
-            CONTACT
-          </a>
-        </nav>
+                {/* Overlaid Corner Technical Watermarks */}
+                <div className="absolute top-3 left-3 flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs bg-black/60 text-[#d5ef9c] border border-white/10 backdrop-blur-xs pointer-events-none">
+                  <span>KOLKATA // 22.57°N</span>
+                </div>
 
+                <div className="absolute top-3 right-3 flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-xs bg-black/60 text-[#f0ede5] border border-white/10 backdrop-blur-xs pointer-events-none">
+                  <span>AI & SYSTEMS</span>
+                </div>
+
+                {/* "Banda Kaam ka" Hover Reveal Overlay - COMES IN RIGHT SIDE CORNER */}
+                <div 
+                  className="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3 z-10 transition-all duration-300 ease-out opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
+                  aria-label="Banda Kaam ka"
+                >
+                  <div className="transform translate-y-2 group-hover:translate-y-0 scale-95 group-hover:scale-100 transition-all duration-300 ease-out flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#131312]/95 backdrop-blur-md border border-[#d5ef9c]/70 shadow-[0_8px_24px_rgba(0,0,0,0.6)]">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#d5ef9c] opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#d5ef9c]" />
+                    </span>
+                    <span className="font-display sm:font-mono font-bold text-xs sm:text-sm text-[#f0ede5] tracking-wide select-none drop-shadow">
+                      Banda Kaam ka
+                    </span>
+                    <Sparkles className="w-3.5 h-3.5 text-[#d5ef9c]" />
+                  </div>
+                </div>
+
+                {/* Bottom Frame Status Bar */}
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-[#f0ede5]/90 pointer-events-none transition-opacity duration-300">
+                  <span className="truncate max-w-[140px] sm:max-w-[200px]">BUILDER // ARCHITECT</span>
+                  <span className="text-[#d5ef9c] text-[10px] uppercase font-bold tracking-wider group-hover:opacity-0 transition-opacity">
+                    HOVER ME
+                  </span>
+                </div>
+              </div>
+
+              {/* Subtext and Quick Link */}
+              <div className="mt-3.5 flex items-center justify-between text-xs font-mono">
+                <span className="text-[#8c877b] dark:text-[#a8a69f]">
+                  Engineering Runtimes & Agentic Trust
+                </span>
+                <a
+                  href="#about"
+                  className="inline-flex items-center gap-1 text-[#486616] dark:text-[#d5ef9c] hover:underline font-semibold"
+                >
+                  <span>Know Srinjoy</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </a>
+              </div>
+            </div>
+
+            {/* Editorial Focus Columns & Notes */}
+            <div className="grid grid-cols-2 gap-3.5">
+              
+              <div className="p-4 rounded-lg bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] flex flex-col justify-between">
+                <div>
+                  <div className="font-mono text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-wider mb-1">
+                    DISCIPLINE 01
+                  </div>
+                  <div className="font-display font-bold text-sm text-[#1a1917] dark:text-[#f0ede5]">
+                    AI Middleware & Runtimes
+                  </div>
+                </div>
+                <p className="font-sans text-xs text-[#58554d] dark:text-[#a8a69f] mt-2 leading-relaxed">
+                  FastAPI, FAISS, LLM tool-calling guardrails, vector embeddings.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-lg bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] flex flex-col justify-between">
+                <div>
+                  <div className="font-mono text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-wider mb-1">
+                    DISCIPLINE 02
+                  </div>
+                  <div className="font-display font-bold text-sm text-[#1a1917] dark:text-[#f0ede5]">
+                    Systems, Go & WASM
+                  </div>
+                </div>
+                <p className="font-sans text-xs text-[#58554d] dark:text-[#a8a69f] mt-2 leading-relaxed">
+                  PushGuard pre-push scanner, Wasmtime sandboxing, cross-platform TUIs.
+                </p>
+              </div>
+
+            </div>
+
+          </motion.div>
+
+        </div>
       </div>
+
+      {/* Bottom Editorial Chapter Directory Line */}
+      <nav
+        aria-label="Section chapter directory"
+        className="relative z-10 max-w-7xl mx-auto w-full pt-6 border-t border-[#dcd6c8] dark:border-[#2d2c27] flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] sm:text-xs text-[#8c877b] dark:text-[#a8a69f] tracking-wider uppercase"
+      >
+        <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+          <a href="#about" className="editorial-hover-underline hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors">
+            01 // INTENT & BIOGRAPHY
+          </a>
+          <span className="text-[#bfb8a6] dark:text-[#494841]">·</span>
+          <a href="#skills" className="editorial-hover-underline hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors">
+            02 // CAPABILITIES INDEX
+          </a>
+          <span className="text-[#bfb8a6] dark:text-[#494841]">·</span>
+          <a href="#projects" className="editorial-hover-underline hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors">
+            03 // SELECTED BUILDS
+          </a>
+          <span className="text-[#bfb8a6] dark:text-[#494841]">·</span>
+          <a href="#hackathons" className="editorial-hover-underline hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors">
+            04 // HACKATHON LOG
+          </a>
+          <span className="text-[#bfb8a6] dark:text-[#494841]">·</span>
+          <a href="#contact" className="editorial-hover-underline hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors">
+            05 // CONTACT
+          </a>
+        </div>
+
+        <div className="text-[10px] text-[#8c877b] dark:text-[#6e6b63]">
+          ESC / ⌘K FOR PORTAL HUD
+        </div>
+      </nav>
+
     </section>
   );
 };

@@ -1,127 +1,342 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Github, ExternalLink } from 'lucide-react';
-import { projectsData } from '../data/projects';
+import { ArrowUpRight, Github, ExternalLink, Terminal, Shield, Cpu, Layers, Box } from 'lucide-react';
+import { projectsData, Project } from '../data/projects';
 import { SectionHeading } from './typography/Typography';
 
 export const ProjectsEditorial: React.FC = () => {
-  const getProjectColorBadge = (slug: string) => {
+  const [activeFilter, setActiveFilter] = useState<string>('All');
+
+  const categories = ['All', 'AI Infrastructure', 'Systems & Go', 'Browser Copilots'];
+
+  const filteredProjects = projectsData.filter((p) => {
+    if (activeFilter === 'All') return true;
+    if (activeFilter === 'AI Infrastructure') {
+      return p.category.includes('AI');
+    }
+    if (activeFilter === 'Systems & Go') {
+      return p.category.includes('GO') || p.category.includes('RUST') || p.category.includes('WASM');
+    }
+    if (activeFilter === 'Browser Copilots') {
+      return p.category.includes('BROWSER') || p.category.includes('COPILOT');
+    }
+    return true;
+  });
+
+  const getProjectIcon = (slug: string) => {
     switch (slug) {
       case 'trustos':
-        return 'bg-sky-50 text-sky-700 border-sky-200 dark:bg-zinc-800/60 dark:text-cyan-400 dark:border-transparent';
-      case 'pulseforge-ai':
-        return 'bg-teal-50 text-teal-700 border-teal-200 dark:bg-zinc-800/60 dark:text-teal-400 dark:border-transparent';
+        return Shield;
+      case 'pushguard':
+        return Terminal;
       case 'loksetu-ai':
-        return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-zinc-800/60 dark:text-emerald-400 dark:border-transparent';
+        return Layers;
       case 'jeeratype':
-        return 'bg-cyan-50 text-cyan-800 border-cyan-200 dark:bg-zinc-800/60 dark:text-cyan-400 dark:border-transparent';
+        return Terminal;
       case 'wasm-sandbox':
-        return 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-zinc-800/60 dark:text-amber-400 dark:border-transparent';
+        return Box;
       default:
-        return 'bg-stone-100 text-stone-700 border-stone-200 dark:bg-zinc-800/60 dark:text-zinc-300 dark:border-transparent';
+        return Cpu;
     }
   };
 
-  const totalProjects = projectsData.length;
-  const formatTotal = totalProjects < 10 ? `0${totalProjects}` : `${totalProjects}`;
+  const getArchitectureBlueprint = (project: Project) => {
+    switch (project.slug) {
+      case 'trustos':
+        return (
+          <div className="font-mono text-[11px] text-[#a8a69f] space-y-1.5 p-3.5 bg-[#0c0c0b] rounded-lg border border-[#2d2c27]">
+            <div className="text-[#d5ef9c] font-bold text-[10px]">
+              TRUSTOS // IN-FLIGHT INTERCEPTION PIPELINE:
+            </div>
+            <div className="text-[#8c877b]">
+              [Agent Request] ──&gt; (FastAPI Middleware) ──&gt; [FAISS Vector Engine]
+            </div>
+            <div className="text-[#8c877b]">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ &lt; 18ms latency
+            </div>
+            <div className="text-[#d5ef9c]">
+              [Approved Tool Call] &lt;── (SHA-256 State Hash Receipt)
+            </div>
+          </div>
+        );
+      case 'pushguard':
+        return (
+          <div className="font-mono text-[11px] text-[#a8a69f] space-y-1.5 p-3.5 bg-[#0c0c0b] rounded-lg border border-[#2d2c27]">
+            <div className="text-[#d5ef9c] font-bold text-[10px]">
+              PUSHGUARD // SHANNON ENTROPY PRE-PUSH PIPELINE:
+            </div>
+            <div className="text-[#8c877b]">
+              [git push] ──&gt; (Native Go Hook Intercept) ──&gt; [AST Diff Parser]
+            </div>
+            <div className="text-[#8c877b]">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ 120+ secret patterns &lt; 5ms
+            </div>
+            <div className="text-[#d5ef9c]">
+              [Push Permitted / Halt on High Entropy Token]
+            </div>
+          </div>
+        );
+      case 'loksetu-ai':
+        return (
+          <div className="font-mono text-[11px] text-[#a8a69f] space-y-1.5 p-3.5 bg-[#0c0c0b] rounded-lg border border-[#2d2c27]">
+            <div className="text-[#d5ef9c] font-bold text-[10px]">
+              LOKSETU.AI // PRIVACY-FIRST MV3 ARCHITECTURE:
+            </div>
+            <div className="text-[#8c877b]">
+              [Welfare Portal DOM] ──&gt; (Isolated Content Script) ──&gt; [Local Schema Matcher]
+            </div>
+            <div className="text-[#8c877b]">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ 100% Zero-Telemetry Local Execution
+            </div>
+            <div className="text-[#d5ef9c]">
+              [Client-Side OCR &amp; Assisted Validation in Sidepanel]
+            </div>
+          </div>
+        );
+      case 'jeeratype':
+        return (
+          <div className="font-mono text-[11px] text-[#a8a69f] space-y-1.5 p-3.5 bg-[#0c0c0b] rounded-lg border border-[#2d2c27]">
+            <div className="text-[#d5ef9c] font-bold text-[10px]">
+              JEERATYPE // CROSS-PLATFORM GO TERMINAL ENGINE:
+            </div>
+            <div className="text-[#8c877b]">
+              [Keystroke Event] ──&gt; (Raw ANSI Escape Loop) ──&gt; [AST Syntax Tokenizer]
+            </div>
+            <div className="text-[#8c877b]">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ &lt; 1ms precision input telemetry
+            </div>
+            <div className="text-[#d5ef9c]">
+              [Zero-Dependency Binary for macOS / Linux / Windows]
+            </div>
+          </div>
+        );
+      case 'wasm-sandbox':
+        return (
+          <div className="font-mono text-[11px] text-[#a8a69f] space-y-1.5 p-3.5 bg-[#0c0c0b] rounded-lg border border-[#2d2c27]">
+            <div className="text-[#d5ef9c] font-bold text-[10px]">
+              WASM SANDBOX // CAPABILITY PERMISSION MODEL:
+            </div>
+            <div className="text-[#8c877b]">
+              [Untrusted Plugin] ──&gt; (Wasmtime Host Binding) ──&gt; [Syscall Interceptor]
+            </div>
+            <div className="text-[#8c877b]">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ Enforcing --allow-net, --allow-read
+            </div>
+            <div className="text-[#d5ef9c]">
+              [Hardware-Isolated Linear Memory Sandbox in Rust]
+            </div>
+          </div>
+        );
+      default:
+        return (
+          <div className="font-mono text-[11px] text-[#a8a69f] space-y-1.5 p-3.5 bg-[#0c0c0b] rounded-lg border border-[#2d2c27]">
+            <div className="text-[#d5ef9c] font-bold text-[10px]">
+              PULSEFORGE // MARKET SIGNAL EXTRACTION PIPELINE:
+            </div>
+            <div className="text-[#8c877b]">
+              [Unstructured Signal Feed] ──&gt; (FastAPI Async Scraper) ──&gt; [Gemini 1.5 Flash]
+            </div>
+            <div className="text-[#8c877b]">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ Structured JSON Output Extraction
+            </div>
+            <div className="text-[#d5ef9c]">
+              [Dynamic Market Risk vs Opportunity Strategic Matrix]
+            </div>
+          </div>
+        );
+    }
+  };
 
   return (
     <section 
       id="projects" 
-      className="relative min-h-screen w-full flex flex-col justify-center py-24 px-4 sm:px-6 lg:px-8 bg-stone-50 dark:bg-zinc-950 overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col justify-center py-24 px-4 sm:px-6 lg:px-12 bg-[#f8f6f0] dark:bg-[#131312] text-[#1a1917] dark:text-[#f0ede5] border-b border-[#dcd6c8] dark:border-[#2d2c27] overflow-hidden"
     >
-      <div className="relative z-10 max-w-6xl mx-auto w-full">
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
         
         {/* Section Header */}
         <SectionHeading
-          number="04"
-          label="SELECTED ENGINEERING BUILDS"
-          title="CASE STUDIES"
+          number="03"
+          label="EDITORIAL CHAPTER ARCHIVE"
+          title="SELECTED BUILDS"
           italicWord="*& production systems.*"
-          subtitle="In-depth architecture, deterministic guardrails, and production implementations."
+          subtitle="Autonomous AI middleware, Go security tooling, WebAssembly sandboxes, and browser copilots."
         />
 
-        {/* Editorial Rows Stack */}
-        <div className="divide-y divide-stone-200/80 dark:divide-zinc-800/80">
-          {projectsData.map((project) => {
-            return (
-              <div
-                key={project.id}
-                className="group relative py-12 sm:py-14 transition-colors duration-200 hover:bg-white dark:hover:bg-zinc-900/40 px-4 sm:px-6 rounded-2xl border border-transparent hover:border-stone-200/80 dark:hover:border-zinc-800/60 hover:shadow-2xs"
+        {/* Filter Navigation Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-12 pb-4 border-b border-[#dcd6c8] dark:border-[#2d2c27] font-mono text-xs">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[#8c877b] dark:text-[#6e6b63] mr-2">DISCIPLINE:</span>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                className={`px-3 py-1 rounded-xs transition-colors cursor-pointer ${
+                  activeFilter === cat
+                    ? 'bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-bold'
+                    : 'text-[#58554d] dark:text-[#a8a69f] hover:text-[#1a1917] dark:hover:text-[#f0ede5] border border-transparent hover:border-[#dcd6c8] dark:hover:border-[#383731]'
+                }`}
               >
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <div className="text-[#8c877b] dark:text-[#a8a69f] font-mono text-[11px]">
+            SHOWING {filteredProjects.length} OF {projectsData.length} CHAPTERS
+          </div>
+        </div>
+
+        {/* Editorial Project Chapters Stack */}
+        <div className="space-y-12 sm:space-y-16">
+          {filteredProjects.map((project) => {
+            const Icon = getProjectIcon(project.slug);
+            const { caseStudy } = project;
+
+            return (
+              <article
+                key={project.id}
+                className="group relative rounded-2xl bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] p-6 sm:p-8 lg:p-10 shadow-xs hover:border-[#bfb8a6] dark:hover:border-[#383731] transition-all"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
                   
-                  {/* Left Column: Index + Title + Tagline */}
-                  <div className="flex items-start space-x-6 sm:space-x-8 max-w-3xl">
-                    <span className="font-mono text-base sm:text-xl font-bold text-stone-400 dark:text-zinc-600 group-hover:text-sky-600 dark:group-hover:text-cyan-400 transition-colors shrink-0 pt-1">
-                      {project.number} / {formatTotal}
-                    </span>
-
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-3">
-                        <Link 
-                          to={`/projects/${project.slug}`}
-                          className="font-display text-2xl sm:text-3xl lg:text-[2.5rem] font-bold tracking-[-0.03em] text-zinc-900 dark:text-zinc-50 group-hover:text-sky-600 dark:group-hover:text-cyan-400 transition-colors leading-[1.08] flex items-center space-x-3"
-                        >
-                          <span>{project.title}</span>
-                        </Link>
+                  {/* Left Column: Chapter Meta, Title, Problem, & Actions (7 cols) */}
+                  <div className="lg:col-span-7 flex flex-col justify-between space-y-5">
+                    
+                    {/* Chapter Header Ribbon */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-xs pb-4 border-b border-[#dcd6c8] dark:border-[#2d2c27]">
+                      <div className="flex items-center gap-2 text-[#486616] dark:text-[#d5ef9c] font-bold">
+                        <Icon className="w-3.5 h-3.5" />
+                        <span>CHAPTER {project.number} // {project.category}</span>
                       </div>
+                      <span className="text-[#8c877b] dark:text-[#a8a69f]">
+                        RELEASE YEAR // {project.year}
+                      </span>
+                    </div>
 
-                      <p className="font-sans text-base sm:text-lg text-zinc-600 dark:text-zinc-300 font-normal leading-relaxed text-pretty max-w-2xl">
+                    {/* Project Title */}
+                    <div>
+                      <Link 
+                        to={`/projects/${project.slug}`}
+                        className="group-hover:text-[#486616] dark:group-hover:text-[#d5ef9c] transition-colors"
+                      >
+                        <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] leading-tight mb-2">
+                          {project.title}
+                        </h3>
+                      </Link>
+                      <p className="font-editorial text-lg sm:text-xl text-[#58554d] dark:text-[#a8a69f] italic">
                         {project.tagline}
                       </p>
+                    </div>
 
-                      {/* Category & Tech Badges */}
-                      <div className="flex flex-wrap items-center gap-2 pt-1 font-mono">
-                        <span className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border ${getProjectColorBadge(project.slug)}`}>
-                          {project.category}
-                        </span>
-                        <span className="text-stone-300 dark:text-zinc-700 text-xs">·</span>
-                        <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                          {project.tech.join(' · ')}
-                        </span>
+                    {/* Problem Statement & Core Thesis */}
+                    <div className="space-y-2 font-sans">
+                      <div className="font-mono text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-wider font-semibold">
+                        PROBLEM &amp; ARCHITECTURAL THESIS
+                      </div>
+                      <p className="text-sm sm:text-base text-[#58554d] dark:text-[#a8a69f] leading-relaxed">
+                        {caseStudy.thesis}
+                      </p>
+                    </div>
+
+                    {/* Secondary Technology Stack Metadata */}
+                    <div className="pt-2">
+                      <div className="font-mono text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-wider mb-2 font-semibold">
+                        CORE STACK &amp; RUNTIME PRIMITIVES
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 font-mono text-xs">
+                        {project.tech.map((t) => (
+                          <span
+                            key={t}
+                            className="px-2.5 py-1 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#383731]"
+                          >
+                            {t}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                  </div>
 
-                  {/* Right Column: Case Study Link & Repo CTAs */}
-                  <div className="flex items-center space-x-4 lg:flex-col lg:items-end lg:space-x-0 lg:space-y-3 pt-4 lg:pt-0 shrink-0">
-                    <Link
-                      to={`/projects/${project.slug}`}
-                      className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-mono text-xs uppercase font-bold tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 dark:hover:text-zinc-950 transition-colors shadow-2xs"
-                    >
-                      <span>CASE STUDY</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </Link>
+                    {/* Action Links */}
+                    <div className="pt-4 flex flex-wrap items-center gap-3">
+                      <Link
+                        to={`/projects/${project.slug}`}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-[#1a1917] dark:bg-[#f0ede5] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#486616] dark:hover:bg-[#d5ef9c] dark:hover:text-[#131312] transition-colors shadow-xs"
+                      >
+                        <span>READ FULL CASE STUDY</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </Link>
 
-                    <div className="flex items-center space-x-3 font-mono text-xs">
                       {project.githubUrl && (
                         <a
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center space-x-1 text-zinc-500 hover:text-sky-600 dark:hover:text-zinc-100 transition-colors"
+                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-md bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
                         >
                           <Github className="w-3.5 h-3.5" />
-                          <span>Code</span>
+                          <span>SOURCE</span>
                         </a>
                       )}
+
                       {project.liveUrl && (
                         <a
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center space-x-1 text-zinc-500 hover:text-sky-600 dark:hover:text-zinc-100 transition-colors"
+                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-md bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
-                          <span>Demo</span>
+                          <span>RUNTIME DEMO</span>
                         </a>
                       )}
                     </div>
+
+                  </div>
+
+                  {/* Right Column: Architectural Blueprint & Verification Metrics (5 cols) */}
+                  <div className="lg:col-span-5 flex flex-col space-y-4">
+                    
+                    {/* Architectural Blueprint Box */}
+                    <div className="rounded-xl border border-[#dcd6c8] dark:border-[#2d2c27] bg-[#f8f6f0] dark:bg-[#131312] p-4 sm:p-5 space-y-3">
+                      <div className="flex items-center justify-between text-xs font-mono">
+                        <span className="font-bold text-[#1a1917] dark:text-[#f0ede5] uppercase tracking-wider">
+                          SYSTEM TOPOLOGY
+                        </span>
+                        <span className="text-[#486616] dark:text-[#d5ef9c] font-semibold text-[10px]">
+                          VERIFIED ARCHITECTURE
+                        </span>
+                      </div>
+                      
+                      {getArchitectureBlueprint(project)}
+
+                      <p className="font-sans text-xs text-[#58554d] dark:text-[#a8a69f] leading-relaxed pt-1">
+                        {caseStudy.howItWorks[0]}
+                      </p>
+                    </div>
+
+                    {/* Metrics Strip */}
+                    {caseStudy.metrics && caseStudy.metrics.length > 0 && (
+                      <div className="grid grid-cols-3 gap-2 font-mono text-center">
+                        {caseStudy.metrics.map((m, idx) => (
+                          <div
+                            key={idx}
+                            className="p-3 rounded-lg bg-[#f4efe5] dark:bg-[#201f1c] border border-[#dcd6c8] dark:border-[#2d2c27]"
+                          >
+                            <div className="text-sm sm:text-base font-bold text-[#486616] dark:text-[#d5ef9c]">
+                              {m.value}
+                            </div>
+                            <div className="text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-tighter mt-0.5 line-clamp-1">
+                              {m.label}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
                   </div>
 
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>

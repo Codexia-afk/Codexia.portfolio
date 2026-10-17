@@ -14,39 +14,43 @@
 
 @layer base {
   :root {
-    --bg-primary: #fafaf9;
-    --bg-secondary: #f5f5f4;
-    --bg-card: #ffffff;
-    --border-subtle: #e7e5e4;
-    --border-strong: #d6d3d1;
-    --text-primary: #09090b;
-    --text-secondary: #52525b;
-    --text-muted: #71717a;
-    --accent: #0284c7;
-    --accent-hover: #0369a1;
-    --accent-light: #f0f9ff;
+    --bg-primary: #f8f6f0;
+    --bg-secondary: #eeeae0;
+    --bg-card: #f4efe5;
+    --bg-tertiary: #e7e2d5;
+    --border-subtle: #dcd6c8;
+    --border-strong: #bfb8a6;
+    --text-primary: #1a1917;
+    --text-secondary: #58554d;
+    --text-muted: #8c877b;
+    --accent: #486616;
+    --accent-hover: #354c0e;
+    --accent-light: rgba(72, 102, 22, 0.08);
+    --accent-border: rgba(72, 102, 22, 0.25);
 
     /* Typographic Fluid Scales (CSS clamp) */
-    --type-hero: clamp(2.75rem, 5.8vw + 1rem, 6.5rem);
-    --type-section: clamp(2.125rem, 3.8vw + 0.5rem, 4.25rem);
-    --type-project: clamp(1.625rem, 2.5vw + 0.5rem, 3.25rem);
+    --type-hero: clamp(2.75rem, 6vw + 1rem, 6.75rem);
+    --type-section: clamp(2.125rem, 4vw + 0.5rem, 4.5rem);
+    --type-project: clamp(1.625rem, 2.75vw + 0.5rem, 3.5rem);
     --type-subheading: clamp(1.25rem, 1.5vw + 0.5rem, 2rem);
     --type-body: clamp(1rem, 0.25vw + 0.92rem, 1.125rem);
     --type-mono-sm: clamp(0.6875rem, 0.1vw + 0.65rem, 0.8125rem);
   }
 
   html.dark {
-    --bg-primary: #09090b;
-    --bg-secondary: #121215;
-    --bg-card: #141418;
-    --border-subtle: #27272a;
-    --border-strong: #3f3f46;
-    --text-primary: #f4f4f5;
-    --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
-    --accent: #06b6d4;
-    --accent-hover: #22d3ee;
-    --accent-light: rgba(6, 182, 212, 0.08);
+    --bg-primary: #131312;
+    --bg-secondary: #1a1917;
+    --bg-card: #201f1c;
+    --bg-tertiary: #272622;
+    --border-subtle: #2d2c27;
+    --border-strong: #494841;
+    --text-primary: #f0ede5;
+    --text-secondary: #a8a69f;
+    --text-muted: #6e6b63;
+    --accent: #d5ef9c;
+    --accent-hover: #e2f5b8;
+    --accent-light: rgba(213, 239, 156, 0.12);
+    --accent-border: rgba(213, 239, 156, 0.28);
   }
 
   html {
@@ -222,15 +226,35 @@
   animation: ribbon-slide-reverse 42s linear infinite;
 }
 
+/* Footer Kinetic Typography Marquee */
+@keyframes footer-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-footer-marquee {
+  display: flex;
+  width: max-content;
+  animation: footer-marquee 36s linear infinite;
+  will-change: transform;
+}
+
 .pause-on-hover:hover .animate-ribbon,
-.pause-on-hover:hover .animate-ribbon-reverse {
+.pause-on-hover:hover .animate-ribbon-reverse,
+.pause-on-hover:hover .animate-footer-marquee,
+.animate-footer-marquee:hover {
   animation-play-state: paused;
 }
 
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .animate-ribbon,
-  .animate-ribbon-reverse {
+  .animate-ribbon-reverse,
+  .animate-footer-marquee {
     animation: none;
     overflow-x: auto;
   }

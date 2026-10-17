@@ -26,7 +26,7 @@ export const Terms: React.FC = () => {
         <div className="mb-8">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono text-[#8c877b] dark:text-[#a8a69f] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Return to Portfolio</span>
@@ -34,37 +34,37 @@ export const Terms: React.FC = () => {
         </div>
 
         {/* Header */}
-        <header className="space-y-4 pb-8 border-b border-stone-200 dark:border-zinc-800">
+        <header className="space-y-4 pb-8 border-b border-[#dcd6c8] dark:border-[#2d2c27]">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 px-3 py-1 rounded-md border border-cyan-200 dark:border-cyan-800 flex items-center gap-1.5">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#486616] dark:text-[#d5ef9c] bg-[#e8edd9] dark:bg-[#201f1c] px-3 py-1 rounded-md border border-[#486616]/30 dark:border-[#d5ef9c]/30 flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5" />
               Terms of Use & License Terms
             </span>
           </div>
-          <h1 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+          <h1 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
             Terms & Conditions
           </h1>
-          <p className="text-xs sm:text-sm font-mono text-zinc-500 dark:text-zinc-400">
+          <p className="text-xs sm:text-sm font-mono text-[#8c877b] dark:text-[#6e6b63]">
             LAST UPDATED // OCTOBER 2026 · EFFECTIVE DATE // OCTOBER 2026
           </p>
         </header>
 
         {/* Content */}
-        <div className="py-10 space-y-10 text-zinc-700 dark:text-zinc-300 leading-relaxed">
+        <div className="py-10 space-y-10 text-[#58554d] dark:text-[#a8a69f] leading-relaxed">
           
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <CheckSquare className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <h2 className="text-xl font-bold text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2 font-display">
+              <CheckSquare className="w-5 h-5 text-[#486616] dark:text-[#d5ef9c]" />
               1. Acceptance of Terms
             </h2>
             <p className="text-sm sm:text-base">
-              By accessing and viewing this portfolio website (<code className="font-mono text-xs px-1.5 py-0.5 rounded bg-stone-200 dark:bg-zinc-800">codexia-portfolio.vercel.app</code>), you agree to comply with and be bound by these Terms and Conditions. If you do not agree to these terms, please discontinue use of the site.
+              By accessing and viewing this portfolio website (<code className="font-mono text-xs px-1.5 py-0.5 rounded bg-[#eae4d6] dark:bg-[#262521] text-[#1a1917] dark:text-[#f0ede5]">codexia-portfolio.vercel.app</code>), you agree to comply with and be bound by these Terms and Conditions. If you do not agree to these terms, please discontinue use of the site.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <Code2 className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <h2 className="text-xl font-bold text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2 font-display">
+              <Code2 className="w-5 h-5 text-[#486616] dark:text-[#d5ef9c]" />
               2. Intellectual Property & Open-Source Code
             </h2>
             <div className="space-y-3 text-sm sm:text-base">
@@ -78,8 +78,8 @@ export const Terms: React.FC = () => {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <AlertCircle className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <h2 className="text-xl font-bold text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2 font-display">
+              <AlertCircle className="w-5 h-5 text-[#486616] dark:text-[#d5ef9c]" />
               3. Disclaimer of Warranties
             </h2>
             <p className="text-sm sm:text-base">
@@ -88,8 +88,8 @@ export const Terms: React.FC = () => {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <CheckSquare className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+            <h2 className="text-xl font-bold text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2 font-display">
+              <CheckSquare className="w-5 h-5 text-[#486616] dark:text-[#d5ef9c]" />
               4. Permitted Use
             </h2>
             <p className="text-sm sm:text-base">
@@ -97,15 +97,15 @@ export const Terms: React.FC = () => {
             </p>
           </section>
 
-          <section className="space-y-3 p-6 rounded-xl bg-stone-100 dark:bg-zinc-900 border border-stone-200 dark:border-zinc-800">
-            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <Mail className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+          <section className="space-y-3 p-6 rounded-xl bg-[#f4efe5] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27]">
+            <h2 className="text-lg font-bold text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2 font-display">
+              <Mail className="w-4 h-4 text-[#486616] dark:text-[#d5ef9c]" />
               5. Inquiries
             </h2>
             <p className="text-sm">
               For any licensing or technical inquiries regarding these terms:
             </p>
-            <div className="font-mono text-xs text-cyan-600 dark:text-cyan-400 pt-1">
+            <div className="font-mono text-xs text-[#486616] dark:text-[#d5ef9c] pt-1">
               <a href={`mailto:${personalData.socials.email}`} className="hover:underline">
                 {personalData.socials.email}
               </a>
@@ -115,10 +115,10 @@ export const Terms: React.FC = () => {
         </div>
 
         {/* Bottom Back Button */}
-        <div className="pt-8 border-t border-stone-200 dark:border-zinc-800">
+        <div className="pt-8 border-t border-[#dcd6c8] dark:border-[#2d2c27]">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-mono text-xs uppercase font-bold hover:bg-cyan-600 dark:hover:bg-cyan-400 dark:hover:text-zinc-950 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#1a1917] dark:bg-[#f0ede5] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold hover:bg-[#486616] dark:hover:bg-[#d5ef9c] hover:text-[#f8f6f0] dark:hover:text-[#131312] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Portfolio</span>

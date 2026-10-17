@@ -147,7 +147,7 @@ export const PortalOS: React.FC<PortalOSProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-stone-950/60 dark:bg-black/75 backdrop-blur-md"
+            className="fixed inset-0 bg-[#131312]/70 dark:bg-black/80 backdrop-blur-md"
           />
 
           {/* Toast Notification Popover */}
@@ -157,9 +157,9 @@ export const PortalOS: React.FC<PortalOSProps> = ({
                 initial={{ opacity: 0, y: -20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                className="fixed top-6 z-60 px-4 py-2 rounded-xl bg-zinc-900 text-white dark:bg-stone-100 dark:text-zinc-950 font-mono text-xs font-semibold shadow-2xl border border-stone-700/50 flex items-center gap-2 pointer-events-none"
+                className="fixed top-6 z-60 px-4 py-2 rounded-lg bg-[#1a1917] text-[#f8f6f0] dark:bg-[#f0ede5] dark:text-[#131312] font-mono text-xs font-semibold shadow-xl border border-[#383731] dark:border-[#dcd6c8] flex items-center gap-2 pointer-events-none"
               >
-                <Sparkles className="w-3.5 h-3.5 text-sky-400 dark:text-cyan-600" />
+                <Sparkles className="w-3.5 h-3.5 text-[#486616] dark:text-[#d5ef9c]" />
                 <span>{toastMessage}</span>
               </motion.div>
             )}
@@ -171,19 +171,19 @@ export const PortalOS: React.FC<PortalOSProps> = ({
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.96, opacity: 0, y: 15 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-4xl h-[92vh] sm:h-[86vh] max-h-[820px] rounded-3xl bg-stone-50/95 dark:bg-zinc-950/95 border border-stone-200/90 dark:border-zinc-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] flex flex-col overflow-hidden backdrop-blur-xl"
+            className="relative w-full max-w-4xl h-[92vh] sm:h-[86vh] max-h-[820px] rounded-2xl bg-[#f8f6f0]/95 dark:bg-[#131312]/95 border border-[#dcd6c8] dark:border-[#2d2c27] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] flex flex-col overflow-hidden backdrop-blur-xl"
           >
             {/* Top Bar: Brand, Search & Navigation Tabs */}
-            <div className="shrink-0 p-4 sm:p-5 border-b border-stone-200/80 dark:border-zinc-800/80 bg-white/60 dark:bg-zinc-900/40 space-y-3">
+            <div className="shrink-0 p-4 sm:p-5 border-b border-[#dcd6c8] dark:border-[#2d2c27] bg-[#eeeae0]/80 dark:bg-[#1a1917]/80 space-y-3">
               
               {/* Row 1: System Badge, Quick Experience Pills & Close */}
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="font-display font-bold text-sm tracking-tight text-zinc-900 dark:text-zinc-50">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#486616] dark:bg-[#d5ef9c] animate-pulse" />
+                  <span className="font-display font-bold text-sm tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
                     PORTAL OS
                   </span>
-                  <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest px-1.5 py-0.5 rounded bg-stone-200/70 dark:bg-zinc-800 font-bold text-sky-600 dark:text-cyan-400">
+                  <span className="font-mono text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] font-bold text-[#486616] dark:text-[#d5ef9c] border border-[#dcd6c8] dark:border-[#383731]">
                     v2.0
                   </span>
                 </div>
@@ -192,40 +192,40 @@ export const PortalOS: React.FC<PortalOSProps> = ({
                 <div className="hidden sm:flex items-center gap-1 font-mono text-[11px]">
                   <button
                     onClick={() => { setActiveView('discover'); setSearchQuery(''); }}
-                    className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-xs transition-colors cursor-pointer ${
                       activeView === 'discover' && !searchQuery
-                        ? 'bg-zinc-900 text-white dark:bg-stone-100 dark:text-zinc-950 font-bold'
-                        : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100'
+                        ? 'bg-[#1a1917] text-[#f8f6f0] dark:bg-[#d5ef9c] dark:text-[#131312] font-bold'
+                        : 'text-[#58554d] hover:text-[#1a1917] dark:text-[#a8a69f] dark:hover:text-[#f0ede5]'
                     }`}
                   >
                     Atlas
                   </button>
                   <button
                     onClick={() => { setActiveView('margins-notes'); setSearchQuery(''); }}
-                    className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-xs transition-colors cursor-pointer ${
                       activeView === 'margins-notes'
-                        ? 'bg-zinc-900 text-white dark:bg-stone-100 dark:text-zinc-950 font-bold'
-                        : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100'
+                        ? 'bg-[#1a1917] text-[#f8f6f0] dark:bg-[#d5ef9c] dark:text-[#131312] font-bold'
+                        : 'text-[#58554d] hover:text-[#1a1917] dark:text-[#a8a69f] dark:hover:text-[#f0ede5]'
                     }`}
                   >
                     The Margins
                   </button>
                   <button
                     onClick={() => { setActiveView('on-my-desk'); setSearchQuery(''); }}
-                    className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-xs transition-colors cursor-pointer ${
                       activeView === 'on-my-desk'
-                        ? 'bg-zinc-900 text-white dark:bg-stone-100 dark:text-zinc-950 font-bold'
-                        : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100'
+                        ? 'bg-[#1a1917] text-[#f8f6f0] dark:bg-[#d5ef9c] dark:text-[#131312] font-bold'
+                        : 'text-[#58554d] hover:text-[#1a1917] dark:text-[#a8a69f] dark:hover:text-[#f0ede5]'
                     }`}
                   >
                     Desk
                   </button>
                   <button
                     onClick={() => { setActiveView('recruiter-mode'); setSearchQuery(''); }}
-                    className={`px-2.5 py-1 rounded-lg transition-colors cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-xs transition-colors cursor-pointer ${
                       activeView === 'recruiter-mode'
-                        ? 'bg-zinc-900 text-white dark:bg-stone-100 dark:text-zinc-950 font-bold'
-                        : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100'
+                        ? 'bg-[#1a1917] text-[#f8f6f0] dark:bg-[#d5ef9c] dark:text-[#131312] font-bold'
+                        : 'text-[#58554d] hover:text-[#1a1917] dark:text-[#a8a69f] dark:hover:text-[#f0ede5]'
                     }`}
                   >
                     Recruiter
@@ -234,7 +234,7 @@ export const PortalOS: React.FC<PortalOSProps> = ({
 
                 <button
                   onClick={onClose}
-                  className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-stone-200/50 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-sm text-[#8c877b] hover:text-[#1a1917] dark:hover:text-[#f0ede5] hover:bg-[#dcd6c8]/50 dark:hover:bg-[#201f1c] transition-colors cursor-pointer"
                   aria-label="Close Portal OS"
                 >
                   <X className="w-4 h-4" />
@@ -243,19 +243,19 @@ export const PortalOS: React.FC<PortalOSProps> = ({
 
               {/* Row 2: Universal Search Input */}
               <div className="relative flex items-center">
-                <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 pointer-events-none" />
+                <Search className="w-4 h-4 text-[#8c877b] dark:text-[#a8a69f] absolute left-3.5 pointer-events-none" />
                 <input
                   ref={searchInputRef}
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Universal search: projects, guardrails, skills, hackathons, actions..."
-                  className="w-full pl-10 pr-12 py-3 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 text-sm font-sans text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:focus:ring-cyan-500/20 focus:border-sky-500 dark:focus:border-cyan-400 shadow-2xs transition-all"
+                  className="w-full pl-10 pr-12 py-3 rounded-xl bg-[#f4efe5] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] text-sm font-sans text-[#1a1917] dark:text-[#f0ede5] placeholder-[#8c877b] dark:placeholder-[#6e6b63] focus:outline-none focus:ring-2 focus:ring-[#486616]/20 dark:focus:ring-[#d5ef9c]/20 focus:border-[#486616] dark:focus:border-[#d5ef9c] shadow-2xs transition-all"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-3.5 p-1 rounded-md text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer"
+                    className="absolute right-3.5 p-1 rounded-sm text-[#8c877b] hover:text-[#1a1917] dark:hover:text-[#f0ede5] cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -318,26 +318,26 @@ export const PortalOS: React.FC<PortalOSProps> = ({
             </div>
 
             {/* Bottom Telemetry Status Bar */}
-            <div className="shrink-0 px-4 sm:px-6 py-3 border-t border-stone-200/80 dark:border-zinc-800/80 bg-stone-100/70 dark:bg-zinc-900/60 flex items-center justify-between font-mono text-[11px] text-zinc-500 dark:text-zinc-400">
+            <div className="shrink-0 px-4 sm:px-6 py-3 border-t border-[#dcd6c8] dark:border-[#2d2c27] bg-[#eeeae0]/90 dark:bg-[#1a1917]/90 flex items-center justify-between font-mono text-[11px] text-[#8c877b] dark:text-[#a8a69f]">
               <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#486616] dark:bg-[#d5ef9c]" />
                 <span className="hidden sm:inline">STATE: DETERMINISTIC // V2.0</span>
                 <span className="sm:hidden">PORTAL OS V2</span>
-                <span className="text-stone-300 dark:text-zinc-700">·</span>
-                <span className="text-zinc-400">22.57°N, 88.36°E</span>
+                <span className="text-[#bfb8a6] dark:text-[#494841]">·</span>
+                <span className="text-[#8c877b] dark:text-[#6e6b63]">22.57°N, 88.36°E</span>
               </div>
 
-              <div className="flex items-center gap-2 sm:gap-4 text-[10px] text-zinc-400">
+              <div className="flex items-center gap-2 sm:gap-4 text-[10px] text-[#8c877b] dark:text-[#a8a69f]">
                 <span className="hidden md:flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-zinc-800 border border-stone-200 dark:border-zinc-700 font-bold">↑↓</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] border border-[#dcd6c8] dark:border-[#383731] font-bold text-[#1a1917] dark:text-[#f0ede5]">↑↓</kbd>
                   <span>Navigate</span>
                 </span>
                 <span className="hidden md:flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-zinc-800 border border-stone-200 dark:border-zinc-700 font-bold">↵</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] border border-[#dcd6c8] dark:border-[#383731] font-bold text-[#1a1917] dark:text-[#f0ede5]">↵</kbd>
                   <span>Select</span>
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-zinc-800 border border-stone-200 dark:border-zinc-700 font-bold">ESC</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] border border-[#dcd6c8] dark:border-[#383731] font-bold text-[#1a1917] dark:text-[#f0ede5]">ESC</kbd>
                   <span>Back / Close</span>
                 </span>
               </div>

@@ -6,6 +6,7 @@ import { ExperienceCarousel } from '../components/ExperienceCarousel';
 import { SkillOrbit } from '../components/SkillOrbit';
 import { ProjectsEditorial } from '../components/ProjectsEditorial';
 import { HackathonsSection } from '../components/HackathonsSection';
+import { Writing } from '../components/Writing';
 import { GitHubBuildLog } from '../components/GitHubBuildLog';
 import { ContactOrbit } from '../components/ContactOrbit';
 
@@ -65,6 +66,7 @@ export const Home: React.FC = () => {
         <SkillOrbit />
         <ProjectsEditorial />
         <HackathonsSection />
+        <Writing />
         <GitHubBuildLog />
         <ContactOrbit />
       </main>

@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { 
-  Home, 
-  User, 
-  Trophy, 
-  Folder, 
-  Cpu, 
-  Zap, 
-  Mail, 
-  Github, 
   Sun, 
   Moon, 
-  Search,
   Command,
-  MessageSquare
+  MessageSquare,
+  Github,
+  Menu,
+  X
 } from 'lucide-react';
 import { personalData } from '../data/personal';
 
@@ -23,11 +17,10 @@ interface TopBarProps {
   onOpenPortal?: (view?: string) => void;
 }
 
-interface NavItem {
+interface NavChapter {
   id: string;
+  num: string;
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
-  href: string;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({ 
@@ -40,39 +33,16 @@ export const TopBar: React.FC<TopBarProps> = ({
   const isHome = location.pathname === '/';
 
   const [activeSection, setActiveSection] = useState<string>('hero');
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  
-  // Real-time digital clock state
-  const [time, setTime] = useState<{ hours: string; minutes: string; seconds: string }>({
-    hours: '00',
-    minutes: '00',
-    seconds: '00'
-  });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
-  // Update clock every second
-  useEffect(() => {
-    const updateClock = () => {
-      const now = new Date();
-      setTime({
-        hours: now.getHours().toString().padStart(2, '0'),
-        minutes: now.getMinutes().toString().padStart(2, '0'),
-        seconds: now.getSeconds().toString().padStart(2, '0')
-      });
-    };
-
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Scrollspy to detect active section
+  // Scrollspy to detect active section on home page
   useEffect(() => {
     if (!isHome) {
       setActiveSection('projects');
       return;
     }
 
-    const sections = ['hero', 'about', 'experience', 'skills', 'projects', 'hackathons', 'contact'];
+    const sections = ['hero', 'about', 'skills', 'projects', 'hackathons', 'writing', 'contact'];
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
@@ -103,219 +73,176 @@ export const TopBar: React.FC<TopBarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHome]);
 
-  const navItems: NavItem[] = [
-    { id: 'hero', label: 'Home', icon: Home, href: '#' },
-    { id: 'about', label: 'About', icon: User, href: '#about' },
-    { id: 'experience', label: 'Experience', icon: Trophy, href: '#experience' },
-    { id: 'skills', label: 'Capabilities', icon: Cpu, href: '#skills' },
-    { id: 'projects', label: 'Builds', icon: Folder, href: '#projects' },
-    { id: 'hackathons', label: 'Hackathons', icon: Zap, href: '#hackathons' },
-    { id: 'contact', label: 'Contact', icon: Mail, href: '#contact' },
+  const navChapters: NavChapter[] = [
+    { id: 'about', num: '01', label: 'Intent' },
+    { id: 'skills', num: '02', label: 'Capabilities' },
+    { id: 'projects', num: '03', label: 'Builds' },
+    { id: 'hackathons', num: '04', label: 'Field Notes' },
+    { id: 'writing', num: '05', label: 'Dispatches' },
+    { id: 'contact', num: '06', label: 'Contact' }
   ];
 
-  const handleNavClick = (item: NavItem) => {
+  const handleNavClick = (sectionId: string) => {
+    setMobileMenuOpen(false);
     if (isHome) {
-      if (item.id === 'hero') {
+      if (sectionId === 'hero') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setActiveSection('hero');
       } else {
-        const el = document.getElementById(item.id);
+        const el = document.getElementById(sectionId);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth' });
-          setActiveSection(item.id);
+          setActiveSection(sectionId);
         }
       }
     } else {
-      if (item.id === 'hero') {
+      if (sectionId === 'hero') {
         navigate('/');
       } else {
-        navigate(`/${item.href}`);
+        navigate(`/#${sectionId}`);
       }
     }
   };
 
   return (
-    <header className="fixed top-3 sm:top-5 left-0 right-0 z-40 pointer-events-none px-3 sm:px-6">
-      <div className="max-w-7xl mx-auto flex items-center justify-between relative">
+    <header className="fixed top-0 left-0 right-0 z-40 bg-[#f8f6f0]/90 dark:bg-[#131312]/90 backdrop-blur-md border-b border-[#dcd6c8] dark:border-[#2d2c27] transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-16 sm:h-18 flex items-center justify-between">
         
-        {/* Left Floating Brand / Status Pill */}
-        <div className="hidden lg:flex items-center pointer-events-auto">
+        {/* Left: Brand & Identity */}
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => {
-              if (isHome) window.scrollTo({ top: 0, behavior: 'smooth' });
-              else navigate('/');
-            }}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-stone-100/90 dark:bg-zinc-900/90 backdrop-blur-md border border-stone-200/90 dark:border-zinc-800 shadow-[0_4px_20px_rgb(0,0,0,0.06)] dark:shadow-[0_4px_20px_rgb(0,0,0,0.3)] hover:border-stone-400 dark:hover:border-zinc-700 transition-all cursor-pointer group"
+            onClick={() => handleNavClick('hero')}
+            className="flex items-center gap-2.5 text-left cursor-pointer group"
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-            <span className="font-display font-bold text-xs tracking-tight text-zinc-900 dark:text-zinc-100">
-              SRINJOY
+            <span className="w-2 h-2 rounded-full bg-[#486616] dark:bg-[#d5ef9c] animate-pulse" />
+            <span className="font-display font-bold text-sm sm:text-base tracking-tight text-[#1a1917] dark:text-[#f0ede5] group-hover:text-[#486616] dark:group-hover:text-[#d5ef9c] transition-colors">
+              SRINJOY PRAMANICK
             </span>
-            <span className="font-mono text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
-              // ARCHITECT // V2
+            <span className="hidden sm:inline font-mono text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-widest">
+              // ATELIER
             </span>
           </button>
         </div>
 
-        {/* Center Floating Dock Pill (Masum.tech style island) */}
-        <div className="mx-auto flex items-center pointer-events-auto">
-          <nav
-            aria-label="Floating navigation dock"
-            className="flex items-center gap-1 sm:gap-1.5 p-1.5 rounded-full bg-stone-100/90 dark:bg-zinc-900/90 backdrop-blur-md border border-stone-200/90 dark:border-zinc-800 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.4)] transition-all duration-300"
-          >
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeSection === item.id;
-              const isHovered = hoveredItem === item.id;
+        {/* Center: Desktop Editorial Chapter Links */}
+        <nav
+          aria-label="Main chapter navigation"
+          className="hidden md:flex items-center gap-1 lg:gap-2 font-mono text-xs text-[#58554d] dark:text-[#a8a69f]"
+        >
+          {navChapters.map((ch) => {
+            const isActive = activeSection === ch.id;
 
-              return (
-                <div key={item.id} className="relative">
-                  <button
-                    onClick={() => handleNavClick(item)}
-                    onMouseEnter={() => setHoveredItem(item.id)}
-                    onMouseLeave={() => setHoveredItem(null)}
-                    aria-label={item.label}
-                    className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer ${
-                      isActive
-                        ? 'bg-zinc-900 text-white dark:bg-stone-100 dark:text-zinc-950 shadow-sm scale-100'
-                        : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-stone-200/70 dark:hover:bg-zinc-800/70'
-                    }`}
-                  >
-                    <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 group-hover:scale-110" />
-                  </button>
-
-                  {/* Micro Tooltip */}
-                  {isHovered && (
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 pointer-events-none z-50">
-                      <div className="px-2 py-0.5 rounded-md bg-zinc-900 dark:bg-stone-100 text-white dark:text-zinc-950 font-mono text-[10px] tracking-wider uppercase font-semibold whitespace-nowrap shadow-md">
-                        {item.label}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-
-            {/* Subtle Divider */}
-            <div className="h-4 w-px bg-stone-300 dark:bg-zinc-700/80 mx-0.5 sm:mx-1" />
-
-            {/* Portal OS Search Trigger */}
-            <div className="relative">
+            return (
               <button
-                onClick={() => onOpenPortal?.()}
-                onMouseEnter={() => setHoveredItem('portal')}
-                onMouseLeave={() => setHoveredItem(null)}
-                aria-label="Open PORTAL OS Command Center"
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-zinc-500 hover:text-sky-600 dark:text-zinc-400 dark:hover:text-cyan-400 hover:bg-stone-200/70 dark:hover:bg-zinc-800/70 transition-all duration-200 cursor-pointer"
+                key={ch.id}
+                onClick={() => handleNavClick(ch.id)}
+                className={`px-3 py-1.5 rounded-xs transition-colors cursor-pointer flex items-center gap-1.5 ${
+                  isActive
+                    ? 'bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-bold'
+                    : 'hover:text-[#1a1917] dark:hover:text-[#f0ede5] hover:bg-[#eeeae0] dark:hover:bg-[#1a1917]'
+                }`}
               >
-                <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="opacity-60 text-[10px]">{ch.num}.</span>
+                <span>{ch.label}</span>
               </button>
+            );
+          })}
+        </nav>
 
-              {hoveredItem === 'portal' && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 pointer-events-none z-50">
-                  <div className="px-2 py-0.5 rounded-md bg-zinc-900 dark:bg-stone-100 text-white dark:text-zinc-950 font-mono text-[10px] tracking-wider uppercase font-semibold whitespace-nowrap shadow-md">
-                    PORTAL OS (⌘K)
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Share Thoughts / Feedback Trigger */}
-            <div className="relative">
-              <button
-                onClick={() => onOpenPortal?.('margins-notes')}
-                onMouseEnter={() => setHoveredItem('thoughts')}
-                onMouseLeave={() => setHoveredItem(null)}
-                aria-label="Share Thoughts and Reviews"
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-zinc-500 hover:text-sky-600 dark:text-zinc-400 dark:hover:text-cyan-400 hover:bg-stone-200/70 dark:hover:bg-zinc-800/70 transition-all duration-200 cursor-pointer"
-              >
-                <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              </button>
-
-              {hoveredItem === 'thoughts' && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 pointer-events-none z-50">
-                  <div className="px-2 py-0.5 rounded-md bg-zinc-900 dark:bg-stone-100 text-white dark:text-zinc-950 font-mono text-[10px] tracking-wider uppercase font-semibold whitespace-nowrap shadow-md">
-                    Share Thoughts
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* GitHub Profile Icon */}
-            <div className="relative">
-              <a
-                href={personalData.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                onMouseEnter={() => setHoveredItem('github')}
-                onMouseLeave={() => setHoveredItem(null)}
-                aria-label="GitHub Profile"
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-stone-200/70 dark:hover:bg-zinc-800/70 transition-all duration-200 cursor-pointer"
-              >
-                <Github className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              </a>
-
-              {hoveredItem === 'github' && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 pointer-events-none z-50">
-                  <div className="px-2 py-0.5 rounded-md bg-zinc-900 dark:bg-stone-100 text-white dark:text-zinc-950 font-mono text-[10px] tracking-wider uppercase font-semibold whitespace-nowrap shadow-md">
-                    GitHub
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Theme Toggle Icon */}
-            {setDarkMode && (
-              <div className="relative">
-                <button
-                  onClick={() => setDarkMode(!darkMode)}
-                  onMouseEnter={() => setHoveredItem('theme')}
-                  onMouseLeave={() => setHoveredItem(null)}
-                  aria-label="Toggle color theme"
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-stone-200/70 dark:hover:bg-zinc-800/70 transition-all duration-200 cursor-pointer"
-                >
-                  {darkMode ? (
-                    <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 hover:rotate-45 transition-transform" />
-                  ) : (
-                    <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-600 hover:-rotate-12 transition-transform" />
-                  )}
-                </button>
-
-                {hoveredItem === 'theme' && (
-                  <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 pointer-events-none z-50">
-                    <div className="px-2 py-0.5 rounded-md bg-zinc-900 dark:bg-stone-100 text-white dark:text-zinc-950 font-mono text-[10px] tracking-wider uppercase font-semibold whitespace-nowrap shadow-md">
-                      {darkMode ? 'Light' : 'Dark'}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </nav>
-        </div>
-
-        {/* Right Floating Pills: Live Digital Clock & ⌘K Badge */}
-        <div className="hidden md:flex items-center gap-2 pointer-events-auto">
-          {/* Live Digital Clock */}
-          <div className="flex items-center px-3.5 py-2 rounded-full bg-stone-100/90 dark:bg-zinc-900/90 backdrop-blur-md border border-stone-200/90 dark:border-zinc-800 shadow-[0_4px_20px_rgb(0,0,0,0.06)] dark:shadow-[0_4px_20px_rgb(0,0,0,0.3)] font-mono text-xs text-zinc-700 dark:text-zinc-300">
-            <span className="font-semibold text-zinc-900 dark:text-zinc-100">{time.hours}</span>
-            <span className="mx-1 text-zinc-400 animate-pulse">:</span>
-            <span className="font-semibold text-zinc-900 dark:text-zinc-100">{time.minutes}</span>
-            <span className="mx-1 text-zinc-400 animate-pulse">:</span>
-            <span className="text-[11px] font-bold text-sky-600 dark:text-cyan-400">{time.seconds}</span>
-          </div>
-
-          {/* ⌘K Trigger Button for PORTAL OS */}
+        {/* Right: Actions, Command Center, Margins & Theme */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          
+          {/* ⌘K Command Center Launcher */}
           <button
             onClick={() => onOpenPortal?.()}
-            aria-label="Open PORTAL OS Command Center"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-stone-100/90 dark:bg-zinc-900/90 backdrop-blur-md border border-stone-200/90 dark:border-zinc-800 shadow-[0_4px_20px_rgb(0,0,0,0.06)] dark:shadow-[0_4px_20px_rgb(0,0,0,0.3)] font-mono text-xs text-zinc-600 dark:text-zinc-400 hover:border-sky-500 hover:text-sky-600 dark:hover:border-cyan-500 dark:hover:text-cyan-400 transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
+            aria-label="Open Command Center (Cmd+K)"
           >
-            <Command className="w-3 h-3" />
-            <span>K</span>
+            <Command className="w-3.5 h-3.5 opacity-80" />
+            <span className="hidden sm:inline font-semibold">PORTAL</span>
+            <span className="text-[10px] text-[#8c877b] dark:text-[#a8a69f]">⌘K</span>
           </button>
+
+          {/* The Margins (Guestbook) Trigger */}
+          <button
+            onClick={() => onOpenPortal?.('margins-notes')}
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
+            aria-label="Open The Margins Guestbook"
+          >
+            <MessageSquare className="w-3.5 h-3.5 opacity-80" />
+            <span className="font-semibold">MARGINS</span>
+          </button>
+
+          {/* Theme Toggle */}
+          {setDarkMode && (
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="p-2 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#bfb8a6] transition-colors cursor-pointer"
+              aria-label="Toggle dark/light theme"
+            >
+              {darkMode ? (
+                <Sun className="w-4 h-4 text-[#d5ef9c]" />
+              ) : (
+                <Moon className="w-4 h-4 text-[#486616]" />
+              )}
+            </button>
+          )}
+
+          {/* Mobile Hamburger Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] transition-colors cursor-pointer"
+            aria-label="Toggle mobile navigation menu"
+          >
+            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          </button>
+
         </div>
 
       </div>
+
+      {/* Mobile Menu Dropdown Drawer */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-[#dcd6c8] dark:border-[#2d2c27] bg-[#f8f6f0] dark:bg-[#131312] px-4 py-6 space-y-4 font-mono text-xs animate-fadeIn">
+          <div className="text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-wider">
+            CHAPTER DIRECTORY:
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            {navChapters.map((ch) => (
+              <button
+                key={ch.id}
+                onClick={() => handleNavClick(ch.id)}
+                className="p-3 text-left rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] text-[#1a1917] dark:text-[#f0ede5] font-semibold"
+              >
+                <div className="text-[10px] text-[#8c877b] dark:text-[#a8a69f]">{ch.num}.</div>
+                <div>{ch.label}</div>
+              </button>
+            ))}
+          </div>
+
+          <div className="pt-2 border-t border-[#dcd6c8] dark:border-[#2d2c27] flex items-center justify-between text-[#8c877b] dark:text-[#a8a69f]">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenPortal?.('margins-notes');
+              }}
+              className="text-[#486616] dark:text-[#d5ef9c] font-bold"
+            >
+              Open The Margins Guestbook →
+            </button>
+            <a
+              href={personalData.socials.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1"
+            >
+              <Github className="w-3.5 h-3.5" />
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

@@ -80,30 +80,30 @@ export const AuthCallback: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-stone-50 dark:bg-zinc-950 flex flex-col items-center justify-center p-6 text-zinc-900 dark:text-zinc-50 font-sans selection:bg-cyan-500/20 selection:text-cyan-400">
+    <div className="min-h-screen bg-[#f8f6f0] dark:bg-[#131312] flex flex-col items-center justify-center p-6 text-[#1a1917] dark:text-[#f0ede5] font-sans selection:bg-[#486616]/20 selection:text-[#1a1917] dark:selection:bg-[#d5ef9c]/30 dark:selection:text-[#d5ef9c]">
       {/* Background Subtle Technical Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e0f2fe_1px,transparent_1px),linear-gradient(to_bottom,#e0f2fe_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_40%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#dcd6c8_1px,transparent_1px),linear-gradient(to_bottom,#dcd6c8_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#2d2c27_1px,transparent_1px),linear-gradient(to_bottom,#2d2c27_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_40%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
 
-      <div className="relative z-10 w-full max-w-md rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 shadow-2xl p-8 text-center space-y-6">
+      <div className="relative z-10 w-full max-w-md rounded-2xl bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] shadow-2xl p-8 text-center space-y-6">
         
         {/* Status Badge */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 font-mono text-[11px] font-bold uppercase tracking-wider">
-          <ShieldCheck className="w-3.5 h-3.5 text-sky-600 dark:text-cyan-400" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f4efe5] dark:bg-[#201f1c] text-[#486616] dark:text-[#d5ef9c] font-mono text-[11px] font-bold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731]">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#486616] dark:text-[#d5ef9c]" />
           <span>AUTHENTIC VISITOR HANDSHAKE</span>
         </div>
 
         {/* Dynamic State View */}
         {status === 'verifying' && (
           <div className="space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-sky-50 dark:bg-cyan-950/40 border border-sky-200 dark:border-cyan-800/80 flex items-center justify-center mx-auto text-sky-600 dark:text-cyan-400">
-              <span className="w-4 h-4 rounded-full border-2 border-sky-600 dark:border-cyan-400 border-t-transparent animate-spin" />
+            <div className="w-12 h-12 rounded-2xl bg-[#e8edd9] dark:bg-[#201f1c] border border-[#486616]/30 dark:border-[#d5ef9c]/30 flex items-center justify-center mx-auto text-[#486616] dark:text-[#d5ef9c]">
+              <span className="w-4 h-4 rounded-full border-2 border-[#486616] dark:border-[#d5ef9c] border-t-transparent animate-spin" />
             </div>
 
             <div className="space-y-1">
-              <h2 className="font-display text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
                 Verifying Credentials
               </h2>
-              <p className="font-sans text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="font-sans text-xs sm:text-sm text-[#58554d] dark:text-[#a8a69f]">
                 Completing secure PKCE exchange with OAuth provider and restoring your workspace...
               </p>
             </div>
@@ -112,16 +112,16 @@ export const AuthCallback: React.FC = () => {
 
         {status === 'success' && (
           <div className="space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 flex items-center justify-center mx-auto text-emerald-600 dark:text-emerald-400">
+            <div className="w-12 h-12 rounded-2xl bg-[#e8edd9] dark:bg-[#201f1c] border border-[#486616]/40 dark:border-[#d5ef9c]/40 flex items-center justify-center mx-auto text-[#486616] dark:text-[#d5ef9c]">
               <CheckCircle2 className="w-6 h-6" />
             </div>
 
             <div className="space-y-1">
-              <h2 className="font-display text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
                 Identity Verified
               </h2>
-              <p className="font-sans text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
-                Welcome back! Returning you straight to <span className="font-editorial italic">The Margins</span>...
+              <p className="font-sans text-xs sm:text-sm text-[#58554d] dark:text-[#a8a69f]">
+                Welcome back! Returning you straight to <span className="font-serif italic">The Margins</span>...
               </p>
             </div>
           </div>
@@ -134,7 +134,7 @@ export const AuthCallback: React.FC = () => {
             </div>
 
             <div className="space-y-1">
-              <h2 className="font-display text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
                 Verification Incomplete
               </h2>
               <p className="font-sans text-xs text-rose-600 dark:text-rose-400">
@@ -144,7 +144,7 @@ export const AuthCallback: React.FC = () => {
 
             <button
               onClick={() => navigate('/?portal=margins')}
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 font-mono text-xs uppercase font-bold tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors shadow-xs"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors shadow-xs"
             >
               <span>Return to The Margins</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -153,7 +153,7 @@ export const AuthCallback: React.FC = () => {
         )}
 
         {/* Telemetry Footer */}
-        <div className="pt-4 border-t border-stone-100 dark:border-zinc-800/80 font-mono text-[10px] text-zinc-400">
+        <div className="pt-4 border-t border-[#dcd6c8] dark:border-[#2d2c27] font-mono text-[10px] text-[#8c877b] dark:text-[#6e6b63]">
           <span>PORTAL OS // PKCE PROTOCOL v2.0</span>
         </div>
 

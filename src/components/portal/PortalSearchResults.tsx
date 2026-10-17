@@ -59,15 +59,15 @@ export const PortalSearchResults: React.FC<PortalSearchResultsProps> = ({
   if (results.length === 0) {
     return (
       <div className="py-12 px-4 text-center space-y-4 animate-fadeIn">
-        <div className="w-12 h-12 rounded-2xl bg-stone-100 dark:bg-zinc-800 flex items-center justify-center mx-auto text-zinc-400">
+        <div className="w-12 h-12 rounded-2xl bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] flex items-center justify-center mx-auto text-[#8c877b] dark:text-[#a8a69f]">
           <Terminal className="w-6 h-6 opacity-60" />
         </div>
         <div>
-          <h3 className="font-display text-base font-bold text-zinc-800 dark:text-zinc-200">
+          <h3 className="font-display text-base font-bold text-[#1a1917] dark:text-[#f0ede5]">
             No matching intelligence vectors found for "{query}"
           </h3>
-          <p className="font-sans text-xs text-zinc-500 dark:text-zinc-400 mt-1 max-w-sm mx-auto">
-            Try searching for alternate keywords such as <code className="font-mono text-sky-600 dark:text-cyan-400">trustos</code>, <code className="font-mono text-sky-600 dark:text-cyan-400">resume</code>, <code className="font-mono text-sky-600 dark:text-cyan-400">fastapi</code>, or <code className="font-mono text-sky-600 dark:text-cyan-400">crazybuild</code>.
+          <p className="font-sans text-xs text-[#58554d] dark:text-[#a8a69f] mt-1 max-w-sm mx-auto">
+            Try searching for alternate keywords such as <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">trustos</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">resume</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">fastapi</code>, or <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">crazybuild</code>.
           </p>
         </div>
       </div>
@@ -86,7 +86,7 @@ export const PortalSearchResults: React.FC<PortalSearchResultsProps> = ({
 
         return (
           <div key={cat} className="space-y-1.5">
-            <div className="font-mono text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-2 flex items-center justify-between">
+            <div className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#8c877b] dark:text-[#6e6b63] px-2 flex items-center justify-between">
               <span>{cat}</span>
               <span className="opacity-60">{catResults.length}</span>
             </div>
@@ -104,15 +104,15 @@ export const PortalSearchResults: React.FC<PortalSearchResultsProps> = ({
                     onMouseEnter={() => onHoverIndex(currentIndex)}
                     className={`w-full flex items-center justify-between p-3 rounded-xl text-left transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-sky-50/90 dark:bg-cyan-950/40 border border-sky-300 dark:border-cyan-600 shadow-2xs'
-                        : 'bg-white/60 dark:bg-zinc-900/40 border border-stone-200/60 dark:border-zinc-800/60 hover:bg-stone-50 dark:hover:bg-zinc-800/50'
+                        ? 'bg-[#f4efe5] dark:bg-[#201f1c] border border-[#486616] dark:border-[#d5ef9c] shadow-2xs'
+                        : 'bg-[#eeeae0]/50 dark:bg-[#1a1917]/50 border border-[#dcd6c8]/60 dark:border-[#2d2c27]/60 hover:bg-[#f4efe5] dark:hover:bg-[#201f1c]'
                     }`}
                   >
                     <div className="flex items-center gap-3.5 min-w-0">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
                         isSelected
-                          ? 'bg-sky-600 dark:bg-cyan-400 text-white dark:text-zinc-950'
-                          : 'bg-stone-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400'
+                          ? 'bg-[#486616] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312]'
+                          : 'bg-[#f4efe5] dark:bg-[#201f1c] text-[#58554d] dark:text-[#a8a69f] border border-[#dcd6c8]/50 dark:border-[#383731]/50'
                       }`}>
                         <Icon className="w-4 h-4" />
                       </div>
@@ -120,17 +120,17 @@ export const PortalSearchResults: React.FC<PortalSearchResultsProps> = ({
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
                           <span className={`font-sans text-xs sm:text-sm font-semibold truncate ${
-                            isSelected ? 'text-sky-900 dark:text-cyan-200 font-bold' : 'text-zinc-900 dark:text-zinc-100'
+                            isSelected ? 'text-[#486616] dark:text-[#d5ef9c] font-bold' : 'text-[#1a1917] dark:text-[#f0ede5]'
                           }`}>
                             {item.title}
                           </span>
                           {item.badge && (
-                            <span className="font-mono text-[9px] uppercase px-1.5 py-0.2 rounded bg-stone-100 dark:bg-zinc-800 text-zinc-500 font-medium shrink-0">
+                            <span className="font-mono text-[9px] uppercase px-1.5 py-0.5 rounded bg-[#f4efe5] dark:bg-[#201f1c] text-[#8c877b] dark:text-[#a8a69f] border border-[#dcd6c8] dark:border-[#383731] font-medium shrink-0">
                               {item.badge}
                             </span>
                           )}
                         </div>
-                        <p className="font-sans text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
+                        <p className="font-sans text-[11px] sm:text-xs text-[#58554d] dark:text-[#a8a69f] truncate mt-0.5">
                           {item.subtitle}
                         </p>
                       </div>
@@ -138,12 +138,12 @@ export const PortalSearchResults: React.FC<PortalSearchResultsProps> = ({
 
                     <div className="flex items-center gap-2 shrink-0 pl-2">
                       <span className={`font-mono text-[10px] uppercase font-bold opacity-0 group-hover:opacity-100 transition-opacity ${
-                        isSelected ? 'opacity-100 text-sky-600 dark:text-cyan-400' : 'text-zinc-400'
+                        isSelected ? 'opacity-100 text-[#486616] dark:text-[#d5ef9c]' : 'text-[#8c877b] dark:text-[#6e6b63]'
                       }`}>
                         Select
                       </span>
                       <ArrowRight className={`w-3.5 h-3.5 transition-transform ${
-                        isSelected ? 'text-sky-600 dark:text-cyan-400 translate-x-1' : 'text-zinc-400'
+                        isSelected ? 'text-[#486616] dark:text-[#d5ef9c] translate-x-1' : 'text-[#8c877b] dark:text-[#6e6b63]'
                       }`} />
                     </div>
                   </button>

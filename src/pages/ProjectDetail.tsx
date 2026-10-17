@@ -33,15 +33,15 @@ export const ProjectDetail: React.FC = () => {
           title="Project Not Found - Srinjoy Pramanick"
           description="The requested project case study could not be found."
         />
-        <h1 className="font-display text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">
+        <h1 className="font-display text-3xl font-bold text-[#1a1917] dark:text-[#f0ede5] mb-4">
           Project Not Found
         </h1>
-        <p className="font-mono text-sm text-zinc-500 mb-6">
+        <p className="font-mono text-sm text-[#8c877b] dark:text-[#a8a69f] mb-6">
           The requested project "{slug}" does not exist in the project index.
         </p>
         <button
           onClick={() => navigate('/')}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-mono text-xs uppercase font-bold hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Return to Selected Builds</span>
@@ -85,7 +85,7 @@ export const ProjectDetail: React.FC = () => {
       <div className="mb-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono text-[#8c877b] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Selected Builds</span>
@@ -93,26 +93,26 @@ export const ProjectDetail: React.FC = () => {
       </div>
 
       {/* Header Banner */}
-      <header className="space-y-6 pb-10 border-b border-stone-200/80 dark:border-zinc-800/80">
+      <header className="space-y-6 pb-10 border-b border-[#dcd6c8] dark:border-[#2d2c27]">
         
         <div className="flex flex-wrap items-center gap-3 font-mono">
-          <span className="text-xs font-bold text-sky-700 dark:text-cyan-400 bg-sky-50 dark:bg-cyan-950/60 px-2.5 py-1 rounded-md border border-sky-200 dark:border-cyan-800">
+          <span className="text-xs font-bold text-[#486616] dark:text-[#d5ef9c] bg-[#e8edd9] dark:bg-[#201f1c] px-2.5 py-1 rounded-md border border-[#486616]/30 dark:border-[#d5ef9c]/30">
             {project.number}
           </span>
-          <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+          <span className="text-xs font-semibold text-[#58554d] dark:text-[#a8a69f] uppercase tracking-wider">
             {project.category}
           </span>
-          <span className="text-stone-300 dark:text-zinc-700">·</span>
-          <span className="text-xs text-zinc-500 dark:text-zinc-400">
+          <span className="text-[#bfb8a6] dark:text-[#383731]">·</span>
+          <span className="text-xs text-[#8c877b] dark:text-[#6e6b63]">
             RELEASED // {project.year}
           </span>
         </div>
 
-        <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-zinc-900 dark:text-zinc-50 leading-[0.98]">
+        <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-[#1a1917] dark:text-[#f0ede5] leading-[0.98]">
           {project.title}
         </h1>
 
-        <p className="font-sans text-lg sm:text-2xl text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal text-pretty max-w-3xl">
+        <p className="font-sans text-lg sm:text-2xl text-[#58554d] dark:text-[#a8a69f] leading-relaxed font-normal text-pretty max-w-3xl">
           {project.tagline}
         </p>
 
@@ -123,7 +123,7 @@ export const ProjectDetail: React.FC = () => {
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="text-xs px-3 py-1 rounded-md bg-stone-100 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 border border-stone-200 dark:border-zinc-800"
+                className="text-xs px-3 py-1 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#383731]"
               >
                 {t}
               </span>
@@ -135,7 +135,7 @@ export const ProjectDetail: React.FC = () => {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs uppercase font-bold tracking-wider hover:bg-sky-600 dark:hover:bg-cyan-400 transition-colors shadow-2xs"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] text-xs uppercase font-bold tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors shadow-2xs"
             >
               <Github className="w-4 h-4" />
               <span>Source Code</span>
@@ -146,7 +146,7 @@ export const ProjectDetail: React.FC = () => {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs uppercase font-bold tracking-wider border border-stone-300 dark:border-zinc-800 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] text-xs uppercase font-bold tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] hover:text-[#486616] dark:hover:border-[#d5ef9c] dark:hover:text-[#d5ef9c] transition-colors shadow-2xs"
               >
                 <span>Live Demo</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -162,12 +162,12 @@ export const ProjectDetail: React.FC = () => {
       <div className="py-12 space-y-14">
         
         {/* Executive Thesis with Instrument Serif Italic Callout */}
-        <section className="p-7 sm:p-9 rounded-2xl bg-sky-50/50 dark:bg-cyan-950/20 border border-sky-200/60 dark:border-cyan-900/40 space-y-3">
-          <div className="font-mono text-xs text-sky-700 dark:text-cyan-400 uppercase tracking-widest flex items-center gap-2 font-bold">
+        <section className="p-7 sm:p-9 rounded-2xl bg-[#e8edd9]/40 dark:bg-[#1a1917] border border-[#486616]/30 dark:border-[#d5ef9c]/30 space-y-3">
+          <div className="font-mono text-xs text-[#486616] dark:text-[#d5ef9c] uppercase tracking-widest flex items-center gap-2 font-bold">
             <ShieldCheck className="w-4 h-4" />
             <span>EXECUTIVE THESIS</span>
           </div>
-          <p className="font-editorial text-xl sm:text-2xl text-zinc-900 dark:text-zinc-100 italic leading-relaxed">
+          <p className="font-serif text-xl sm:text-2xl text-[#1a1917] dark:text-[#f0ede5] italic leading-relaxed">
             "{caseStudy.thesis}"
           </p>
         </section>
@@ -176,11 +176,11 @@ export const ProjectDetail: React.FC = () => {
         {caseStudy.metrics && caseStudy.metrics.length > 0 && (
           <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {caseStudy.metrics.map((m) => (
-              <div key={m.label} className="p-6 rounded-xl bg-white dark:bg-zinc-900/80 border border-stone-200/80 dark:border-zinc-800 shadow-2xs">
-                <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-1">
+              <div key={m.label} className="p-6 rounded-xl bg-[#eeeae0]/80 dark:bg-[#1a1917]/80 border border-[#dcd6c8] dark:border-[#2d2c27] shadow-2xs">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#8c877b] dark:text-[#6e6b63] block mb-1">
                   {m.label}
                 </span>
-                <span className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-sky-600 dark:text-cyan-400">
+                <span className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#486616] dark:text-[#d5ef9c]">
                   {m.value}
                 </span>
               </div>
@@ -191,22 +191,22 @@ export const ProjectDetail: React.FC = () => {
         {/* Problem Statement & Why I Built It */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
-          <section className="space-y-3 p-6 sm:p-7 rounded-2xl bg-white dark:bg-zinc-900/60 border border-stone-200/80 dark:border-zinc-800 shadow-2xs">
-            <h2 className="font-display text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+          <section className="space-y-3 p-6 sm:p-7 rounded-2xl bg-[#eeeae0]/80 dark:bg-[#1a1917]/80 border border-[#dcd6c8] dark:border-[#2d2c27] shadow-2xs">
+            <h2 className="font-display text-lg font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-amber-500" />
               <span>The Core Problem</span>
             </h2>
-            <p className="font-sans text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-[#58554d] dark:text-[#a8a69f] leading-relaxed">
               {caseStudy.problem}
             </p>
           </section>
 
-          <section className="space-y-3 p-6 sm:p-7 rounded-2xl bg-white dark:bg-zinc-900/60 border border-stone-200/80 dark:border-zinc-800 shadow-2xs">
-            <h2 className="font-display text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <Lightbulb className="w-4 h-4 text-sky-500 dark:text-cyan-400" />
+          <section className="space-y-3 p-6 sm:p-7 rounded-2xl bg-[#eeeae0]/80 dark:bg-[#1a1917]/80 border border-[#dcd6c8] dark:border-[#2d2c27] shadow-2xs">
+            <h2 className="font-display text-lg font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2">
+              <Lightbulb className="w-4 h-4 text-[#486616] dark:text-[#d5ef9c]" />
               <span>Why I Built It</span>
             </h2>
-            <p className="font-sans text-sm sm:text-base text-zinc-600 dark:text-zinc-300 leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-[#58554d] dark:text-[#a8a69f] leading-relaxed">
               {caseStudy.whyIBuiltIt}
             </p>
           </section>
@@ -215,8 +215,8 @@ export const ProjectDetail: React.FC = () => {
 
         {/* Architecture Breakdown */}
         <section className="space-y-4">
-          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-            <Layers className="w-5 h-5 text-sky-600 dark:text-cyan-400" />
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2">
+            <Layers className="w-5 h-5 text-[#486616] dark:text-[#d5ef9c]" />
             <span>System Architecture</span>
           </h2>
 
@@ -224,12 +224,12 @@ export const ProjectDetail: React.FC = () => {
             {caseStudy.architecture.map((item, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-xl bg-white dark:bg-zinc-900/70 border border-stone-200/80 dark:border-zinc-800 flex items-start gap-3 shadow-2xs"
+                className="p-5 rounded-xl bg-[#eeeae0]/70 dark:bg-[#1a1917]/70 border border-[#dcd6c8] dark:border-[#2d2c27] flex items-start gap-3 shadow-2xs"
               >
-                <span className="text-xs font-mono text-sky-600 dark:text-cyan-400 font-bold mt-0.5 shrink-0">
+                <span className="text-xs font-mono text-[#486616] dark:text-[#d5ef9c] font-bold mt-0.5 shrink-0">
                   0{idx + 1}.
                 </span>
-                <p className="font-sans text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                <p className="font-sans text-sm sm:text-base text-[#58554d] dark:text-[#a8a69f] leading-relaxed">
                   {item}
                 </p>
               </div>
@@ -240,11 +240,11 @@ export const ProjectDetail: React.FC = () => {
         {/* Architecture Diagram Snippet */}
         {caseStudy.diagramSnippet && (
           <section className="space-y-3">
-            <div className="flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-400">
-              <Terminal className="w-4 h-4 text-sky-600 dark:text-cyan-400" />
+            <div className="flex items-center gap-2 text-xs font-mono text-[#8c877b] dark:text-[#6e6b63]">
+              <Terminal className="w-4 h-4 text-[#486616] dark:text-[#d5ef9c]" />
               <span>Data & Verification Control Flow</span>
             </div>
-            <pre className="p-6 rounded-2xl bg-zinc-950 text-cyan-300 font-mono text-xs overflow-x-auto leading-relaxed border border-zinc-800 shadow-sm">
+            <pre className="p-6 rounded-2xl bg-[#131312] text-[#d5ef9c] font-mono text-xs overflow-x-auto leading-relaxed border border-[#2d2c27] shadow-sm">
               {caseStudy.diagramSnippet}
             </pre>
           </section>
@@ -252,8 +252,8 @@ export const ProjectDetail: React.FC = () => {
 
         {/* How It Works Steps */}
         <section className="space-y-4">
-          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-sky-600 dark:text-cyan-400" />
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2">
+            <Cpu className="w-5 h-5 text-[#486616] dark:text-[#d5ef9c]" />
             <span>Execution Flow</span>
           </h2>
 
@@ -261,7 +261,7 @@ export const ProjectDetail: React.FC = () => {
             {caseStudy.howItWorks.map((step, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-xl bg-white dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800 text-sm sm:text-base text-zinc-700 dark:text-zinc-300 leading-relaxed font-sans shadow-2xs"
+                className="p-5 rounded-xl bg-[#eeeae0]/70 dark:bg-[#1a1917]/70 border border-[#dcd6c8] dark:border-[#2d2c27] text-sm sm:text-base text-[#58554d] dark:text-[#a8a69f] leading-relaxed font-sans shadow-2xs"
               >
                 {step}
               </div>
@@ -273,13 +273,13 @@ export const ProjectDetail: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
           <section className="space-y-4">
-            <h3 className="font-display text-base sm:text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+            <h3 className="font-display text-base sm:text-lg font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-amber-500" />
               <span>Technical Challenges</span>
             </h3>
             <ul className="space-y-3">
               {caseStudy.challenges.map((c, idx) => (
-                <li key={idx} className="flex items-start gap-2.5 font-sans text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                <li key={idx} className="flex items-start gap-2.5 font-sans text-xs sm:text-sm text-[#58554d] dark:text-[#a8a69f] leading-relaxed">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0 mt-2" />
                   <span>{c}</span>
                 </li>
@@ -288,13 +288,13 @@ export const ProjectDetail: React.FC = () => {
           </section>
 
           <section className="space-y-4">
-            <h3 className="font-display text-base sm:text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+            <h3 className="font-display text-base sm:text-lg font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-500" />
               <span>Key Learnings</span>
             </h3>
             <ul className="space-y-3">
               {caseStudy.whatILearned.map((l, idx) => (
-                <li key={idx} className="flex items-start gap-2.5 font-sans text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                <li key={idx} className="flex items-start gap-2.5 font-sans text-xs sm:text-sm text-[#58554d] dark:text-[#a8a69f] leading-relaxed">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 mt-2" />
                   <span>{l}</span>
                 </li>
@@ -305,15 +305,15 @@ export const ProjectDetail: React.FC = () => {
         </div>
 
         {/* Future Improvements */}
-        <section className="p-7 sm:p-8 rounded-2xl bg-zinc-900 text-zinc-100 border border-zinc-800 space-y-4 shadow-sm">
-          <h3 className="font-display text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-cyan-400" />
+        <section className="p-7 sm:p-8 rounded-2xl bg-[#eeeae0]/90 dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] space-y-4 shadow-sm">
+          <h3 className="font-display text-base sm:text-lg font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-[#486616] dark:text-[#d5ef9c]" />
             <span>Future Roadmap & Improvements</span>
           </h3>
           <ul className="space-y-2.5 font-sans">
             {caseStudy.futureImprovements.map((imp, idx) => (
-              <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                <span className="text-cyan-400 font-mono">→</span>
+              <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#58554d] dark:text-[#a8a69f] leading-relaxed">
+                <span className="text-[#486616] dark:text-[#d5ef9c] font-mono">→</span>
                 <span>{imp}</span>
               </li>
             ))}
@@ -323,10 +323,10 @@ export const ProjectDetail: React.FC = () => {
       </div>
 
       {/* Footer Navigation */}
-      <div className="pt-8 border-t border-stone-200/80 dark:border-zinc-800 flex justify-between items-center font-mono text-xs">
+      <div className="pt-8 border-t border-[#dcd6c8] dark:border-[#2d2c27] flex justify-between items-center font-mono text-xs">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-zinc-500 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors"
+          className="inline-flex items-center gap-2 text-[#8c877b] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Return to Selected Builds</span>
@@ -335,7 +335,7 @@ export const ProjectDetail: React.FC = () => {
           href={project.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sky-600 dark:text-cyan-400 hover:underline"
+          className="inline-flex items-center gap-1.5 text-[#486616] dark:text-[#d5ef9c] hover:underline"
         >
           <span>View Repository</span>
           <ExternalLink className="w-3.5 h-3.5" />

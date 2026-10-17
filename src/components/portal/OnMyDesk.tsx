@@ -62,43 +62,43 @@ export const OnMyDesk: React.FC<OnMyDeskProps> = ({
   const getStatusBadge = (status: DeskMilestone['status']) => {
     switch (status) {
       case 'In Flight':
-        return 'bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border-amber-300 dark:border-amber-800';
+        return 'bg-[#f4efe5] text-[#8c6b12] dark:bg-[#201f1c] dark:text-[#f3d47c] border border-[#dcd6c8] dark:border-[#52451c]';
       case 'Benchmarking':
-        return 'bg-sky-100 text-sky-800 dark:bg-cyan-950/80 dark:text-cyan-300 border-sky-300 dark:border-cyan-800';
+        return 'bg-[#e8edd9] text-[#486616] dark:bg-[#201f1c] dark:text-[#d5ef9c] border border-[#486616]/30 dark:border-[#d5ef9c]/30';
       case 'Shipped':
-        return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800';
+        return 'bg-[#e8edd9] text-[#486616] dark:bg-[#201f1c] dark:text-[#d5ef9c] border border-[#486616]/40 dark:border-[#d5ef9c]/40';
       default:
-        return 'bg-stone-100 text-stone-700 dark:bg-zinc-800 dark:text-zinc-300 border-stone-200 dark:border-zinc-700';
+        return 'bg-[#eeeae0] text-[#58554d] dark:bg-[#201f1c] dark:text-[#a8a69f] border border-[#dcd6c8] dark:border-[#383731]';
     }
   };
 
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Back to Portal Bar */}
-      <div className="flex items-center justify-between pb-4 border-b border-stone-200/80 dark:border-zinc-800">
+      <div className="flex items-center justify-between pb-4 border-b border-[#dcd6c8] dark:border-[#2d2c27]">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-2 font-mono text-xs text-zinc-500 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 font-mono text-xs text-[#8c877b] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>BACK TO EXPLORER</span>
         </button>
 
-        <span className="font-mono text-xs font-bold text-sky-600 dark:text-cyan-400 uppercase tracking-widest">
+        <span className="font-mono text-xs font-bold text-[#486616] dark:text-[#d5ef9c] uppercase tracking-widest">
           ON MY DESK // BUILD LOG
         </span>
       </div>
 
       {/* Hero Header */}
       <div className="space-y-1.5">
-        <div className="flex items-center gap-2 font-mono text-xs text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-widest">
+        <div className="flex items-center gap-2 font-mono text-xs text-[#486616] dark:text-[#d5ef9c] font-semibold uppercase tracking-widest">
           <Terminal className="w-3.5 h-3.5" />
           <span>VERIFIED ENGINEERING TELEMETRY</span>
         </div>
-        <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+        <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
           What I'm currently designing and shipping.
         </h2>
-        <p className="font-sans text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 max-w-xl text-pretty leading-relaxed">
+        <p className="font-sans text-xs sm:text-sm text-[#58554d] dark:text-[#a8a69f] max-w-xl text-pretty leading-relaxed">
           Chronological milestone log of active research, in-flight architecture sprints, and recently shipped benchmarks.
         </p>
       </div>
@@ -108,14 +108,14 @@ export const OnMyDesk: React.FC<OnMyDeskProps> = ({
         {milestones.map((item) => (
           <div
             key={item.id}
-            className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-zinc-900/70 border border-stone-200/80 dark:border-zinc-800 shadow-2xs hover:border-sky-300 dark:hover:border-zinc-700 transition-all space-y-3"
+            className="p-5 sm:p-6 rounded-2xl bg-[#eeeae0]/80 dark:bg-[#1a1917]/80 border border-[#dcd6c8] dark:border-[#2d2c27] shadow-2xs hover:border-[#486616]/40 dark:hover:border-[#d5ef9c]/40 transition-all space-y-3"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div className="flex items-center gap-2.5">
                 <span className={`px-2.5 py-0.5 rounded-md font-mono text-[10px] font-bold uppercase tracking-wider border ${getStatusBadge(item.status)}`}>
                   {item.status}
                 </span>
-                <span className="font-mono text-xs text-zinc-400">
+                <span className="font-mono text-xs text-[#8c877b] dark:text-[#6e6b63]">
                   {item.date}
                 </span>
               </div>
@@ -123,7 +123,7 @@ export const OnMyDesk: React.FC<OnMyDeskProps> = ({
               {item.slug && (
                 <button
                   onClick={() => onOpenProjectPreview(item.slug!)}
-                  className="inline-flex items-center gap-1 font-mono text-xs text-sky-600 dark:text-cyan-400 hover:underline cursor-pointer w-fit"
+                  className="inline-flex items-center gap-1 font-mono text-xs text-[#486616] dark:text-[#d5ef9c] hover:underline cursor-pointer w-fit"
                 >
                   <span>Preview Case Study</span>
                   <ArrowUpRight className="w-3 h-3" />
@@ -131,20 +131,20 @@ export const OnMyDesk: React.FC<OnMyDeskProps> = ({
               )}
             </div>
 
-            <h3 className="font-display text-lg sm:text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+            <h3 className="font-display text-lg sm:text-xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
               {item.projectTitle}
             </h3>
 
-            <p className="font-sans text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed text-pretty">
+            <p className="font-sans text-xs sm:text-sm text-[#58554d] dark:text-[#a8a69f] leading-relaxed text-pretty">
               {item.update}
             </p>
 
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-stone-100 dark:border-zinc-800/80 font-mono text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#dcd6c8] dark:border-[#2d2c27] font-mono text-xs">
               <div className="flex flex-wrap gap-1.5">
                 {item.tech.map((t) => (
                   <span
                     key={t}
-                    className="px-2 py-0.5 rounded bg-stone-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-[11px]"
+                    className="px-2 py-0.5 rounded bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#383731] text-[11px]"
                   >
                     {t}
                   </span>
@@ -156,7 +156,7 @@ export const OnMyDesk: React.FC<OnMyDeskProps> = ({
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-zinc-400 hover:text-sky-600 dark:hover:text-cyan-400 transition-colors inline-flex items-center gap-1 text-[11px]"
+                  className="text-[#8c877b] dark:text-[#6e6b63] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors inline-flex items-center gap-1 text-[11px]"
                 >
                   <span>Repository</span>
                   <ExternalLink className="w-3 h-3" />

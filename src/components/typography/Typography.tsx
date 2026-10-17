@@ -17,12 +17,12 @@ export const MonoLabel: React.FC<MonoLabelProps> = ({
   children,
   className = '',
   dot = false,
-  dotColor = 'bg-sky-500 dark:bg-cyan-400',
+  dotColor = 'bg-[#486616] dark:bg-[#d5ef9c]',
   as: Component = 'span'
 }) => {
   return (
     <Component
-      className={`inline-flex items-center gap-2 font-mono text-[11px] sm:text-xs tracking-[0.14em] uppercase font-semibold text-zinc-500 dark:text-zinc-400 ${className}`}
+      className={`inline-flex items-center gap-2 font-mono text-[11px] sm:text-xs tracking-[0.14em] uppercase font-semibold text-[#8c877b] dark:text-[#a8a69f] ${className}`}
     >
       {dot && (
         <span
@@ -96,10 +96,10 @@ export const EditorialHeading: React.FC<EditorialHeadingProps> = ({
 }) => {
   return (
     <Component
-      className={`font-display tracking-[-0.035em] text-zinc-900 dark:text-zinc-50 text-balance ${className}`}
+      className={`font-display tracking-[-0.035em] text-[#1a1917] dark:text-[#f0ede5] text-balance ${className}`}
     >
       {italicPosition === 'start' && italicPhrase && (
-        <span className="font-editorial font-normal italic lowercase tracking-normal text-sky-700 dark:text-cyan-300 mr-2 sm:mr-3 inline-block">
+        <span className="font-editorial font-normal italic lowercase tracking-normal text-[#486616] dark:text-[#d5ef9c] mr-2 sm:mr-3 inline-block">
           {italicPhrase}
         </span>
       )}
@@ -107,7 +107,7 @@ export const EditorialHeading: React.FC<EditorialHeadingProps> = ({
       {italicPosition === 'end' && italicPhrase && (
         <>
           {' '}
-          <span className="font-editorial font-normal italic lowercase tracking-normal text-sky-700 dark:text-cyan-300 inline-block">
+          <span className="font-editorial font-normal italic lowercase tracking-normal text-[#486616] dark:text-[#d5ef9c] inline-block">
             {italicPhrase}
           </span>
         </>
@@ -143,22 +143,22 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
 
   return (
     <div
-      className={`mb-12 sm:mb-16 border-b border-stone-200/80 dark:border-zinc-800/80 pb-6 ${
+      className={`mb-12 sm:mb-16 border-b border-[#dcd6c8] dark:border-[#2d2c27] pb-6 ${
         isCenter ? 'text-center max-w-3xl mx-auto' : 'flex flex-col sm:flex-row sm:items-end justify-between'
       } ${className}`}
     >
       <div>
         <div className="mb-2.5">
-          <MonoLabel dot dotColor="bg-sky-600 dark:text-cyan-400">
+          <MonoLabel dot dotColor="bg-[#486616] dark:bg-[#d5ef9c]">
             {number} // {label}
           </MonoLabel>
         </div>
-        <h2 className="section-title text-zinc-900 dark:text-zinc-50">
+        <h2 className="section-title text-[#1a1917] dark:text-[#f0ede5]">
           {title}
           {italicWord && (
             <>
               {' '}
-              <span className="editorial-italic font-normal lowercase tracking-normal text-sky-600 dark:text-cyan-300">
+              <span className="editorial-italic font-normal lowercase tracking-normal text-[#486616] dark:text-[#d5ef9c]">
                 {italicWord}
               </span>
             </>
@@ -167,7 +167,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
       </div>
       {subtitle && (
         <p
-          className={`font-mono text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 ${
+          className={`font-mono text-xs sm:text-sm text-[#8c877b] dark:text-[#a8a69f] ${
             isCenter ? 'mt-4' : 'mt-3 sm:mt-0 max-w-md sm:text-right'
           }`}
         >
@@ -195,7 +195,7 @@ export const ProjectTitle: React.FC<ProjectTitleProps> = ({
 }) => {
   return (
     <Component
-      className={`font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-[-0.03em] text-zinc-900 dark:text-zinc-100 group-hover:text-sky-600 dark:group-hover:text-cyan-400 transition-colors duration-200 ${className}`}
+      className={`font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-[-0.03em] text-[#1a1917] dark:text-[#f0ede5] group-hover:text-[#486616] dark:group-hover:text-[#d5ef9c] transition-colors duration-200 ${className}`}
     >
       {children}
     </Component>
@@ -249,7 +249,7 @@ export const HeroDisplay: React.FC<HeroDisplayProps> = ({
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className={`hero-title text-zinc-900 dark:text-zinc-50 select-none flex flex-col items-center sm:items-start text-center sm:text-left ${className}`}
+      className={`hero-title text-[#1a1917] dark:text-[#f0ede5] select-none flex flex-col items-center sm:items-start text-center sm:text-left ${className}`}
     >
       {/* Line 1 */}
       <div className="overflow-hidden py-0.5">
@@ -260,7 +260,7 @@ export const HeroDisplay: React.FC<HeroDisplayProps> = ({
 
       {/* Line 2 */}
       <div className="overflow-hidden py-0.5">
-        <motion.div variants={lineVariants} className="block text-zinc-900 dark:text-zinc-100">
+        <motion.div variants={lineVariants} className="block text-[#1a1917] dark:text-[#f0ede5]">
           {line2}
         </motion.div>
       </div>
@@ -269,7 +269,7 @@ export const HeroDisplay: React.FC<HeroDisplayProps> = ({
       <div className="overflow-hidden py-0.5">
         <motion.div
           variants={lineVariants}
-          className="block editorial-italic font-normal lowercase tracking-normal text-sky-600 dark:text-cyan-400 drop-shadow-xs"
+          className="block editorial-italic font-normal lowercase tracking-normal text-[#486616] dark:text-[#d5ef9c]"
         >
           {italicPhrase}
         </motion.div>
