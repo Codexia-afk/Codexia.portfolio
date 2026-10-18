@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { personalData } from '../../data/personal';
 import { MonoLabel } from '../typography/Typography';
+import { HumanTooltip } from '../common/HumanTooltip';
 
 export const RecruiterContact: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -56,16 +57,18 @@ export const RecruiterContact: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-4">
           
           {/* Direct Email */}
-          <a
-            href={personalData.socials.gmailCompose}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-md bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors shadow-xs"
-          >
-            <Mail className="w-4 h-4" />
-            <span>EMAIL DIRECTLY</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
+          <HumanTooltip registryId="recruiter-contact" placement="top">
+            <a
+              href={personalData.socials.gmailCompose}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-md bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors shadow-xs"
+            >
+              <Mail className="w-4 h-4" />
+              <span>EMAIL DIRECTLY</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </HumanTooltip>
 
           {/* Copy Email */}
           <button

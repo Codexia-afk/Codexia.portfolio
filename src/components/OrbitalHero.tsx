@@ -4,6 +4,7 @@ import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, FileText, Sparkles } from 'lucide-react';
 import { MonoLabel } from './typography/Typography';
 import { SocialDock } from './social/SocialDock';
+import { HumanTooltip } from './common/HumanTooltip';
 
 export const OrbitalHero: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -126,7 +127,7 @@ export const OrbitalHero: React.FC = () => {
               <div className="overflow-hidden py-0.5">
                 <motion.h1
                   variants={lineVariants}
-                  className="font-display text-[2.75rem] sm:text-[4.25rem] lg:text-[5.5rem] font-bold uppercase tracking-[-0.04em] text-[#1a1917] dark:text-[#f0ede5] leading-[0.92]"
+                  className="font-display text-[2.25rem] min-[380px]:text-[2.75rem] sm:text-[4.25rem] lg:text-[5.5rem] font-bold uppercase tracking-[-0.04em] text-[#1a1917] dark:text-[#f0ede5] leading-[0.92]"
                 >
                   ENGINEERING
                 </motion.h1>
@@ -136,7 +137,7 @@ export const OrbitalHero: React.FC = () => {
               <div className="overflow-hidden py-0.5">
                 <motion.div
                   variants={lineVariants}
-                  className="font-display text-[2.5rem] sm:text-[4rem] lg:text-[5.15rem] font-bold uppercase tracking-[-0.035em] text-[#1a1917] dark:text-[#f0ede5] leading-[0.92]"
+                  className="font-display text-[2.1rem] min-[380px]:text-[2.5rem] sm:text-[4rem] lg:text-[5.15rem] font-bold uppercase tracking-[-0.035em] text-[#1a1917] dark:text-[#f0ede5] leading-[0.92]"
                 >
                   DETERMINISTIC
                 </motion.div>
@@ -146,7 +147,7 @@ export const OrbitalHero: React.FC = () => {
               <div className="overflow-hidden py-0.5">
                 <motion.div
                   variants={lineVariants}
-                  className="font-editorial text-[2.5rem] sm:text-[3.85rem] lg:text-[4.75rem] font-normal italic lowercase tracking-normal text-[#486616] dark:text-[#d5ef9c] leading-[1.0]"
+                  className="font-editorial text-[2.15rem] min-[380px]:text-[2.5rem] sm:text-[3.85rem] lg:text-[4.75rem] font-normal italic lowercase tracking-normal text-[#486616] dark:text-[#d5ef9c] leading-[1.0]"
                 >
                   *systems & runtimes.*
                 </motion.div>
@@ -172,31 +173,37 @@ export const OrbitalHero: React.FC = () => {
               transition={{ delay: 0.45 }}
               className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8"
             >
-              <a
-                href="#projects"
-                className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-md bg-[#1a1917] dark:bg-[#f0ede5] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#d5ef9c] dark:hover:text-[#131312] transition-colors shadow-xs"
-              >
-                <span>EXPLORE SELECTED BUILDS</span>
-                <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
-              </a>
+              <HumanTooltip registryId="project-burnout-humor" placement="top">
+                <a
+                  href="#projects"
+                  className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-md bg-[#1a1917] dark:bg-[#f0ede5] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#d5ef9c] dark:hover:text-[#131312] transition-colors shadow-xs"
+                >
+                  <span>EXPLORE SELECTED BUILDS</span>
+                  <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
+                </a>
+              </HumanTooltip>
 
-              <Link
-                to="/hire"
-                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#486616] dark:text-[#d5ef9c] font-mono text-xs font-bold uppercase tracking-wider border border-[#486616]/30 dark:border-[#d5ef9c]/30 hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:bg-[#e8edd9] dark:hover:bg-[#272622] transition-colors"
-              >
-                <span>RECRUITER BRIEF</span>
-                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </Link>
+              <HumanTooltip registryId="recruiter-contact" placement="top">
+                <Link
+                  to="/hire"
+                  className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#486616] dark:text-[#d5ef9c] font-mono text-xs font-bold uppercase tracking-wider border border-[#486616]/30 dark:border-[#d5ef9c]/30 hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:bg-[#e8edd9] dark:hover:bg-[#272622] transition-colors"
+                >
+                  <span>RECRUITER BRIEF</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </Link>
+              </HumanTooltip>
 
-              <a
-                href="/resume.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
-              >
-                <FileText className="w-3.5 h-3.5 text-current opacity-80" />
-                <span>RÉSUMÉ</span>
-              </a>
+              <HumanTooltip registryId="resume-action" placement="top">
+                <a
+                  href="/resume.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
+                >
+                  <FileText className="w-3.5 h-3.5 text-current opacity-80" />
+                  <span>RÉSUMÉ</span>
+                </a>
+              </HumanTooltip>
             </motion.div>
 
             {/* Interactive Social Signals Dock */}

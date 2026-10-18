@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUp } from 'lucide-react';
+import { HumanTooltip } from './common/HumanTooltip';
 
 export const Footer: React.FC = () => {
   const [localTime, setLocalTime] = useState<string>('');
@@ -144,7 +145,11 @@ export const Footer: React.FC = () => {
             © {new Date().getFullYear()} Srinjoy Pramanick. All rights reserved.
           </div>
           <div>
-            PORTFOLIO V2.0 // INDEPENDENT ENGINEERING ATELIER
+            <HumanTooltip registryId="easter-egg-curiosity" placement="top">
+              <span className="cursor-default hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors">
+                PORTFOLIO V2.0 // INDEPENDENT ENGINEERING ATELIER
+              </span>
+            </HumanTooltip>
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Code2, Server, Layout, Brain, Wrench } from 'lucide-react';
 import { MonoLabel } from '../typography/Typography';
+import { HumanTooltip } from '../common/HumanTooltip';
 
 interface SkillCategory {
   title: string;
@@ -81,9 +82,11 @@ export const TechnicalExpertise: React.FC = () => {
             <MonoLabel dot dotColor="bg-[#486616] dark:bg-[#d5ef9c]">
               04 // CAPABILITIES MATRIX
             </MonoLabel>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] mt-1">
-              TECHNICAL EXPERTISE
-            </h2>
+            <HumanTooltip registryId="skills-capabilities" placement="top">
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] mt-1 cursor-default">
+                TECHNICAL EXPERTISE
+              </h2>
+            </HumanTooltip>
             <p className="font-sans text-sm text-[#58554d] dark:text-[#a8a69f] max-w-xl mt-1">
               Verified skills tied directly to source-code implementations. No arbitrary percentage bars.
             </p>

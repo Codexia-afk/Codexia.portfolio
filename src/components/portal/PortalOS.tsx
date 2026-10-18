@@ -10,6 +10,7 @@ import { TheMarginsNotes } from './TheMarginsNotes';
 import { OnMyDesk } from './OnMyDesk';
 import { RecruiterMode } from './RecruiterMode';
 import { PortalColophon } from './PortalColophon';
+import { HumanTooltip } from '../common/HumanTooltip';
 
 interface PortalOSProps {
   isOpen: boolean;
@@ -178,15 +179,22 @@ export const PortalOS: React.FC<PortalOSProps> = ({
               
               {/* Row 1: System Badge, Quick Experience Pills & Close */}
               <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#486616] dark:bg-[#d5ef9c] animate-pulse" />
-                  <span className="font-display font-bold text-sm tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
-                    PORTAL OS
-                  </span>
-                  <span className="font-mono text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] font-bold text-[#486616] dark:text-[#d5ef9c] border border-[#dcd6c8] dark:border-[#383731]">
-                    v2.0
-                  </span>
-                </div>
+                <HumanTooltip 
+                  message="Welcome back to the command center." 
+                  tag="PORTAL // OS" 
+                  tone="hinglish-casual" 
+                  placement="bottom"
+                >
+                  <div className="flex items-center gap-2.5 cursor-default">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#486616] dark:bg-[#d5ef9c] animate-pulse" />
+                    <span className="font-display font-bold text-sm tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
+                      PORTAL OS
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] font-bold text-[#486616] dark:text-[#d5ef9c] border border-[#dcd6c8] dark:border-[#383731]">
+                      v2.0
+                    </span>
+                  </div>
+                </HumanTooltip>
 
                 {/* Sub-view switcher pills */}
                 <div className="hidden sm:flex items-center gap-1 font-mono text-[11px]">
@@ -260,6 +268,14 @@ export const PortalOS: React.FC<PortalOSProps> = ({
                     <X className="w-3.5 h-3.5" />
                   </button>
                 )}
+              </div>
+
+              {/* Contextual search guidance telemetry */}
+              <div className="flex items-center justify-between text-[10px] font-mono text-[#8c877b] dark:text-[#6e6b63] px-1 pt-0.5">
+                <span className="tracking-wider">SHORTCUTS: ESC TO EXIT · ↑↓ TO SELECT · ↵ EXECUTE</span>
+                <span className="hidden sm:inline italic text-[#486616] dark:text-[#d5ef9c]">
+                  Even the search engine needs a hint.
+                </span>
               </div>
 
             </div>

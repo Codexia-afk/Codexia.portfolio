@@ -109,7 +109,7 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
                   onBlur={() => setActiveSignal(null)}
                   whileHover={getPlatformMotion(signal.animationVariant)}
                   whileTap={{ scale: 0.94 }}
-                  className={`relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl transition-all duration-200 outline-hidden focus-visible:ring-2 focus-visible:ring-[#486616] dark:focus-visible:ring-[#d5ef9c] ${
+                  className={`relative flex items-center justify-center w-11 h-11 sm:w-10 sm:h-10 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 rounded-xl transition-all duration-200 outline-hidden focus-visible:ring-2 focus-visible:ring-[#486616] dark:focus-visible:ring-[#d5ef9c] ${
                     isHovered
                       ? 'bg-[#1a1917] dark:bg-[#f0ede5] text-[#f8f6f0] dark:text-[#131312] shadow-sm z-10'
                       : 'bg-[#f4efe5] dark:bg-[#201f1c] text-[#58554d] dark:text-[#a8a69f] hover:text-[#1a1917] dark:hover:text-[#f0ede5] border border-[#dcd6c8]/60 dark:border-[#2d2c27]'

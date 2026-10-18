@@ -7,6 +7,7 @@ import {
   Printer 
 } from 'lucide-react';
 import { MonoLabel } from '../typography/Typography';
+import { HumanTooltip } from '../common/HumanTooltip';
 
 export const RecruiterHero: React.FC = () => {
   const handlePrint = () => {
@@ -111,41 +112,49 @@ export const RecruiterHero: React.FC = () => {
 
             {/* Direct Action Hub */}
             <div className="no-print flex flex-wrap items-center gap-3 pt-3">
-              <a
-                href="/resume.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors shadow-xs"
-              >
-                <FileText className="w-3.5 h-3.5" />
-                <span>VIEW OFFICIAL RÉSUMÉ</span>
-              </a>
+              <HumanTooltip registryId="resume-action" placement="top">
+                <a
+                  href="/resume.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors shadow-xs"
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>VIEW OFFICIAL RÉSUMÉ</span>
+                </a>
+              </HumanTooltip>
 
-              <a
-                href="https://github.com/Codexia-afk"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
-              >
-                <Github className="w-3.5 h-3.5" />
-                <span>INSPECT GITHUB</span>
-              </a>
+              <HumanTooltip registryId="github-activity" placement="top">
+                <a
+                  href="https://github.com/Codexia-afk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
+                >
+                  <Github className="w-3.5 h-3.5" />
+                  <span>INSPECT GITHUB</span>
+                </a>
+              </HumanTooltip>
 
-              <a
-                href="#proof-of-work"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors"
-              >
-                <span>EXPLORE WORK</span>
-                <ArrowDown className="w-3.5 h-3.5" />
-              </a>
+              <HumanTooltip registryId="proof-of-work" placement="top">
+                <a
+                  href="#proof-of-work"
+                  className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors"
+                >
+                  <span>EXPLORE WORK</span>
+                  <ArrowDown className="w-3.5 h-3.5" />
+                </a>
+              </HumanTooltip>
 
-              <a
-                href="#contact-recruiter"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                <span>CONTACT CANDIDATE</span>
-              </a>
+              <HumanTooltip registryId="recruiter-contact" placement="top">
+                <a
+                  href="#contact-recruiter"
+                  className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>CONTACT CANDIDATE</span>
+                </a>
+              </HumanTooltip>
             </div>
 
           </div>

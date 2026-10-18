@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Printer, ExternalLink, Eye, EyeOff } from 'lucide-react';
 import { MonoLabel } from '../typography/Typography';
+import { HumanTooltip } from '../common/HumanTooltip';
 
 export const ResumePanel: React.FC = () => {
   const [showPreview, setShowPreview] = useState(false);
@@ -43,15 +44,17 @@ export const ResumePanel: React.FC = () => {
           </div>
 
           <div className="no-print flex flex-wrap items-center gap-3 shrink-0">
-            <a
-              href="/resume.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors shadow-xs"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span>OPEN FULL RÉSUMÉ</span>
-            </a>
+            <HumanTooltip registryId="resume-action" placement="top">
+              <a
+                href="/resume.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors shadow-xs"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>OPEN FULL RÉSUMÉ</span>
+              </a>
+            </HumanTooltip>
 
             <button
               onClick={() => setShowPreview(!showPreview)}

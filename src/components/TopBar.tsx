@@ -10,6 +10,7 @@ import {
   X
 } from 'lucide-react';
 import { personalData } from '../data/personal';
+import { HumanTooltip } from './common/HumanTooltip';
 
 interface TopBarProps {
   darkMode?: boolean;
@@ -163,39 +164,45 @@ export const TopBar: React.FC<TopBarProps> = ({
           </Link>
 
           {/* ⌘K Command Center Launcher */}
-          <button
-            onClick={() => onOpenPortal?.()}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
-            aria-label="Open Command Center (Cmd+K)"
-          >
-            <Command className="w-3.5 h-3.5 opacity-80" />
-            <span className="hidden sm:inline font-semibold">PORTAL</span>
-            <span className="text-[10px] text-[#8c877b] dark:text-[#a8a69f]">⌘K</span>
-          </button>
+          <HumanTooltip registryId="portal-command" placement="bottom">
+            <button
+              onClick={() => onOpenPortal?.()}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
+              aria-label="Open Command Center (Cmd+K)"
+            >
+              <Command className="w-3.5 h-3.5 opacity-80" />
+              <span className="hidden sm:inline font-semibold">PORTAL</span>
+              <span className="text-[10px] text-[#8c877b] dark:text-[#a8a69f]">⌘K</span>
+            </button>
+          </HumanTooltip>
 
           {/* The Margins (Guestbook) Trigger */}
-          <button
-            onClick={() => onOpenPortal?.('margins-notes')}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
-            aria-label="Open The Margins Guestbook"
-          >
-            <MessageSquare className="w-3.5 h-3.5 opacity-80" />
-            <span className="font-semibold">MARGINS</span>
-          </button>
+          <HumanTooltip registryId="guestbook-trigger" placement="bottom">
+            <button
+              onClick={() => onOpenPortal?.('margins-notes')}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
+              aria-label="Open The Margins Guestbook"
+            >
+              <MessageSquare className="w-3.5 h-3.5 opacity-80" />
+              <span className="font-semibold">MARGINS</span>
+            </button>
+          </HumanTooltip>
 
           {/* Theme Toggle */}
           {setDarkMode && (
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#bfb8a6] transition-colors cursor-pointer"
-              aria-label="Toggle dark/light theme"
-            >
-              {darkMode ? (
-                <Sun className="w-4 h-4 text-[#d5ef9c]" />
-              ) : (
-                <Moon className="w-4 h-4 text-[#486616]" />
-              )}
-            </button>
+            <HumanTooltip registryId="theme-toggle" placement="bottom">
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="p-2 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#bfb8a6] transition-colors cursor-pointer"
+                aria-label="Toggle dark/light theme"
+              >
+                {darkMode ? (
+                  <Sun className="w-4 h-4 text-[#d5ef9c]" />
+                ) : (
+                  <Moon className="w-4 h-4 text-[#486616]" />
+                )}
+              </button>
+            </HumanTooltip>
           )}
 
           {/* Mobile Hamburger Menu Toggle */}

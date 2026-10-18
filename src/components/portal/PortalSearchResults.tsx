@@ -59,15 +59,18 @@ export const PortalSearchResults: React.FC<PortalSearchResultsProps> = ({
   if (results.length === 0) {
     return (
       <div className="py-12 px-4 text-center space-y-4 animate-fadeIn">
-        <div className="w-12 h-12 rounded-2xl bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] flex items-center justify-center mx-auto text-[#8c877b] dark:text-[#a8a69f]">
-          <Terminal className="w-6 h-6 opacity-60" />
+        <div className="w-12 h-12 rounded-2xl bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] flex items-center justify-center mx-auto text-[#486616] dark:text-[#d5ef9c]">
+          <Terminal className="w-6 h-6 opacity-80" />
         </div>
         <div>
+          <div className="font-mono text-[10px] uppercase tracking-wider text-[#486616] dark:text-[#d5ef9c] font-bold mb-1">
+            ATELIER // 404
+          </div>
           <h3 className="font-display text-base font-bold text-[#1a1917] dark:text-[#f0ede5]">
-            No matching intelligence vectors found for "{query}"
+            404: That thought hasn't shipped yet.
           </h3>
           <p className="font-sans text-xs text-[#58554d] dark:text-[#a8a69f] mt-1 max-w-sm mx-auto">
-            Try searching for alternate keywords such as <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">trustos</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">resume</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">fastapi</code>, or <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">crazybuild</code>.
+            Zero matching vectors for "{query}". Try <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">trustos</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">resume</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">fastapi</code>, or <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">hire</code>.
           </p>
         </div>
       </div>
