@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { 
   Sun, 
   Moon, 
@@ -152,6 +152,16 @@ export const TopBar: React.FC<TopBarProps> = ({
         {/* Right: Actions, Command Center, Margins & Theme */}
         <div className="flex items-center gap-2 sm:gap-2.5">
           
+          {/* Recruiter Brief Entry Point */}
+          <Link
+            to="/hire"
+            className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#486616] dark:text-[#d5ef9c] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+            aria-label="Open The Hiring Dossier / Recruiter Brief"
+          >
+            <span>RECRUITER BRIEF</span>
+            <span className="text-[10px]">↗</span>
+          </Link>
+
           {/* ⌘K Command Center Launcher */}
           <button
             onClick={() => onOpenPortal?.()}
@@ -219,6 +229,17 @@ export const TopBar: React.FC<TopBarProps> = ({
                 <div>{ch.label}</div>
               </button>
             ))}
+          </div>
+
+          <div className="pt-2 border-t border-[#dcd6c8] dark:border-[#2d2c27] flex flex-col gap-2">
+            <Link
+              to="/hire"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-2.5 px-3 text-center rounded-xs bg-[#1a1917] text-[#f8f6f0] dark:bg-[#d5ef9c] dark:text-[#131312] font-bold font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-2xs"
+            >
+              <span>THE HIRING DOSSIER // RECRUITER BRIEF</span>
+              <span>↗</span>
+            </Link>
           </div>
 
           <div className="pt-2 border-t border-[#dcd6c8] dark:border-[#2d2c27] flex items-center justify-between text-[#8c877b] dark:text-[#a8a69f]">

@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, FileText, Github, Sparkles } from 'lucide-react';
-import { personalData } from '../data/personal';
+import { ArrowDown, ArrowUpRight, FileText, Sparkles } from 'lucide-react';
 import { MonoLabel } from './typography/Typography';
+import { SocialDock } from './social/SocialDock';
 
 export const OrbitalHero: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -169,7 +170,7 @@ export const OrbitalHero: React.FC = () => {
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.45 }}
-              className="flex flex-wrap items-center gap-3 sm:gap-4 mb-10"
+              className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8"
             >
               <a
                 href="#projects"
@@ -179,16 +180,13 @@ export const OrbitalHero: React.FC = () => {
                 <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
               </a>
 
-              <a
-                href={personalData.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
+              <Link
+                to="/hire"
+                className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#486616] dark:text-[#d5ef9c] font-mono text-xs font-bold uppercase tracking-wider border border-[#486616]/30 dark:border-[#d5ef9c]/30 hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:bg-[#e8edd9] dark:hover:bg-[#272622] transition-colors"
               >
-                <Github className="w-3.5 h-3.5 text-current opacity-80" />
-                <span>GITHUB REPOS</span>
-                <ArrowUpRight className="w-3 h-3 opacity-60 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+                <span>RECRUITER BRIEF</span>
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </Link>
 
               <a
                 href="/resume.html"
@@ -199,6 +197,17 @@ export const OrbitalHero: React.FC = () => {
                 <FileText className="w-3.5 h-3.5 text-current opacity-80" />
                 <span>RÉSUMÉ</span>
               </a>
+            </motion.div>
+
+            {/* Interactive Social Signals Dock */}
+            <motion.div
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: 0.5 }}
+              className="mb-8"
+            >
+              <SocialDock />
             </motion.div>
 
             {/* Editorial Footnote Annotation */}

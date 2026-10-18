@@ -105,6 +105,86 @@ export function buildSearchIndex(handlers: ActionHandlers): SearchResultItem[] {
       action: () => { handlers.onOpenView('recruiter-mode'); }
     },
     {
+      id: 'nav-hire-page',
+      title: 'The Hiring Dossier // Dedicated Recruiter Brief (/hire)',
+      subtitle: 'Full candidate briefing: PushGuard case study, verified skills, and contact',
+      category: 'Navigation',
+      iconName: 'FileText',
+      badge: '/HIRE',
+      keywords: ['hire', 'hiring', 'recruiter', 'dossier', 'brief', 'resume', 'cv', 'career', 'job', 'interview', 'talent', 'proof of work'],
+      action: () => { window.location.href = '/hire'; handlers.onClose(); }
+    },
+    {
+      id: 'social-signals',
+      title: 'Social Signals // Find Me Elsewhere (6 Profiles)',
+      subtitle: 'LinkedIn, X (Twitter), Instagram, Facebook, Linktree, and Peerlist',
+      category: 'Actions',
+      iconName: 'Share2',
+      badge: 'SOCIAL',
+      keywords: ['social', 'signals', 'find me', 'profiles', 'network', 'links', 'elsewhere'],
+      action: () => { handlers.onNavigateSection('hero'); handlers.onClose(); }
+    },
+    {
+      id: 'social-linkedin',
+      title: 'LinkedIn // Srinjoy Pramanick',
+      subtitle: 'Corporate mode ON. Thoda professional ban jaate hain.',
+      category: 'External',
+      iconName: 'ExternalLink',
+      badge: 'LINKEDIN',
+      keywords: ['linkedin', 'pro', 'network', 'career', 'social', 'in'],
+      action: () => { window.open('https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/', '_blank', 'noopener,noreferrer'); handlers.onClose(); }
+    },
+    {
+      id: 'social-x',
+      title: 'X (Twitter) // @Srinjoy_18',
+      subtitle: '280 characters. Unlimited overthinking.',
+      category: 'External',
+      iconName: 'ExternalLink',
+      badge: 'X / TWITTER',
+      keywords: ['x', 'twitter', 'tweets', 'hot takes', 'social'],
+      action: () => { window.open('https://x.com/Srinjoy_18', '_blank', 'noopener,noreferrer'); handlers.onClose(); }
+    },
+    {
+      id: 'social-peerlist',
+      title: 'Peerlist // @srinjoyp15',
+      subtitle: 'Build. Ship. Repeat. Chai bhi zaroori hai.',
+      category: 'External',
+      iconName: 'ExternalLink',
+      badge: 'PEERLIST',
+      keywords: ['peerlist', 'builders', 'proof of work', 'community', 'ship'],
+      action: () => { window.open('https://peerlist.io/srinjoyp15', '_blank', 'noopener,noreferrer'); handlers.onClose(); }
+    },
+    {
+      id: 'social-instagram',
+      title: 'Instagram // @unknown_syntax01',
+      subtitle: 'Code ke alawa bhi zindagi hai... allegedly.',
+      category: 'External',
+      iconName: 'ExternalLink',
+      badge: 'INSTAGRAM',
+      keywords: ['instagram', 'insta', 'photos', 'stories', 'life'],
+      action: () => { window.open('https://www.instagram.com/unknown_syntax01/', '_blank', 'noopener,noreferrer'); handlers.onClose(); }
+    },
+    {
+      id: 'social-linktree',
+      title: 'Linktree // @srinjoypramanick15',
+      subtitle: 'Ek link, saare raaste. Universal routes hub.',
+      category: 'External',
+      iconName: 'ExternalLink',
+      badge: 'LINKTREE',
+      keywords: ['linktree', 'links', 'hub', 'all'],
+      action: () => { window.open('https://linktr.ee/srinjoypramanick15', '_blank', 'noopener,noreferrer'); handlers.onClose(); }
+    },
+    {
+      id: 'social-facebook',
+      title: 'Facebook // srinjoy.pramanick.2025',
+      subtitle: 'OG internet vibes. Friend request nostalgia unlocked.',
+      category: 'External',
+      iconName: 'ExternalLink',
+      badge: 'FACEBOOK',
+      keywords: ['facebook', 'fb', 'social', 'archive'],
+      action: () => { window.open('https://www.facebook.com/srinjoy.pramanick.2025', '_blank', 'noopener,noreferrer'); handlers.onClose(); }
+    },
+    {
       id: 'portal-margins',
       title: 'The Margins // Authentic Thoughts & Reviews',
       subtitle: 'Share genuine feedback or critique with verified Google or GitHub authentication',

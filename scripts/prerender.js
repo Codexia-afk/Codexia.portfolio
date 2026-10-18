@@ -438,6 +438,41 @@ const routes = [
         <p>Processing OAuth session and returning to The Margins.</p>
       </main>
     `
+  },
+  {
+    route: '/hire',
+    title: 'The Hiring Dossier — Srinjoy Pramanick (@Codexia-afk) — Software Engineering Profile',
+    description: 'Official candidate briefing and recruiter dossier for Srinjoy Pramanick (Codexia-afk). Software engineer, CSE student at JIS College of Engineering (2024–2028). Creator of PushGuard and TrustOS. Proven track record in Go, Python, and AI systems.',
+    canonical: 'https://codexia-portfolio.vercel.app/hire',
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "name": "The Hiring Dossier — Srinjoy Pramanick (@Codexia-afk)",
+      "description": "Recruiter dossier and professional engineering profile of Srinjoy Pramanick (Codexia-afk).",
+      "url": "https://codexia-portfolio.vercel.app/hire",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Srinjoy Pramanick",
+        "jobTitle": ["Software Engineer", "Systems Builder", "AI Engineer"],
+        "alumniOf": "JIS College of Engineering"
+      }
+    },
+    htmlContent: `
+      <main>
+        <h1>The Hiring Dossier — Srinjoy Pramanick (Codexia-afk)</h1>
+        <p>Software Engineering · Systems & Developer Tools · Full-Stack Systems</p>
+        <p>B.Tech Computer Science & Engineering @ JIS College of Engineering (2024–2028). Builder of PushGuard, TrustOS, Loksetu.ai, and JeeraType.</p>
+        <h2>Flagship Case Studies</h2>
+        <ul>
+          <li><strong>PushGuard:</strong> Zero-dependency pre-push Git security guard and Shannon entropy secret scanner written in Go.</li>
+          <li><strong>TrustOS:</strong> Deterministic runtime guardrails for autonomous AI agents with sub-18ms FastAPI middleware.</li>
+          <li><strong>Loksetu.ai:</strong> Zero-telemetry Chrome MV3 DOM copilot for Indian welfare portals.</li>
+        </ul>
+        <h2>Accolades</h2>
+        <p>1st Runner-Up @ CrazyBuild Hackathon · Smart India Hackathon (SIH) 2025 Qualifier.</p>
+        <p>Contact: srinjoypramanick15@gmail.com · <a href="/resume.html">Official Curriculum Vitae</a></p>
+      </main>
+    `
   }
 ];
 

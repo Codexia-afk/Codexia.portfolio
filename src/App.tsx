@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from
 import { TopBar } from './components/TopBar';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
+import { Hire } from './pages/Hire';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Terms } from './pages/Terms';
@@ -88,6 +89,8 @@ const AppContent: React.FC<{
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/hire" element={<Hire />} />
+        <Route path="/recruiter" element={<Hire />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />

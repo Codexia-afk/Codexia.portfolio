@@ -74,6 +74,9 @@ export const Footer: React.FC = () => {
               <a href="#contact" className="hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors">
                 06 // Direct Inquiries
               </a>
+              <Link to="/hire" className="hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors font-bold text-[#486616] dark:text-[#d5ef9c]">
+                ★ // The Hiring Dossier (Recruiter Brief ↗)
+              </Link>
             </nav>
           </div>
 
