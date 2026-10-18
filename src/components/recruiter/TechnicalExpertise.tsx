@@ -73,7 +73,7 @@ export const TechnicalExpertise: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-[#eeeae0] dark:bg-[#1a1917] border-b border-[#dcd6c8] dark:border-[#2d2c27] transition-colors duration-300">
+    <section id="technical-expertise" className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-[#eeeae0] dark:bg-[#1a1917] border-b border-[#dcd6c8] dark:border-[#2d2c27] transition-colors duration-300">
       <div className="max-w-7xl mx-auto w-full space-y-10">
         
         {/* Section Header */}

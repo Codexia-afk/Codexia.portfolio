@@ -101,7 +101,7 @@ export function buildSearchIndex(handlers: ActionHandlers): SearchResultItem[] {
       category: 'Actions',
       iconName: 'FileText',
       badge: 'DOSSIER',
-      keywords: ['recruiter', 'hire', 'resume', 'cv', 'summary', 'job', 'interview', 'talent'],
+      keywords: ['recruiter', 'hire', 'hiring', 'hr', 'resume', 'cv', 'summary', 'job', 'interview', 'talent', 'quick view'],
       action: () => { handlers.onOpenView('recruiter-mode'); }
     },
     {
@@ -111,8 +111,48 @@ export function buildSearchIndex(handlers: ActionHandlers): SearchResultItem[] {
       category: 'Navigation',
       iconName: 'FileText',
       badge: '/HIRE',
-      keywords: ['hire', 'hiring', 'recruiter', 'dossier', 'brief', 'resume', 'cv', 'career', 'job', 'interview', 'talent', 'proof of work'],
+      keywords: ['hire', 'hiring', 'recruiter', 'hr', 'dossier', 'brief', 'recruiter brief', 'resume', 'cv', 'career', 'job', 'work', 'projects', 'skills', 'proof of work', 'hiring dossier'],
       action: () => { window.location.href = '/hire'; handlers.onClose(); }
+    },
+    {
+      id: 'hire-proof-of-work',
+      title: 'Proof of Work // Flagship Systems Evidence',
+      subtitle: 'PushGuard (Go CLI), TrustOS, Loksetu.ai, JeeraType, and WASM Sandbox',
+      category: 'Projects',
+      iconName: 'Terminal',
+      badge: 'PROOF',
+      keywords: ['proof of work', 'proof', 'projects', 'work', 'pushguard', 'trustos', 'systems', 'flagship', 'evidence'],
+      action: () => { window.location.href = '/hire#proof-of-work'; handlers.onClose(); }
+    },
+    {
+      id: 'hire-technical-expertise',
+      title: 'Technical Expertise // Verified Skills Matrix',
+      subtitle: 'Taxonomy of demonstrated languages, backend systems, databases, and tooling',
+      category: 'Capabilities',
+      iconName: 'Cpu',
+      badge: 'SKILLS',
+      keywords: ['technical expertise', 'expertise', 'skills', 'stack', 'languages', 'backend', 'frontend', 'tools'],
+      action: () => { window.location.href = '/hire#technical-expertise'; handlers.onClose(); }
+    },
+    {
+      id: 'hire-achievements',
+      title: 'Achievements & Hackathons // Track Record',
+      subtitle: '1st Runner-Up @ CrazyBuild · SIH 2025 Qualifier · 7+ hackathon pressure builds',
+      category: 'Experience',
+      iconName: 'Trophy',
+      badge: 'AWARDS',
+      keywords: ['achievements', 'hackathons', 'awards', 'crazybuild', 'sih', 'trophy', 'track record'],
+      action: () => { window.location.href = '/hire#achievements'; handlers.onClose(); }
+    },
+    {
+      id: 'hire-contact',
+      title: 'Contact for Hiring // Direct Initiative',
+      subtitle: 'srinjoypramanick15@gmail.com · Direct email and collaboration channels',
+      category: 'Actions',
+      iconName: 'Mail',
+      badge: 'HIRE',
+      keywords: ['contact for hiring', 'contact', 'hire', 'hiring', 'recruiter', 'email', 'reach', 'collaborate'],
+      action: () => { window.location.href = '/hire#contact-recruiter'; handlers.onClose(); }
     },
     {
       id: 'social-signals',
@@ -311,7 +351,7 @@ export function buildSearchIndex(handlers: ActionHandlers): SearchResultItem[] {
       category: 'Actions',
       iconName: 'FileText',
       badge: 'PDF',
-      keywords: ['resume', 'cv', 'curriculum vitae', 'pdf', 'credentials'],
+      keywords: ['resume', 'cv', 'curriculum vitae', 'pdf', 'credentials', 'download cv', 'download resume'],
       action: () => {
         window.open('/resume.html', '_blank');
         handlers.onClose();

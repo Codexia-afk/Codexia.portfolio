@@ -7,7 +7,7 @@ export const ResumePanel: React.FC = () => {
   const [showPreview, setShowPreview] = useState(false);
 
   return (
-    <section className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-[#f8f6f0] dark:bg-[#131312] border-b border-[#dcd6c8] dark:border-[#2d2c27] transition-colors duration-300">
+    <section id="resume-section" className="relative w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-[#f8f6f0] dark:bg-[#131312] border-b border-[#dcd6c8] dark:border-[#2d2c27] transition-colors duration-300">
       <div className="max-w-7xl mx-auto w-full space-y-8">
         
         {/* Header */}
