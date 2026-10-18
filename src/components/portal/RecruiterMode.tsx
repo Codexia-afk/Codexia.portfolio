@@ -1,3 +1,4 @@
+import { HumanTooltip } from '../common/HumanTooltip';
 import React from 'react';
 import { 
   ArrowLeft, 
@@ -64,7 +65,7 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({
           </div>
 
           <div className="flex flex-wrap sm:flex-col gap-2 shrink-0">
-            <a
+            <HumanTooltip registryId="resume" profile="professional"><a
               href="/resume.html"
               target="_blank"
               rel="noopener noreferrer"
@@ -72,21 +73,21 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({
             >
               <FileText className="w-3.5 h-3.5" />
               <span>VIEW RESUME</span>
-            </a>
+            </a></HumanTooltip>
 
-            <button
+            <HumanTooltip registryId="copy-email" profile="professional"><button
               onClick={handleCopyEmail}
               className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs uppercase font-bold tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] hover:text-[#486616] dark:hover:border-[#d5ef9c] dark:hover:text-[#d5ef9c] transition-colors cursor-pointer"
             >
               <Copy className="w-3.5 h-3.5" />
               <span>COPY EMAIL</span>
-            </button>
+            </button></HumanTooltip>
           </div>
         </div>
 
         {/* Quick Contact & Profile Badges */}
         <div className="pt-3 border-t border-[#dcd6c8] dark:border-[#2d2c27] flex flex-wrap items-center gap-3 font-mono text-xs">
-          <a
+          <HumanTooltip registryId="github" profile="professional"><a
             href={personalData.socials.github}
             target="_blank"
             rel="noopener noreferrer"
@@ -94,9 +95,9 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({
           >
             <Github className="w-3.5 h-3.5" />
             <span>GitHub (@{personalData.username})</span>
-          </a>
+          </a></HumanTooltip>
           <span className="text-[#bfb8a6] dark:text-[#383731]">·</span>
-          <a
+          <HumanTooltip registryId="linkedin-pro" profile="professional"><a
             href={personalData.socials.linkedin}
             target="_blank"
             rel="noopener noreferrer"
@@ -104,7 +105,7 @@ export const RecruiterMode: React.FC<RecruiterModeProps> = ({
           >
             <Linkedin className="w-3.5 h-3.5" />
             <span>LinkedIn</span>
-          </a>
+          </a></HumanTooltip>
           <span className="text-[#bfb8a6] dark:text-[#383731]">·</span>
           <a
             href={personalData.socials.gmailCompose}

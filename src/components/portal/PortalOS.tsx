@@ -106,6 +106,8 @@ export const PortalOS: React.FC<PortalOSProps> = ({
         } else {
           onClose();
         }
+      } else if (e.target !== searchInputRef.current) {
+        return;
       } else if (e.key === 'ArrowDown') {
         if (searchResults.length > 0) {
           e.preventDefault();
@@ -179,13 +181,7 @@ export const PortalOS: React.FC<PortalOSProps> = ({
               
               {/* Row 1: System Badge, Quick Experience Pills & Close */}
               <div className="flex items-center justify-between gap-3">
-                <HumanTooltip 
-                  message="Welcome back to the command center." 
-                  tag="PORTAL // OS" 
-                  tone="hinglish-casual" 
-                  placement="bottom"
-                >
-                  <div className="flex items-center gap-2.5 cursor-default">
+                <div className="flex items-center gap-2.5 cursor-default">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#486616] dark:bg-[#d5ef9c] animate-pulse" />
                     <span className="font-display font-bold text-sm tracking-tight text-[#1a1917] dark:text-[#f0ede5]">
                       PORTAL OS
@@ -194,7 +190,6 @@ export const PortalOS: React.FC<PortalOSProps> = ({
                       v2.0
                     </span>
                   </div>
-                </HumanTooltip>
 
                 {/* Sub-view switcher pills */}
                 <div className="hidden sm:flex items-center gap-1 font-mono text-[11px]">
@@ -208,7 +203,7 @@ export const PortalOS: React.FC<PortalOSProps> = ({
                   >
                     Atlas
                   </button>
-                  <button
+                  <HumanTooltip registryId="guestbook"><button
                     onClick={() => { setActiveView('margins-notes'); setSearchQuery(''); }}
                     className={`px-2.5 py-1 rounded-xs transition-colors cursor-pointer ${
                       activeView === 'margins-notes'
@@ -217,7 +212,7 @@ export const PortalOS: React.FC<PortalOSProps> = ({
                     }`}
                   >
                     The Margins
-                  </button>
+                  </button></HumanTooltip>
                   <button
                     onClick={() => { setActiveView('on-my-desk'); setSearchQuery(''); }}
                     className={`px-2.5 py-1 rounded-xs transition-colors cursor-pointer ${
@@ -228,7 +223,7 @@ export const PortalOS: React.FC<PortalOSProps> = ({
                   >
                     Desk
                   </button>
-                  <button
+                  <HumanTooltip registryId="recruiter-quick"><button
                     onClick={() => { setActiveView('recruiter-mode'); setSearchQuery(''); }}
                     className={`px-2.5 py-1 rounded-xs transition-colors cursor-pointer ${
                       activeView === 'recruiter-mode'
@@ -237,32 +232,34 @@ export const PortalOS: React.FC<PortalOSProps> = ({
                     }`}
                   >
                     Recruiter
-                  </button>
+                  </button></HumanTooltip>
                 </div>
 
-                <button
+                <HumanTooltip registryId="portal-close"><button
                   onClick={onClose}
                   className="p-1.5 rounded-sm text-[#8c877b] hover:text-[#1a1917] dark:hover:text-[#f0ede5] hover:bg-[#dcd6c8]/50 dark:hover:bg-[#201f1c] transition-colors cursor-pointer"
                   aria-label="Close Portal OS"
                 >
                   <X className="w-4 h-4" />
-                </button>
+                </button></HumanTooltip>
               </div>
 
               {/* Row 2: Universal Search Input */}
               <div className="relative flex items-center">
                 <Search className="w-4 h-4 text-[#8c877b] dark:text-[#a8a69f] absolute left-3.5 pointer-events-none" />
-                <input
+                <HumanTooltip registryId="portal-search"><input
                   ref={searchInputRef}
+                  aria-label="Search PORTAL commands"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Universal search: projects, guardrails, skills, hackathons, actions..."
                   className="w-full pl-10 pr-12 py-3 rounded-xl bg-[#f4efe5] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] text-sm font-sans text-[#1a1917] dark:text-[#f0ede5] placeholder-[#8c877b] dark:placeholder-[#6e6b63] focus:outline-none focus:ring-2 focus:ring-[#486616]/20 dark:focus:ring-[#d5ef9c]/20 focus:border-[#486616] dark:focus:border-[#d5ef9c] shadow-2xs transition-all"
-                />
+                /></HumanTooltip>
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
+                    aria-label="Clear search"
                     className="absolute right-3.5 p-1 rounded-sm text-[#8c877b] hover:text-[#1a1917] dark:hover:text-[#f0ede5] cursor-pointer"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -274,7 +271,7 @@ export const PortalOS: React.FC<PortalOSProps> = ({
               <div className="flex items-center justify-between text-[10px] font-mono text-[#8c877b] dark:text-[#6e6b63] px-1 pt-0.5">
                 <span className="tracking-wider">SHORTCUTS: ESC TO EXIT · ↑↓ TO SELECT · ↵ EXECUTE</span>
                 <span className="hidden sm:inline italic text-[#486616] dark:text-[#d5ef9c]">
-                  Even the search engine needs a hint.
+                  Type a project, skill, or action.
                 </span>
               </div>
 

@@ -1,3 +1,5 @@
+import { projectMessageId } from '../data/humanLayerMessages';
+import { HumanTooltip } from '../components/common/HumanTooltip';
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { projectsData } from '../data/projects';
@@ -131,7 +133,7 @@ export const ProjectDetail: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <a
+            <HumanTooltip registryId={projectMessageId(project.slug)}><a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -139,7 +141,7 @@ export const ProjectDetail: React.FC = () => {
             >
               <Github className="w-4 h-4" />
               <span>Source Code</span>
-            </a>
+            </a></HumanTooltip>
 
             {project.liveUrl && (
               <a

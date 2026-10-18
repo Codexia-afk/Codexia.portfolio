@@ -35,7 +35,7 @@ graph TD
         ProjectsData[projects.ts: Empirical Case Studies]
         SkillsData[skills.ts: Capabilities Matrix]
         SocialData[socialSignals.ts: 6 Authoritative Profiles]
-        HumanData[humanLayer.ts: Curated Interaction Registry]
+        HumanData[humanLayerMessages.ts: Typed Interaction Registry]
     end
 
     subgraph SupabaseCloud [Supabase Backend // PostgreSQL]
@@ -87,7 +87,7 @@ graph TD
 ### 3.2 Component Boundaries & Shared Abstractions
 - **Layout Shell (`src/App.tsx`)**: Controls global navigation, keyboard shortcut orchestration (`⌘K`), theme hydration, and floating launchers.
 - **TopBar (`src/components/TopBar.tsx`)**: Fixed responsive header providing brand identity, desktop chapter scrollspy, `RECRUITER BRIEF ↗` CTA, `PORTAL ⌘K` command center trigger, `MARGINS` guestbook launcher, theme toggle, and an accessible mobile drawer.
-- **HumanTooltip (`src/components/common/HumanTooltip.tsx`)**: Reusable contextual popover system wired to `HumanLayer`, featuring boundary protection, escape dismissal, and zero layout shifting.
+- **HumanTooltip (`src/components/human-layer/`)**: Reusable Floating UI contextual popover system wired to the typed `humanLayerMessages` registry, featuring boundary protection, escape dismissal, touch-safe behavior, and zero layout shifting.
 - **SocialDock (`src/components/social/SocialDock.tsx`)**: Editorial social dock featuring 6 verified profiles, platform-specific hover choreography, and a mobile "Vibes" peek sheet.
 - **PORTAL OS (`src/components/portal/PortalOS.tsx`)**: Full-screen developer command center featuring universal keyword search, project quick view, live telemetry, and the guestbook.
 
@@ -140,7 +140,7 @@ All direct page reloads (e.g., refreshing `https://codexiaport.vercel.app/hire`)
 
 ### P2 — Performance & Maintainability
 - **Resolved**: Extracted all social media URLs and metadata into a single typed module `src/data/socialSignals.ts`.
-- **Resolved**: Centralized contextual humor into `src/data/humanLayer.ts`.
+- **Resolved**: Centralized contextual humor into `src/data/humanLayerMessages.ts` with typed tone, route, placement, and mobile behavior metadata.
 - **Resolved**: Added pre-render script `scripts/prerender.js` generating production-ready HTML for `/hire` with dedicated OpenGraph and JSON-LD schema tags.
 
 ### P3 — Contextual Delight & Polish

@@ -1,3 +1,4 @@
+import { HumanTooltip } from './common/HumanTooltip';
 import React from 'react';
 import { Github, ArrowUpRight } from 'lucide-react';
 import { personalData } from '../data/personal';
@@ -48,7 +49,7 @@ export const GitHubBuildLog: React.FC = () => {
         </div>
 
         {/* Right CTA */}
-        <a
+        <HumanTooltip registryId="social-github"><a
           href={personalData.socials.github}
           target="_blank"
           rel="noopener noreferrer"
@@ -56,7 +57,7 @@ export const GitHubBuildLog: React.FC = () => {
         >
           <span>VIEW GITHUB REPOS</span>
           <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-        </a>
+        </a></HumanTooltip>
 
       </div>
     </section>

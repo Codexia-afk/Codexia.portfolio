@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { getTooltipMessage, type HumanMessageId } from '../../data/humanLayerMessages';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Sparkles, X } from 'lucide-react';
 import { socialSignalsData, SocialSignal } from '../../data/socialSignals';
-import { HumanTooltip, HumanTooltipProvider } from '../human-layer';
+import { HumanTooltip } from '../human-layer';
 import { 
   LinkedInIcon, 
   XIcon, 
@@ -14,6 +16,11 @@ import {
 
 export const SocialDock: React.FC<{ className?: string }> = ({ className = '' }) => {
   const [mobileModalOpen, setMobileModalOpen] = useState<boolean>(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    if (mobileModalOpen) dialogRef.current?.showModal();
+    else dialogRef.current?.close();
+  }, [mobileModalOpen]);
   const shouldReduceMotion = useReducedMotion();
 
   const renderIcon = (id: SocialSignal['id']) => {
@@ -37,17 +44,17 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
     if (shouldReduceMotion) return {};
     switch (variant) {
       case 'snap':
-        return { rotate: [0, -3, 0], scale: 1.08 };
+        return { y: -2 };
       case 'glitch':
-        return { x: [0, -2, 2, 0], scale: 1.08 };
+        return { x: 2 };
       case 'tilt':
-        return { rotate: [0, -8, 5, 0], scale: 1.08 };
+        return { y: -2, scale: 1.04 };
       case 'retro':
-        return { y: [0, -3, 0], scale: 1.08 };
+        return { y: -1 };
       case 'branch':
-        return { scale: 1.1, y: -2 };
+        return { scale: 1.04, y: -1 };
       case 'compile':
-        return { scale: [1, 1.12, 1] };
+        return { scale: 1.04 };
       default:
         return { scale: 1.08 };
     }
@@ -71,7 +78,7 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
           <button
             type="button"
             onClick={() => setMobileModalOpen(true)}
-            className="sm:hidden inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#eeeae0] dark:bg-[#201f1c] border border-[#dcd6c8] dark:border-[#383731] font-mono text-[10px] text-[#486616] dark:text-[#d5ef9c] font-semibold cursor-pointer active:scale-95 transition-all"
+            className="sm:hidden inline-flex items-center gap-1 px-3 min-h-11 rounded-full bg-[#eeeae0] dark:bg-[#201f1c] border border-[#dcd6c8] dark:border-[#383731] font-mono text-[10px] text-[#486616] dark:text-[#d5ef9c] font-semibold cursor-pointer active:scale-95 transition-all"
             aria-label="View social personality jokes"
           >
             <Sparkles className="w-3 h-3" />
@@ -82,8 +89,7 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
 
       {/* Interactive Icon Dock Container */}
       <div className="relative inline-flex items-center p-1.5 rounded-2xl bg-[#eeeae0]/90 dark:bg-[#1a1917]/90 border border-[#dcd6c8] dark:border-[#2d2c27] shadow-xs backdrop-blur-md">
-        <HumanTooltipProvider delay={{ open: 80, close: 60 }}>
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="grid grid-cols-6 max-[360px]:grid-cols-3 items-center gap-1.5 sm:gap-2">
             {socialSignalsData.map((signal) => (
               <HumanTooltip
                 key={signal.id}
@@ -97,7 +103,7 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
                   rel="noopener noreferrer"
                   aria-label={signal.accessibleName}
                   whileHover={getPlatformMotion(signal.animationVariant)}
-                  whileTap={{ scale: 0.94 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
                   className="relative flex items-center justify-center w-11 h-11 sm:w-10 sm:h-10 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 rounded-xl transition-all duration-200 outline-hidden focus-visible:ring-2 focus-visible:ring-[#486616] dark:focus-visible:ring-[#d5ef9c] bg-[#f4efe5] dark:bg-[#201f1c] text-[#58554d] dark:text-[#a8a69f] hover:text-[#1a1917] dark:hover:text-[#f0ede5] hover:bg-[#1a1917] dark:hover:bg-[#f0ede5] hover:text-[#f8f6f0] dark:hover:text-[#131312] border border-[#dcd6c8]/60 dark:border-[#2d2c27] cursor-pointer"
                 >
                   {renderIcon(signal.id)}
@@ -105,18 +111,17 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
               </HumanTooltip>
             ))}
           </div>
-        </HumanTooltipProvider>
       </div>
 
       {/* Mobile Personality Modal / Bottom Sheet */}
-      <AnimatePresence>
-        {mobileModalOpen && (
-          <div className="sm:hidden fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-xs p-4">
+      {createPortal(
+        <dialog ref={dialogRef} aria-label="Social Signals personality" className="human-social-dialog"
+          onCancel={() => setMobileModalOpen(false)} onClose={() => setMobileModalOpen(false)}
+          onClick={event => { if (event.target === event.currentTarget) setMobileModalOpen(false); }}>
             <motion.div
-              initial={{ y: '100%', opacity: 0 }}
+              initial={false}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: '100%', opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.15 }}
               className="w-full max-w-sm rounded-2xl bg-[#1a1917] text-[#f0ede5] border border-[#2d2c27] p-5 shadow-2xl space-y-4"
             >
               <div className="flex items-center justify-between pb-3 border-b border-[#2d2c27]">
@@ -129,7 +134,7 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
                 <button
                   type="button"
                   onClick={() => setMobileModalOpen(false)}
-                  className="p-1 rounded-full text-[#8c877b] hover:text-[#f0ede5] transition-colors"
+                  className="p-3 min-h-11 min-w-11 rounded-full text-[#8c877b] hover:text-[#f0ede5] transition-colors"
                   aria-label="Close modal"
                 >
                   <X className="w-4 h-4" />
@@ -156,7 +161,7 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
                       <span className="text-[10px] text-[#8c877b]">{sig.tag}</span>
                     </div>
                     <div className="text-[11px] text-[#a8a69f] font-sans italic">
-                      "{sig.microcopy[0]}"
+                      "{getTooltipMessage(`social-${sig.id}` as HumanMessageId).defaultMessage}"
                     </div>
                     <div className="text-[10px] text-[#6e6b63] font-mono mt-1">
                       {sig.mobileDescription}
@@ -176,9 +181,7 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
                 </a>
               </div>
             </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+        </dialog>, document.body)}
     </div>
   );
 };

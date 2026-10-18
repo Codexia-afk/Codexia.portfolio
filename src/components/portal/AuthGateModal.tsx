@@ -1,3 +1,4 @@
+import { HumanTooltip } from '../common/HumanTooltip';
 import React, { useState, useEffect } from 'react';
 import { 
   X, 
@@ -340,7 +341,7 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
                 </div>
 
                 {/* Primary Confirm Button */}
-                <button
+                <HumanTooltip registryId="auth-github"><button
                   type="button"
                   onClick={handleConfirmGithubAccount}
                   disabled={loadingProvider === 'github'}
@@ -355,19 +356,19 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
                       <ArrowRight className="w-3.5 h-3.5 ml-1" />
                     </>
                   )}
-                </button>
+                </button></HumanTooltip>
               </div>
             )}
 
             {/* Standard OAuth Redirect Link */}
             <div className="pt-2 text-center">
-              <button
+              <HumanTooltip registryId="auth-github"><button
                 type="button"
                 onClick={handleStandardGithubOAuth}
                 className="text-[11px] font-mono text-[#8c877b] hover:text-[#1a1917] dark:hover:text-[#f0ede5] underline cursor-pointer"
               >
                 Or sign in via GitHub OAuth redirect
-              </button>
+              </button></HumanTooltip>
             </div>
           </div>
         )}
@@ -375,7 +376,7 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
         {/* TAB 2: GOOGLE ACCOUNT AUTHENTICATION */}
         {activeTab === 'google' && (
           <div className="space-y-4">
-            <button
+            <HumanTooltip registryId="auth-google"><button
               onClick={handleGoogleAuth}
               disabled={loadingProvider !== null}
               className="w-full group p-4 rounded-2xl bg-[#eeeae0] hover:bg-[#f4efe5] dark:bg-[#1a1917] dark:hover:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] backdrop-blur-sm flex items-center justify-between transition-all cursor-pointer shadow-xs hover:border-[#486616]/40 dark:hover:border-[#d5ef9c]/40 disabled:opacity-50"
@@ -407,7 +408,7 @@ export const AuthGateModal: React.FC<AuthGateModalProps> = ({
               ) : (
                 <ArrowRight className="w-4 h-4 text-[#8c877b] group-hover:translate-x-1 transition-transform" />
               )}
-            </button>
+            </button></HumanTooltip>
 
             {!isCloudActive && (
               <div className="p-3.5 rounded-2xl bg-[#eeeae0] dark:bg-[#1a1917] border border-[#dcd6c8] dark:border-[#2d2c27] space-y-2 text-xs">

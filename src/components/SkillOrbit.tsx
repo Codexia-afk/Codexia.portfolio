@@ -1,3 +1,5 @@
+import { projectMessageId } from '../data/humanLayerMessages';
+import { HumanTooltip } from './common/HumanTooltip';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Cpu, Server, Globe, Wrench } from 'lucide-react';
@@ -81,17 +83,18 @@ export const SkillOrbit: React.FC = () => {
               const isSelected = selectedSkill.name === skill.name;
 
               return (
-                <button
-                  key={skill.name}
-                  onClick={() => setSelectedSkill(skill)}
-                  className={`px-3 py-2 rounded-xs font-mono text-xs flex items-center space-x-2 border transition-all cursor-pointer ${
-                    isSelected
-                      ? 'bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] border-[#1a1917] dark:border-[#d5ef9c] font-bold shadow-xs'
-                      : 'bg-[#eeeae0] dark:bg-[#1a1917] text-[#58554d] dark:text-[#a8a69f] border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#bfb8a6] hover:text-[#1a1917] dark:hover:text-[#f0ede5]'
-                  }`}
-                >
-                  <span>{skill.name}</span>
-                </button>
+                <HumanTooltip registryId="skills" key={skill.name}>
+                  <button
+                    onClick={() => setSelectedSkill(skill)}
+                    className={`px-3 py-2 rounded-xs font-mono text-xs flex items-center space-x-2 border transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] border-[#1a1917] dark:border-[#d5ef9c] font-bold shadow-xs'
+                        : 'bg-[#eeeae0] dark:bg-[#1a1917] text-[#58554d] dark:text-[#a8a69f] border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#bfb8a6] hover:text-[#1a1917] dark:hover:text-[#f0ede5]'
+                    }`}
+                  >
+                    <span>{skill.name}</span>
+                  </button>
+                </HumanTooltip>
               );
             })}
           </div>
@@ -133,8 +136,7 @@ export const SkillOrbit: React.FC = () => {
               {relatedProjects.length > 0 ? (
                 <div className="space-y-2.5">
                   {relatedProjects.map((proj) => (
-                    <Link
-                      key={proj.id}
+                    <HumanTooltip registryId={projectMessageId(proj.slug)} key={proj.id}><Link
                       to={`/projects/${proj.slug}`}
                       className="group p-4 rounded-xl bg-[#f8f6f0] dark:bg-[#131312] border border-[#dcd6c8] dark:border-[#2d2c27] flex items-center justify-between hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors"
                     >
@@ -154,7 +156,7 @@ export const SkillOrbit: React.FC = () => {
                         <span className="hidden sm:inline">INSPECT</span>
                         <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                       </div>
-                    </Link>
+                    </Link></HumanTooltip>
                   ))}
                 </div>
               ) : (

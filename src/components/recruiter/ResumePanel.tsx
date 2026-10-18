@@ -44,7 +44,7 @@ export const ResumePanel: React.FC = () => {
           </div>
 
           <div className="no-print flex flex-wrap items-center gap-3 shrink-0">
-            <HumanTooltip registryId="resume-action" placement="top">
+            <HumanTooltip registryId="resume" placement="top">
               <a
                 href="/resume.html"
                 target="_blank"
@@ -56,21 +56,21 @@ export const ResumePanel: React.FC = () => {
               </a>
             </HumanTooltip>
 
-            <button
+            <HumanTooltip registryId="resume-preview"><button
               onClick={() => setShowPreview(!showPreview)}
               className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-[#f8f6f0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors cursor-pointer"
             >
               {showPreview ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
               <span>{showPreview ? 'COLLAPSE BRIEF' : 'INLINE PREVIEW'}</span>
-            </button>
+            </button></HumanTooltip>
 
-            <button
+            <HumanTooltip registryId="print-profile"><button
               onClick={() => window.print()}
               className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-[#f8f6f0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>PRINT PDF</span>
-            </button>
+            </button></HumanTooltip>
           </div>
         </div>
 

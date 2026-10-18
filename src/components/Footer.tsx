@@ -147,13 +147,16 @@ export const Footer: React.FC = () => {
           <div>
             © {new Date().getFullYear()} Srinjoy Pramanick. All rights reserved.
           </div>
-          <div>
-            <HumanTooltip registryId="easter-egg-curiosity" placement="top">
-              <span className="cursor-default hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors">
-                PORTFOLIO V2.0 // INDEPENDENT ENGINEERING ATELIER
-              </span>
-            </HumanTooltip>
-          </div>
+          <HumanTooltip registryId="footer" placement="top">
+            <span
+              tabIndex={0}
+              role="note"
+              aria-label="Portfolio signature"
+              className="cursor-default hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
+            >
+              PORTFOLIO V2.0 // INDEPENDENT ENGINEERING ATELIER
+            </span>
+          </HumanTooltip>
         </div>
 
       </div>

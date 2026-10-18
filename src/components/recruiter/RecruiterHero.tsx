@@ -51,14 +51,14 @@ export const RecruiterHero: React.FC = () => {
               <span>CANDIDATE ACTIVE // OPEN TO ROLES</span>
             </span>
 
-            <button
+            <HumanTooltip registryId="print-profile"><button
               onClick={handlePrint}
               className="no-print hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-xs bg-[#f4efe5] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors cursor-pointer text-[11px]"
-              title="Print clean recruiter briefing document"
+              aria-label="Print recruiter briefing document"
             >
               <Printer className="w-3.5 h-3.5 opacity-80" />
               <span>PRINT BRIEF</span>
-            </button>
+            </button></HumanTooltip>
           </div>
         </div>
 
@@ -112,7 +112,7 @@ export const RecruiterHero: React.FC = () => {
 
             {/* Direct Action Hub */}
             <div className="no-print flex flex-wrap items-center gap-3 pt-3">
-              <HumanTooltip registryId="resume-action" placement="top" align="start">
+              <HumanTooltip registryId="resume" placement="top" align="start">
                 <a
                   href="/resume.html"
                   target="_blank"
@@ -124,7 +124,7 @@ export const RecruiterHero: React.FC = () => {
                 </a>
               </HumanTooltip>
 
-              <HumanTooltip registryId="github-activity" placement="top">
+              <HumanTooltip registryId="github" placement="top">
                 <a
                   href="https://github.com/Codexia-afk"
                   target="_blank"
@@ -136,7 +136,7 @@ export const RecruiterHero: React.FC = () => {
                 </a>
               </HumanTooltip>
 
-              <HumanTooltip registryId="proof-of-work" placement="top">
+              <HumanTooltip registryId="projects" placement="top">
                 <a
                   href="#proof-of-work"
                   className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors"
@@ -146,7 +146,7 @@ export const RecruiterHero: React.FC = () => {
                 </a>
               </HumanTooltip>
 
-              <HumanTooltip registryId="recruiter-contact" placement="top">
+              <HumanTooltip registryId="contact-pro" placement="top">
                 <a
                   href="#contact-recruiter"
                   className="inline-flex items-center gap-2 px-4 py-3 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors"

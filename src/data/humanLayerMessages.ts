@@ -1,365 +1,777 @@
-/**
- * THE PERSONAL INTERNET // HUMANLAYER 2.0
- * Intelligent Hover Experience & Context-Aware Humor Registry
- * 
- * Centralized, typed registry for all tooltip interactions across the portfolio.
- * Categorized into:
- *  - Category A: Professional Engineering Wit (Recruiter, résumé, architecture, skills)
- *  - Category B: Personal Hinglish Micro-Memes (Socials, guestbook, theme, portal, casual)
- *  - Category C: Subtle Easter Eggs (Colophon, curiosity, deep links)
- */
-
-export type HumorContext = 
-  | 'professional'
-  | 'personal'
-  | 'social'
-  | 'technical'
-  | 'easter-egg';
-
+/** Curated offline copy. Routes and component intent determine tone; no random rotation. */
+export type ContentProfile = 'professional' | 'personal' | 'technical';
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
-
 export interface TooltipMessage {
   id: string;
-  tag: string;
-  message: string;
-  context: HumorContext;
-  preferredPlacement?: TooltipPlacement;
-  compactMessage?: string;
-  alternativeMessages?: string[];
-  externalIcon?: boolean;
+  targetId: string;
+  route: string;
+  component: string;
+  tone: ContentProfile;
+  defaultMessage: string;
+  alternatives: readonly string[];
+  priority: 'high' | 'medium' | 'low';
+  preferredPlacement: TooltipPlacement;
+  mobileBehavior: 'omit';
+  enabled: boolean;
+  professionalMessage?: string;
+}
+const messages = {
+  "resume": {
+    "id": "resume",
+    "targetId": "Open résumé",
+    "route": "*",
+    "component": "OrbitalHero, RecruiterHero, ResumePanel, RecruiterMode",
+    "tone": "professional",
+    "defaultMessage": "Compiled for humans. No dependencies required.",
+    "alternatives": [
+      "A concise summary of several thousand decisions."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "resume-preview": {
+    "id": "resume-preview",
+    "targetId": "Toggle inline résumé preview",
+    "route": "/hire",
+    "component": "ResumePanel",
+    "tone": "professional",
+    "defaultMessage": "One briefing. Plenty to discuss.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "print-profile": {
+    "id": "print-profile",
+    "targetId": "Print / export profile",
+    "route": "/hire",
+    "component": "RecruiterHero, ResumePanel",
+    "tone": "professional",
+    "defaultMessage": "Optimized for the human reading experience.",
+    "alternatives": [
+      "Hardware requirement: one reasonably curious recruiter."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "github": {
+    "id": "github",
+    "targetId": "Source repository",
+    "route": "*",
+    "component": "ProjectsEditorial, RecruiterHero, RecruiterContact, RecruiterMode, ProjectDetail",
+    "tone": "professional",
+    "defaultMessage": "Where the implementation answers the questions.",
+    "alternatives": [
+      "The repository has the final word."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "linkedin-pro": {
+    "id": "linkedin-pro",
+    "targetId": "Professional LinkedIn",
+    "route": "*",
+    "component": "RecruiterContact, RecruiterMode",
+    "tone": "professional",
+    "defaultMessage": "Let's connect beyond the codebase.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "projects": {
+    "id": "projects",
+    "targetId": "Selected work",
+    "route": "/hire",
+    "component": "RecruiterHero",
+    "tone": "professional",
+    "defaultMessage": "Evidence beats adjectives.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "contact-pro": {
+    "id": "contact-pro",
+    "targetId": "Professional contact",
+    "route": "*",
+    "component": "RecruiterHero, RecruiterContact, RecruiterMode",
+    "tone": "professional",
+    "defaultMessage": "Let's discuss something worth building.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "copy-email": {
+    "id": "copy-email",
+    "targetId": "Copy email address",
+    "route": "*",
+    "component": "RecruiterContact, RecruiterMode",
+    "tone": "professional",
+    "defaultMessage": "Email copied. Conversation pending.",
+    "alternatives": [
+      "Address mil gaya. Ab achhi baat bhejna."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "recruiter-brief": {
+    "id": "recruiter-brief",
+    "targetId": "Hiring Dossier entry",
+    "route": "*",
+    "component": "TopBar, OrbitalHero",
+    "tone": "professional",
+    "defaultMessage": "Everything a recruiter needs. Minus the scavenger hunt.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "recruiter-quick": {
+    "id": "recruiter-quick",
+    "targetId": "Recruiter quick view",
+    "route": "*",
+    "component": "PortalOS, PortalDiscover",
+    "tone": "professional",
+    "defaultMessage": "Thirty seconds. The important bits.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "explore-work": {
+    "id": "explore-work",
+    "targetId": "Explore selected builds",
+    "route": "/",
+    "component": "OrbitalHero",
+    "tone": "professional",
+    "defaultMessage": "Real projects. Actual engineering. Minimal buzzwords.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "portrait": {
+    "id": "portrait",
+    "targetId": "Personal portrait",
+    "route": "/",
+    "component": "OrbitalHero",
+    "tone": "personal",
+    "defaultMessage": "Yes, that's the person behind all those commits.",
+    "alternatives": [
+      "Face recognition passed. Sleep detection inconclusive."
+    ],
+    "priority": "medium",
+    "preferredPlacement": "left",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "skills": {
+    "id": "skills",
+    "targetId": "Technical capability selector",
+    "route": "/",
+    "component": "SkillOrbit",
+    "tone": "professional",
+    "defaultMessage": "Skills are easier to trust when the repositories exist.",
+    "alternatives": [
+      "Listed here. Demonstrated elsewhere."
+    ],
+    "priority": "medium",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "nav-about": {
+    "id": "nav-about",
+    "targetId": "Navigate to about",
+    "route": "*",
+    "component": "TopBar",
+    "tone": "personal",
+    "defaultMessage": "Behind the architecture, there’s a human. Surprisingly.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Behind the architecture, there’s a human. Surprisingly."
+  },
+  "nav-skills": {
+    "id": "nav-skills",
+    "targetId": "Navigate to skills",
+    "route": "*",
+    "component": "TopBar",
+    "tone": "professional",
+    "defaultMessage": "Tools I use. Problems I actually solve.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Tools I use. Problems I actually solve."
+  },
+  "nav-projects": {
+    "id": "nav-projects",
+    "targetId": "Navigate to projects",
+    "route": "*",
+    "component": "TopBar",
+    "tone": "personal",
+    "defaultMessage": "Side projects with main-character energy.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Where ideas meet edge cases."
+  },
+  "nav-hackathons": {
+    "id": "nav-hackathons",
+    "targetId": "Navigate to hackathons",
+    "route": "*",
+    "component": "TopBar",
+    "tone": "personal",
+    "defaultMessage": "Sleep was optional. Deadlines weren’t.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "The outcomes matter. The lessons last longer."
+  },
+  "nav-writing": {
+    "id": "nav-writing",
+    "targetId": "Navigate to writing",
+    "route": "*",
+    "component": "TopBar",
+    "tone": "professional",
+    "defaultMessage": "Source code explains the how. These notes explain the why.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Source code explains the how. These notes explain the why."
+  },
+  "nav-contact": {
+    "id": "nav-contact",
+    "targetId": "Navigate to contact",
+    "route": "*",
+    "component": "TopBar",
+    "tone": "professional",
+    "defaultMessage": "Open to interesting problems and sensible conversations.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Open to interesting problems and sensible conversations."
+  },
+  "project-trustos": {
+    "id": "project-trustos",
+    "targetId": "Project trustos case study / source",
+    "route": "/, /hire, /projects/trustos",
+    "component": "ProjectsEditorial, ProjectDetail, ProofOfWork, ProjectQuickView, SkillOrbit",
+    "tone": "technical",
+    "defaultMessage": "Trust is good. Verifiable execution is better.",
+    "alternatives": [
+      "Because 'the AI said so' is not an audit trail."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "project-pushguard": {
+    "id": "project-pushguard",
+    "targetId": "Project pushguard case study / source",
+    "route": "/, /hire, /projects/pushguard",
+    "component": "ProjectsEditorial, ProjectDetail, ProofOfWork, ProjectQuickView, SkillOrbit",
+    "tone": "technical",
+    "defaultMessage": "Your secrets deserve better than a public repository.",
+    "alternatives": [
+      "Prevention: considerably cheaper than credential rotation."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "project-pulseforge-ai": {
+    "id": "project-pulseforge-ai",
+    "targetId": "Project pulseforge-ai case study / source",
+    "route": "/, /hire, /projects/pulseforge-ai",
+    "component": "ProjectsEditorial, ProjectDetail, ProofOfWork, ProjectQuickView, SkillOrbit",
+    "tone": "technical",
+    "defaultMessage": "Finding signals in a world full of noise.",
+    "alternatives": [
+      "More analysis. Fewer crystal balls."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "project-loksetu-ai": {
+    "id": "project-loksetu-ai",
+    "targetId": "Project loksetu-ai case study / source",
+    "route": "/, /hire, /projects/loksetu-ai",
+    "component": "ProjectsEditorial, ProjectDetail, ProofOfWork, ProjectQuickView, SkillOrbit",
+    "tone": "technical",
+    "defaultMessage": "Making complicated forms a little less complicated.",
+    "alternatives": [
+      "Because paperwork shouldn’t require a side quest."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "project-jeeratype": {
+    "id": "project-jeeratype",
+    "targetId": "Project jeeratype case study / source",
+    "route": "/, /hire, /projects/jeeratype",
+    "component": "ProjectsEditorial, ProjectDetail, ProofOfWork, ProjectQuickView, SkillOrbit",
+    "tone": "technical",
+    "defaultMessage": "Words per minute. Regrets per typo.",
+    "alternatives": [
+      "Terminal opened. Competitive spirit activated."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "project-wasm-sandbox": {
+    "id": "project-wasm-sandbox",
+    "targetId": "Project wasm-sandbox case study / source",
+    "route": "/, /hire, /projects/wasm-sandbox",
+    "component": "ProjectsEditorial, ProjectDetail, ProofOfWork, ProjectQuickView, SkillOrbit",
+    "tone": "technical",
+    "defaultMessage": "Run the plugin. Contain the surprises.",
+    "alternatives": [
+      "Untrusted code gets its own room."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "social-github": {
+    "id": "social-github",
+    "targetId": "github external profile",
+    "route": "/",
+    "component": "GitHubBuildLog",
+    "tone": "personal",
+    "defaultMessage": "Code public hai. Debugging trauma private.",
+    "alternatives": [
+      "Commit history dekh lo. Character development free hai."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "social-linkedin": {
+    "id": "social-linkedin",
+    "targetId": "linkedin external profile",
+    "route": "/",
+    "component": "SocialDock",
+    "tone": "personal",
+    "defaultMessage": "Corporate mode ON. Thoda professional ban jaate hain.",
+    "alternatives": [
+      "Yahan jokes bhi experience section mein jaate hain."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "social-x": {
+    "id": "social-x",
+    "targetId": "x external profile",
+    "route": "/",
+    "component": "SocialDock",
+    "tone": "personal",
+    "defaultMessage": "280 characters. Unlimited overthinking.",
+    "alternatives": [
+      "Thoughts short. Debates unnecessarily long."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "social-instagram": {
+    "id": "social-instagram",
+    "targetId": "instagram external profile",
+    "route": "/",
+    "component": "SocialDock",
+    "tone": "personal",
+    "defaultMessage": "Code ke alawa bhi zindagi hai... allegedly.",
+    "alternatives": [
+      "Life ka frontend yahan milega."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "social-facebook": {
+    "id": "social-facebook",
+    "targetId": "facebook external profile",
+    "route": "/",
+    "component": "SocialDock",
+    "tone": "personal",
+    "defaultMessage": "OG internet. Before everything became a personal brand.",
+    "alternatives": [
+      "Friend requests: the original connection API."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "social-linktree": {
+    "id": "social-linktree",
+    "targetId": "linktree external profile",
+    "route": "/",
+    "component": "SocialDock",
+    "tone": "personal",
+    "defaultMessage": "Ek link. Saare raaste. Navigation OP.",
+    "alternatives": [
+      "Choose your next internet side quest."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "social-peerlist": {
+    "id": "social-peerlist",
+    "targetId": "peerlist external profile",
+    "route": "/",
+    "component": "SocialDock",
+    "tone": "personal",
+    "defaultMessage": "Build. Ship. Repeat. Chai bhi zaroori hai.",
+    "alternatives": [
+      "Professional growth, one shipped project at a time."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "guestbook": {
+    "id": "guestbook",
+    "targetId": "Open MARGINS",
+    "route": "*",
+    "component": "TopBar, PortalOS, PortalDiscover",
+    "tone": "personal",
+    "defaultMessage": "Aaye ho toh kuch likh ke jaana. Attendance nahi lagegi.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Visitors come and go. Good messages stay."
+  },
+  "theme-light": {
+    "id": "theme-light",
+    "targetId": "Switch to light theme",
+    "route": "*",
+    "component": "TopBar",
+    "tone": "personal",
+    "defaultMessage": "Light mode? Aaj toh zindagi sorted lag rahi hai.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Changing appearance. Preserving personality."
+  },
+  "theme-dark": {
+    "id": "theme-dark",
+    "targetId": "Switch to dark theme",
+    "route": "*",
+    "component": "TopBar",
+    "tone": "personal",
+    "defaultMessage": "Dark mode. Developer habitat restored.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Dark mode. Same engineering, different lighting."
+  },
+  "portal": {
+    "id": "portal",
+    "targetId": "Open PORTAL",
+    "route": "*",
+    "component": "TopBar",
+    "tone": "personal",
+    "defaultMessage": "Congratulations. You found the developer’s control room.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "The portfolio, one command away."
+  },
+  "portal-search": {
+    "id": "portal-search",
+    "targetId": "Search commands",
+    "route": "*",
+    "component": "PortalOS",
+    "tone": "personal",
+    "defaultMessage": "Type a command. No magic words required.",
+    "alternatives": [
+      "Search karo. Mind reading abhi beta mein hai."
+    ],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Type a command. No magic words required."
+  },
+  "portal-close": {
+    "id": "portal-close",
+    "targetId": "Close PORTAL",
+    "route": "*",
+    "component": "PortalOS",
+    "tone": "personal",
+    "defaultMessage": "Returning to the regularly scheduled internet.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "bottom",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Return to the portfolio."
+  },
+  "portal-projects": {
+    "id": "portal-projects",
+    "targetId": "Projects command",
+    "route": "*",
+    "component": "PortalSearchResults",
+    "tone": "personal",
+    "defaultMessage": "Choose your next rabbit hole.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Explore the engineering case studies."
+  },
+  "portal-resume": {
+    "id": "portal-resume",
+    "targetId": "Resume command",
+    "route": "*",
+    "component": "PortalSearchResults",
+    "tone": "professional",
+    "defaultMessage": "Professional credentials, without the dramatic soundtrack.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "portal-theme": {
+    "id": "portal-theme",
+    "targetId": "Theme command",
+    "route": "*",
+    "component": "PortalSearchResults",
+    "tone": "personal",
+    "defaultMessage": "Changing appearance. Preserving personality.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Changing appearance. Preserving personality."
+  },
+  "portal-empty": {
+    "id": "portal-empty",
+    "targetId": "No matching commands",
+    "route": "*",
+    "component": "PortalSearchResults",
+    "tone": "personal",
+    "defaultMessage": "Even the search engine needs a better clue.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "No matching commands. Try a project or action name."
+  },
+  "note-write": {
+    "id": "note-write",
+    "targetId": "Open note composer",
+    "route": "*",
+    "component": "TheMarginsNotes",
+    "tone": "personal",
+    "defaultMessage": "Apni legacy chhod jao. Database sambhaal lega.",
+    "alternatives": [
+      "Ek note likho. Essay submission nahi hai."
+    ],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Short note, long-lasting impression."
+  },
+  "auth-google": {
+    "id": "auth-google",
+    "targetId": "Google sign-in",
+    "route": "*",
+    "component": "TheMarginsNotes, AuthGateModal",
+    "tone": "personal",
+    "defaultMessage": "Google pe bharosa. Password yaad rakhne ki zaroorat nahi.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Sign in with Google to leave a note."
+  },
+  "auth-github": {
+    "id": "auth-github",
+    "targetId": "GitHub sign-in",
+    "route": "*",
+    "component": "TheMarginsNotes, AuthGateModal",
+    "tone": "personal",
+    "defaultMessage": "GitHub se entry. Contribution optional.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Sign in with GitHub. A pull request is optional."
+  },
+  "note-composer": {
+    "id": "note-composer",
+    "targetId": "Note text field",
+    "route": "*",
+    "component": "TheMarginsNotes",
+    "tone": "personal",
+    "defaultMessage": "Dil ki baat likho. Stack trace mat bhejna.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Short note, long-lasting impression."
+  },
+  "note-submit": {
+    "id": "note-submit",
+    "targetId": "Submit note for moderation",
+    "route": "*",
+    "component": "TheMarginsNotes",
+    "tone": "personal",
+    "defaultMessage": "Send it. The internet deserves one nice comment.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "A thoughtful note is always welcome."
+  },
+  "note-reaction": {
+    "id": "note-reaction",
+    "targetId": "React to approved note",
+    "route": "*",
+    "component": "TheMarginsNotes",
+    "tone": "personal",
+    "defaultMessage": "Ek reaction se bhi validation mil jaati hai.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "A little appreciation goes a long way."
+  },
+  "sign-out": {
+    "id": "sign-out",
+    "targetId": "Sign out",
+    "route": "*",
+    "component": "TheMarginsNotes",
+    "tone": "personal",
+    "defaultMessage": "Session khatam. Connection remains.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Session ended. Connection remains."
+  },
+  "contact-personal": {
+    "id": "contact-personal",
+    "targetId": "Contact email",
+    "route": "/",
+    "component": "ContactOrbit",
+    "tone": "personal",
+    "defaultMessage": "DM kar do. Stack trace optional.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true
+  },
+  "back-to-top": {
+    "id": "back-to-top",
+    "targetId": "Back to top",
+    "route": "*",
+    "component": "Footer",
+    "tone": "personal",
+    "defaultMessage": "Upar chalo. Story dobara.",
+    "alternatives": [],
+    "priority": "high",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Return to the beginning. The evidence is still there."
+  },
+  "footer": {
+    "id": "footer",
+    "targetId": "Footer signature",
+    "route": "*",
+    "component": "Footer",
+    "tone": "personal",
+    "defaultMessage": "Built with code. Maintained with caffeine.",
+    "alternatives": [
+      "End of page. Developer still debugging life."
+    ],
+    "priority": "low",
+    "preferredPlacement": "top",
+    "mobileBehavior": "omit",
+    "enabled": true,
+    "professionalMessage": "Built with code. Maintained with caffeine."
+  }
+} as const satisfies Record<string, TooltipMessage>;
+export type HumanMessageId = keyof typeof messages;
+export const humanLayerMessages: Record<HumanMessageId, TooltipMessage> = messages;
+
+export function getTooltipMessage(id: HumanMessageId, professional = false): TooltipMessage {
+  const item = humanLayerMessages[id];
+  return professional && item.tone === 'personal'
+    ? { ...item, tone: 'professional', defaultMessage: item.professionalMessage ?? item.defaultMessage }
+    : item;
 }
 
-export const humanLayerMessages: Record<string, TooltipMessage> = {
-  // =========================================================================
-  // CATEGORY A — PROFESSIONAL ENGINEERING WIT
-  // =========================================================================
-  'resume': {
-    id: 'resume',
-    tag: 'RÉSUMÉ // VERIFIED',
-    message: 'Compiled for humans. No dependencies required.',
-    context: 'professional',
-    preferredPlacement: 'top',
-    compactMessage: 'Compiled for humans.',
-    alternativeMessages: [
-      'Zero buzzwords injected. Just raw proof of work.',
-      'Readable code is a love language.'
-    ]
-  },
-  'github': {
-    id: 'github',
-    tag: 'GIT // SOURCE',
-    message: 'The source is open. The debugging scars are private.',
-    context: 'professional',
-    preferredPlacement: 'top',
-    compactMessage: 'The source is open.',
-    alternativeMessages: [
-      'The code has entered the chat.',
-      'Main branch is green. Proceed with confidence.'
-    ]
-  },
-  'projects': {
-    id: 'projects',
-    tag: 'ENGINEERING // COMMITS',
-    message: 'Less buzzwords. More commits.',
-    context: 'professional',
-    preferredPlacement: 'top',
-    compactMessage: 'Less buzzwords. More commits.',
-    alternativeMessages: [
-      'Proof of work. Not proof of slide decks.',
-      'Refactored until deterministic.'
-    ]
-  },
-  'architecture': {
-    id: 'architecture',
-    tag: 'SYSTEMS // RUNTIME',
-    message: 'Good boundaries prevent bad surprises.',
-    context: 'technical',
-    preferredPlacement: 'top',
-    compactMessage: 'Good boundaries prevent bad surprises.',
-    alternativeMessages: [
-      'Diagrams are cheaper than production incidents.',
-      'Architecture: decisions with consequences.'
-    ]
-  },
-  'testing': {
-    id: 'testing',
-    tag: 'DEVSECOPS // RIGOR',
-    message: 'Trust is good. Assertions are better.',
-    context: 'technical',
-    preferredPlacement: 'top',
-    compactMessage: 'Trust is good. Assertions are better.',
-    alternativeMessages: [
-      'Edge cases tested under adversarial conditions.',
-      'Shannon entropy parsed in < 5ms.'
-    ]
-  },
-  'skills': {
-    id: 'skills',
-    tag: 'CAPABILITIES // PROOF',
-    message: 'Claims backed by code.',
-    context: 'professional',
-    preferredPlacement: 'top',
-    compactMessage: 'Claims backed by code.',
-    alternativeMessages: [
-      'No arbitrary percentage bars. Real implementations.',
-      'Tested against real edge cases.'
-    ]
-  },
-  'contact-pro': {
-    id: 'contact-pro',
-    tag: 'COMMS // DIRECT',
-    message: 'Low-latency communication preferred.',
-    context: 'professional',
-    preferredPlacement: 'top',
-    compactMessage: 'Low-latency preferred.',
-    alternativeMessages: [
-      'Inbox zero is a moral imperative.',
-      'Email directly. Fast response guaranteed.'
-    ]
-  },
-  'documentation': {
-    id: 'documentation',
-    tag: 'ENGINEERING // DOCS',
-    message: 'Future me says thank you.',
-    context: 'technical',
-    preferredPlacement: 'top',
-    compactMessage: 'Future me says thank you.'
-  },
-  'deployment': {
-    id: 'deployment',
-    tag: 'PRODUCTION // DISCIPLINE',
-    message: 'Works on my machine was the beginning, not the finish line.',
-    context: 'professional',
-    preferredPlacement: 'top',
-    compactMessage: 'Works on my machine was phase one.'
-  },
-  'engineering': {
-    id: 'engineering',
-    tag: 'CRAFT // DISCIPLINE',
-    message: 'The edge cases are where the story gets interesting.',
-    context: 'technical',
-    preferredPlacement: 'top',
-    compactMessage: 'Edge cases tell the story.'
-  },
-  'achievements': {
-    id: 'achievements',
-    tag: 'AWARDS // PROVEN',
-    message: 'Real lessons. Minimal confetti.',
-    context: 'professional',
-    preferredPlacement: 'top',
-    compactMessage: 'Real lessons. Minimal confetti.',
-    alternativeMessages: [
-      'Small badges. Real lessons.',
-      'CrazyBuild 1st Runner-Up & SIH Qualifier.'
-    ]
-  },
-  'recruiter-brief': {
-    id: 'recruiter-brief',
-    tag: 'HIRING // 30S SCAN',
-    message: 'Everything important. No unnecessary scrolling.',
-    context: 'professional',
-    preferredPlacement: 'bottom',
-    compactMessage: '30s recruiter briefing.'
-  },
-
-  // =========================================================================
-  // CATEGORY B — PERSONAL HINGLISH MICRO-MEMES
-  // =========================================================================
-  'social-linkedin': {
-    id: 'social-linkedin',
-    tag: 'LINKEDIN // PRO',
-    message: 'Corporate mode ON. Thoda professional ban jaate hain.',
-    context: 'social',
-    preferredPlacement: 'top',
-    compactMessage: 'Corporate mode ON.',
-    externalIcon: true
-  },
-  'social-x': {
-    id: 'social-x',
-    tag: 'X // 280 CHARS',
-    message: '280 characters. Unlimited overthinking.',
-    context: 'social',
-    preferredPlacement: 'top',
-    compactMessage: '280 characters. Overthinking.',
-    externalIcon: true
-  },
-  'social-instagram': {
-    id: 'social-instagram',
-    tag: 'INSTAGRAM // ATELIER',
-    message: 'Code ke alawa bhi zindagi hai... allegedly.',
-    context: 'social',
-    preferredPlacement: 'top',
-    compactMessage: 'Life outside code... allegedly.',
-    externalIcon: true
-  },
-  'social-facebook': {
-    id: 'social-facebook',
-    tag: 'FACEBOOK // ARCHIVE',
-    message: 'Purane internet ki yaadein unlocked.',
-    context: 'social',
-    preferredPlacement: 'top',
-    compactMessage: 'OG internet vibes.',
-    externalIcon: true
-  },
-  'social-linktree': {
-    id: 'social-linktree',
-    tag: 'LINKTREE // HUB',
-    message: 'Ek link. Saare raaste.',
-    context: 'social',
-    preferredPlacement: 'top',
-    compactMessage: 'Ek link. Saare raaste.',
-    externalIcon: true
-  },
-  'social-peerlist': {
-    id: 'social-peerlist',
-    tag: 'PEERLIST // BUILD',
-    message: 'Build. Ship. Repeat. Chai bhi zaroori hai.',
-    context: 'social',
-    preferredPlacement: 'top',
-    compactMessage: 'Build. Ship. Repeat.',
-    externalIcon: true
-  },
-  'guestbook': {
-    id: 'guestbook',
-    tag: 'MARGINS // GUESTBOOK',
-    message: 'Aaye ho toh kuch likh ke jaana.',
-    context: 'personal',
-    preferredPlacement: 'bottom',
-    compactMessage: 'Kuch likh ke jaana.',
-    alternativeMessages: [
-      'Ek note drop karo, good karma guarantee.',
-      'Authenticated via Google/GitHub OAuth.'
-    ]
-  },
-  'theme-toggle': {
-    id: 'theme-toggle',
-    tag: 'SYSTEM // PHOTONS',
-    message: 'Light mode? Aaj bade optimistic lag rahe ho.',
-    context: 'personal',
-    preferredPlacement: 'bottom',
-    compactMessage: 'Photon conservation protocol.',
-    alternativeMessages: [
-      'Dark mode: eye relief protocol.',
-      'Light mode? Aaj bade optimistic lag rahe ho.'
-    ]
-  },
-  'portal': {
-    id: 'portal',
-    tag: 'PORTAL // ⌘K',
-    message: 'Shortcut mil gaya. Ab kaam bhi kar lo.',
-    context: 'personal',
-    preferredPlacement: 'bottom',
-    compactMessage: 'Welcome to command center.',
-    alternativeMessages: [
-      'Welcome back to the command center.',
-      'Shortcut mila? Ab productivity ka kya excuse?'
-    ]
-  },
-  'project-gallery': {
-    id: 'project-gallery',
-    tag: 'BUILDS // REALITY',
-    message: 'Code toh likh diya. Neend ka kya?',
-    context: 'personal',
-    preferredPlacement: 'top',
-    compactMessage: 'Neend ka kya?'
-  },
-  'contact-personal': {
-    id: 'contact-personal',
-    tag: 'CONTACT // REAL TALK',
-    message: 'DM kar do. Stack trace optional.',
-    context: 'personal',
-    preferredPlacement: 'top',
-    compactMessage: 'DM kar do.'
-  },
-  'back-to-top': {
-    id: 'back-to-top',
-    tag: 'NAVIGATION // ASCENT',
-    message: 'Upar chalo. Safar dobara.',
-    context: 'personal',
-    preferredPlacement: 'top',
-    compactMessage: 'Upar chalo.'
-  },
-  'footer': {
-    id: 'footer',
-    tag: 'COLOPHON // CURIOUS',
-    message: 'End of page. Curiosity continues.',
-    context: 'personal',
-    preferredPlacement: 'top',
-    compactMessage: 'Curiosity continues.'
-  },
-
-  // =========================================================================
-  // CATEGORY C — SUBTLE EASTER EGGS
-  // =========================================================================
-  'easter-egg': {
-    id: 'easter-egg',
-    tag: 'EASTER EGG // 100%',
-    message: 'Achievement unlocked: unnecessary curiosity.',
-    context: 'easter-egg',
-    preferredPlacement: 'top',
-    compactMessage: 'Achievement unlocked.',
-    alternativeMessages: [
-      'You found the tiny detail nobody requested.',
-      'Developer was here. Probably debugging.'
-    ]
-  },
-  'easter-egg-detail': {
-    id: 'easter-egg-detail',
-    tag: 'ATELIER // SECRET',
-    message: 'You found the tiny detail nobody requested.',
-    context: 'easter-egg',
-    preferredPlacement: 'top',
-    compactMessage: 'Secret found.'
-  },
-  'easter-egg-debug': {
-    id: 'easter-egg-debug',
-    tag: 'TERMINAL // ECHO',
-    message: 'Developer was here. Probably debugging.',
-    context: 'easter-egg',
-    preferredPlacement: 'top',
-    compactMessage: 'Probably debugging.'
-  },
-  'banda-kaam-ka': {
-    id: 'banda-kaam-ka',
-    tag: 'ATELIER // HUMAN',
-    message: 'Banda Kaam ka. Full-time builder, part-time tea enthusiast.',
-    context: 'personal',
-    preferredPlacement: 'top',
-    compactMessage: 'Banda Kaam ka.'
-  },
-  'late-night-commit': {
-    id: 'late-night-commit',
-    tag: 'TERMINAL // LATE NIGHT',
-    message: 'Bas ek aur commit. Famous last words.',
-    context: 'personal',
-    preferredPlacement: 'top',
-    compactMessage: 'Bas ek aur commit.'
-  }
-};
-
-/**
- * Legacy & contextual alias mapping to guarantee seamless backward-compatibility
- */
-export const ID_ALIASES: Record<string, string> = {
-  'resume-action': 'resume',
-  'proof-of-work': 'projects',
-  'architecture-guardrail': 'architecture',
-  'skills-capabilities': 'skills',
-  'github-activity': 'github',
-  'recruiter-contact': 'contact-pro',
-  'achievements-badges': 'achievements',
-  'production-philosophy': 'engineering',
-  'guestbook-trigger': 'guestbook',
-  'portal-command': 'portal',
-  'easter-egg-curiosity': 'easter-egg',
-  'project-burnout-humor': 'project-gallery',
-  'contact-humor': 'contact-personal',
-};
-
-/**
- * Retrieve a tooltip message by ID safely with fallback & alias resolution
- */
-export function getTooltipMessage(id: string): TooltipMessage | undefined {
-  const canonicalId = ID_ALIASES[id] || id;
-  return humanLayerMessages[canonicalId];
+export function projectMessageId(slug: string): HumanMessageId | undefined {
+  const id = `project-${slug}`;
+  return id in humanLayerMessages ? id as HumanMessageId : undefined;
 }

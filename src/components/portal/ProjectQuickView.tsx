@@ -1,3 +1,5 @@
+import { projectMessageId } from '../../data/humanLayerMessages';
+import { HumanTooltip } from '../common/HumanTooltip';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -154,13 +156,13 @@ export const ProjectQuickView: React.FC<ProjectQuickViewProps> = ({
           )}
         </div>
 
-        <button
+        <HumanTooltip registryId={projectMessageId(slug)}><button
           onClick={handleOpenFullPage}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors cursor-pointer shadow-xs"
         >
           <span>OPEN FULL CASE STUDY</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
-        </button>
+        </button></HumanTooltip>
       </div>
     </div>
   );

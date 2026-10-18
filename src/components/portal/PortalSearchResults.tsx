@@ -1,3 +1,5 @@
+import { HumanTooltip } from '../common/HumanTooltip';
+import { getTooltipMessage } from '../../data/humanLayerMessages';
 import React from 'react';
 import { 
   Home, 
@@ -67,10 +69,10 @@ export const PortalSearchResults: React.FC<PortalSearchResultsProps> = ({
             ATELIER // 404
           </div>
           <h3 className="font-display text-base font-bold text-[#1a1917] dark:text-[#f0ede5]">
-            404: That thought hasn't shipped yet.
+            {getTooltipMessage('portal-empty').defaultMessage}
           </h3>
           <p className="font-sans text-xs text-[#58554d] dark:text-[#a8a69f] mt-1 max-w-sm mx-auto">
-            Zero matching vectors for "{query}". Try <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">trustos</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">resume</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">fastapi</code>, or <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">hire</code>.
+            No matching commands for "{query}". Try <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">trustos</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">resume</code>, <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">fastapi</code>, or <code className="font-mono text-[#486616] dark:text-[#d5ef9c]">hire</code>.
           </p>
         </div>
       </div>
@@ -101,8 +103,8 @@ export const PortalSearchResults: React.FC<PortalSearchResultsProps> = ({
                 const Icon = getIcon(item.iconName);
 
                 return (
+                  <HumanTooltip key={item.id} registryId={item.id === 'nav-projects' ? 'portal-projects' : item.id === 'action-open-resume' ? 'portal-resume' : item.id === 'action-toggle-theme' ? 'portal-theme' : undefined}>
                   <button
-                    key={item.id}
                     onClick={() => onSelect(item)}
                     onMouseEnter={() => onHoverIndex(currentIndex)}
                     className={`w-full flex items-center justify-between p-3 rounded-xl text-left transition-all cursor-pointer ${
@@ -149,7 +151,7 @@ export const PortalSearchResults: React.FC<PortalSearchResultsProps> = ({
                         isSelected ? 'text-[#486616] dark:text-[#d5ef9c] translate-x-1' : 'text-[#8c877b] dark:text-[#6e6b63]'
                       }`} />
                     </div>
-                  </button>
+                  </button></HumanTooltip>
                 );
               })}
             </div>

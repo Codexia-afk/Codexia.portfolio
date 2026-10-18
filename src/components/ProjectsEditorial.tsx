@@ -1,3 +1,4 @@
+import { projectMessageId } from '../data/humanLayerMessages';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Github, ExternalLink, Terminal, Shield, Cpu, Layers, Box } from 'lucide-react';
@@ -259,13 +260,13 @@ export const ProjectsEditorial: React.FC = () => {
 
                     {/* Action Links */}
                     <div className="pt-4 flex flex-wrap items-center gap-3">
-                      <Link
+                      <HumanTooltip registryId={projectMessageId(project.slug)}><Link
                         to={`/projects/${project.slug}`}
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-[#1a1917] dark:bg-[#f0ede5] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#486616] dark:hover:bg-[#d5ef9c] dark:hover:text-[#131312] transition-colors shadow-xs"
                       >
                         <span>READ FULL CASE STUDY</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
-                      </Link>
+                      </Link></HumanTooltip>
 
                       {project.githubUrl && (
                         <HumanTooltip registryId="github" placement="top">

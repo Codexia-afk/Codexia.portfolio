@@ -1,3 +1,4 @@
+import { type HumanMessageId } from '../data/humanLayerMessages';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { 
@@ -128,14 +129,13 @@ export const TopBar: React.FC<TopBarProps> = ({
         {/* Center: Desktop Editorial Chapter Links */}
         <nav
           aria-label="Main chapter navigation"
-          className="hidden md:flex items-center gap-1 lg:gap-2 font-mono text-xs text-[#58554d] dark:text-[#a8a69f]"
+          className="hidden xl:flex items-center gap-1 lg:gap-2 font-mono text-xs text-[#58554d] dark:text-[#a8a69f]"
         >
           {navChapters.map((ch) => {
             const isActive = activeSection === ch.id;
 
             return (
-              <button
-                key={ch.id}
+              <HumanTooltip registryId={`nav-${ch.id}` as HumanMessageId} key={ch.id}><button
                 onClick={() => handleNavClick(ch.id)}
                 className={`px-3 py-1.5 rounded-xs transition-colors cursor-pointer flex items-center gap-1.5 ${
                   isActive
@@ -145,7 +145,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               >
                 <span className="opacity-60 text-[10px]">{ch.num}.</span>
                 <span>{ch.label}</span>
-              </button>
+              </button></HumanTooltip>
             );
           })}
         </nav>
@@ -154,17 +154,17 @@ export const TopBar: React.FC<TopBarProps> = ({
         <div className="flex items-center gap-2 sm:gap-2.5">
           
           {/* Recruiter Brief Entry Point */}
-          <Link
+          <HumanTooltip registryId="recruiter-brief"><Link
             to="/hire"
-            className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#486616] dark:text-[#d5ef9c] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+            className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#486616] dark:text-[#d5ef9c] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs font-bold transition-colors cursor-pointer shadow-2xs"
             aria-label="Open The Hiring Dossier / Recruiter Brief"
           >
             <span>RECRUITER BRIEF</span>
             <span className="text-[10px]">↗</span>
-          </Link>
+          </Link></HumanTooltip>
 
           {/* ⌘K Command Center Launcher */}
-          <HumanTooltip registryId="portal-command" placement="bottom" align="end">
+          <HumanTooltip registryId="portal" placement="bottom" align="end">
             <button
               onClick={() => onOpenPortal?.()}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
@@ -177,7 +177,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           </HumanTooltip>
 
           {/* The Margins (Guestbook) Trigger */}
-          <HumanTooltip registryId="guestbook-trigger" placement="bottom" align="end">
+          <HumanTooltip registryId="guestbook" placement="bottom" align="end">
             <button
               onClick={() => onOpenPortal?.('margins-notes')}
               className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
@@ -190,11 +190,11 @@ export const TopBar: React.FC<TopBarProps> = ({
 
           {/* Theme Toggle */}
           {setDarkMode && (
-            <HumanTooltip registryId="theme-toggle" placement="bottom" align="end">
+            <HumanTooltip registryId={darkMode ? "theme-light" : "theme-dark"} placement="bottom" align="end">
               <button
                 onClick={() => setDarkMode(!darkMode)}
                 className="p-2 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#bfb8a6] transition-colors cursor-pointer"
-                aria-label="Toggle dark/light theme"
+                aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
               >
                 {darkMode ? (
                   <Sun className="w-4 h-4 text-[#d5ef9c]" />
@@ -208,7 +208,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           {/* Mobile Hamburger Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] transition-colors cursor-pointer"
+            className="xl:hidden p-2 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] transition-colors cursor-pointer"
             aria-label="Toggle mobile navigation menu"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -220,7 +220,7 @@ export const TopBar: React.FC<TopBarProps> = ({
 
       {/* Mobile Menu Dropdown Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#dcd6c8] dark:border-[#2d2c27] bg-[#f8f6f0] dark:bg-[#131312] px-4 py-6 space-y-4 font-mono text-xs animate-fadeIn">
+        <div className="xl:hidden border-t border-[#dcd6c8] dark:border-[#2d2c27] bg-[#f8f6f0] dark:bg-[#131312] px-4 py-6 space-y-4 font-mono text-xs animate-fadeIn">
           <div className="text-[10px] text-[#8c877b] dark:text-[#a8a69f] uppercase tracking-wider">
             CHAPTER DIRECTORY:
           </div>

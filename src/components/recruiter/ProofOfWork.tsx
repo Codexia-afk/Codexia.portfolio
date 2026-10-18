@@ -1,3 +1,4 @@
+import { projectMessageId } from '../../data/humanLayerMessages';
 import React, { useState } from 'react';
 import { 
   Github, 
@@ -53,11 +54,9 @@ export const ProofOfWork: React.FC = () => {
             <MonoLabel dot dotColor="bg-[#486616] dark:bg-[#d5ef9c]">
               03 // EMPIRICAL EVIDENCE
             </MonoLabel>
-            <HumanTooltip registryId="proof-of-work" placement="top">
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] mt-1 cursor-default">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#1a1917] dark:text-[#f0ede5] mt-1 cursor-default">
                 PROOF OF WORK
               </h2>
-            </HumanTooltip>
             <p className="font-sans text-sm sm:text-base text-[#58554d] dark:text-[#a8a69f] max-w-2xl mt-2 leading-relaxed">
               Real code, architecture decisions, trade-offs, and measurable engineering outcomes. No hypothetical claims—every system here is backed by publicly verifiable source code.
             </p>
@@ -75,8 +74,7 @@ export const ProofOfWork: React.FC = () => {
             const isSelected = activeSlug === p.slug;
 
             return (
-              <button
-                key={p.slug}
+              <HumanTooltip registryId={projectMessageId(p.slug)} key={p.slug}><button
                 onClick={() => setActiveSlug(p.slug)}
                 className={`px-4 py-2.5 rounded-lg font-mono text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 shrink-0 border ${
                   isSelected
@@ -91,7 +89,7 @@ export const ProofOfWork: React.FC = () => {
                     FLAGSHIP
                   </span>
                 )}
-              </button>
+              </button></HumanTooltip>
             );
           })}
         </div>
@@ -203,11 +201,9 @@ export const ProofOfWork: React.FC = () => {
               <div className="lg:col-span-6 space-y-6">
                 <div className="p-5 rounded-xl bg-[#0c0c0b] text-[#f0ede5] border border-[#2d2c27] space-y-3 font-mono text-xs">
                   <div className="pb-2 border-b border-[#2d2c27] flex items-center justify-between">
-                    <HumanTooltip registryId="architecture-guardrail" placement="top">
-                      <span className="text-[#d5ef9c] font-bold text-[11px] uppercase tracking-wider cursor-default">
+                    <span className="text-[#d5ef9c] font-bold text-[11px] uppercase tracking-wider cursor-default">
                         SYSTEM ARCHITECTURE BLUEPRINT
                       </span>
-                    </HumanTooltip>
                   </div>
                   <ul className="space-y-2 text-[#a8a69f]">
                     {activeProject.caseStudy.architecture.map((arch, i) => (

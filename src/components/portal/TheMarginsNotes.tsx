@@ -1,3 +1,4 @@
+import { HumanTooltip } from '../common/HumanTooltip';
 import React, { useState, useEffect } from 'react';
 import { 
   ArrowLeft, 
@@ -326,13 +327,13 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
 
           {/* User Auth Status / Leave Your Mark Button */}
           {!currentUser ? (
-            <button
+            <HumanTooltip registryId="note-write" disabled={isComposerOpen}><button
               onClick={handleOpenComposer}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors cursor-pointer shadow-xs"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>LEAVE YOUR MARK</span>
-            </button>
+            </button></HumanTooltip>
           ) : (
             <div className="flex items-center gap-2 flex-wrap">
               {/* Authenticated Identity Pill */}
@@ -376,26 +377,26 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                   <Edit3 className="w-3 h-3" />
                 </button>
 
-                <button
+                <HumanTooltip registryId="sign-out"><button
                   onClick={async () => {
                     await authService.signOut();
                     onShowToast('Signed out.');
                     await refreshNotes();
                   }}
-                  title="Sign out"
+                  aria-label="Sign out"
                   className="text-[#8c877b] hover:text-rose-500 cursor-pointer ml-1"
                 >
                   <LogOut className="w-3 h-3" />
-                </button>
+                </button></HumanTooltip>
               </div>
 
-              <button
+              <HumanTooltip registryId="note-write" disabled={isComposerOpen}><button
                 onClick={handleOpenComposer}
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors cursor-pointer shadow-xs"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>{isComposerOpen ? 'CLOSE COMPOSER' : 'WRITE NOTE'}</span>
-              </button>
+              </button></HumanTooltip>
             </div>
           )}
         </div>
@@ -426,7 +427,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
 
             <div className="flex items-center gap-2.5 w-full sm:w-auto">
               {/* Sign in with GitHub button */}
-              <button
+              <HumanTooltip registryId="auth-github"><button
                 type="button"
                 onClick={() => {
                   setAuthDefaultTab('github');
@@ -436,10 +437,10 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
               >
                 <Github className="w-4 h-4 shrink-0 text-[#1a1917] dark:text-[#f0ede5]" />
                 <span className="font-semibold">Sign in with GitHub</span>
-              </button>
+              </button></HumanTooltip>
 
               {/* Sign in with Google button */}
-              <button
+              <HumanTooltip registryId="auth-google"><button
                 type="button"
                 onClick={handleGoogleSignIn}
                 className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-[#f4efe5] hover:bg-[#eeeae0] dark:bg-[#201f1c] dark:hover:bg-[#262521] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#383731] font-sans text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs hover:border-[#486616]/40 dark:hover:border-[#d5ef9c]/40"
@@ -451,7 +452,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                   <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                 </svg>
                 <span className="font-semibold">Sign in with Google</span>
-              </button>
+              </button></HumanTooltip>
             </div>
           </div>
         )}
@@ -651,15 +652,16 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                 {message.length} / 400
               </span>
             </div>
-            <textarea
+            <HumanTooltip registryId="note-composer"><textarea
               required
               rows={3}
+              aria-label="Your thought or annotation (maximum 400 characters)"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Leave a thought, architecture suggestion, question, or encouragement..."
               maxLength={400}
               className="w-full p-3.5 rounded-xl bg-[#f4efe5] dark:bg-[#201f1c] border border-[#dcd6c8] dark:border-[#383731] text-xs sm:text-sm font-sans text-[#1a1917] dark:text-[#f0ede5] placeholder-[#8c877b] dark:placeholder-[#6e6b63] focus:outline-none focus:border-[#486616] dark:focus:border-[#d5ef9c] resize-none leading-relaxed"
-            />
+            /></HumanTooltip>
           </div>
 
           {/* Live Review Preview Card on The Margins */}
@@ -713,7 +715,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
             <span className="font-mono text-[10px] text-[#8c877b] dark:text-[#6e6b63]">
               Verified identity · Escaped plain text · Draft auto-saved
             </span>
-            <button
+            <HumanTooltip registryId="note-submit" disabled={isSubmitting || message.trim().length < 5}><button
               type="submit"
               disabled={isSubmitting || message.trim().length < 5}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] disabled:opacity-50 transition-all cursor-pointer shadow-xs"
@@ -728,7 +730,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                       ? `Publish Review as ${currentUser.handle}` 
                       : 'Publish to The Margins'}
               </span>
-            </button>
+            </button></HumanTooltip>
           </div>
         </form>
       )}
@@ -768,13 +770,13 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
             </div>
 
             <div>
-              <button
+              <HumanTooltip registryId="note-write" disabled={isComposerOpen}><button
                 onClick={handleOpenComposer}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs uppercase font-bold tracking-wider hover:bg-[#486616] dark:hover:bg-[#c2e27c] transition-colors cursor-pointer shadow-xs"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>LEAVE YOUR MARK</span>
-              </button>
+              </button></HumanTooltip>
             </div>
           </div>
         ) : (
@@ -871,7 +873,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
 
                 <div className="flex items-center gap-2 shrink-0">
                   {/* Appreciation Reaction */}
-                  <button
+                  <HumanTooltip registryId="note-reaction"><button
                     onClick={() => handleToggleReaction(note.id)}
                     className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] transition-all cursor-pointer ${
                       note.userReacted
@@ -881,7 +883,7 @@ export const TheMarginsNotes: React.FC<TheMarginsNotesProps> = ({
                   >
                     <Heart className={`w-3.5 h-3.5 ${note.userReacted ? 'fill-current' : ''}`} />
                     <span>{note.reactionCount}</span>
-                  </button>
+                  </button></HumanTooltip>
 
                   {/* Actions for Own Note */}
                   {note.isOwnNote && (

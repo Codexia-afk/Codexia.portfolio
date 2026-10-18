@@ -1,3 +1,4 @@
+import { HumanTooltip } from './common/HumanTooltip';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
@@ -172,23 +173,23 @@ export const OrbitalHero: React.FC = () => {
               transition={{ delay: 0.45 }}
               className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8"
             >
-              <a
+              <HumanTooltip registryId="explore-work"><a
                 href="#projects"
                 className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-md bg-[#1a1917] dark:bg-[#f0ede5] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#d5ef9c] dark:hover:text-[#131312] transition-colors shadow-xs"
               >
                 <span>EXPLORE SELECTED BUILDS</span>
                 <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
-              </a>
+              </a></HumanTooltip>
 
-              <Link
+              <HumanTooltip registryId="recruiter-brief"><Link
                 to="/hire"
                 className="group inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#eeeae0] dark:bg-[#201f1c] text-[#486616] dark:text-[#d5ef9c] font-mono text-xs font-bold uppercase tracking-wider border border-[#486616]/30 dark:border-[#d5ef9c]/30 hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:bg-[#e8edd9] dark:hover:bg-[#272622] transition-colors"
               >
                 <span>RECRUITER BRIEF</span>
                 <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </Link>
+              </Link></HumanTooltip>
 
-              <a
+              <HumanTooltip registryId="resume"><a
                 href="/resume.html"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -196,7 +197,7 @@ export const OrbitalHero: React.FC = () => {
               >
                 <FileText className="w-3.5 h-3.5 text-current opacity-80" />
                 <span>RÉSUMÉ</span>
-              </a>
+              </a></HumanTooltip>
             </motion.div>
 
             {/* Interactive Social Signals Dock */}
@@ -254,7 +255,13 @@ export const OrbitalHero: React.FC = () => {
               </div>
 
               {/* Interactive Picture Frame */}
-              <div className="group relative aspect-[16/11] sm:aspect-[16/10] w-full rounded-lg overflow-hidden bg-[#131312] border border-[#dcd6c8] dark:border-[#2d2c27] select-none cursor-pointer">
+              <HumanTooltip registryId="portrait" placement="left">
+              <div
+                className="group relative aspect-[16/11] sm:aspect-[16/10] w-full rounded-lg overflow-hidden bg-[#131312] border border-[#dcd6c8] dark:border-[#2d2c27] select-none cursor-pointer"
+                tabIndex={0}
+                role="img"
+                aria-label="Personal portrait of Srinjoy Pramanick"
+              >
                 {/* Portrait Photo */}
                 <img
                   src="/srinjoy.jpg"
@@ -301,6 +308,7 @@ export const OrbitalHero: React.FC = () => {
                   </span>
                 </div>
               </div>
+              </HumanTooltip>
 
               {/* Subtext and Quick Link */}
               <div className="mt-3.5 flex items-center justify-between text-xs font-mono">

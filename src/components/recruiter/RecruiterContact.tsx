@@ -57,7 +57,7 @@ export const RecruiterContact: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-4">
           
           {/* Direct Email */}
-          <HumanTooltip registryId="recruiter-contact" placement="top">
+          <HumanTooltip registryId="contact-pro" placement="top">
             <a
               href={personalData.socials.gmailCompose}
               target="_blank"
@@ -71,7 +71,7 @@ export const RecruiterContact: React.FC = () => {
           </HumanTooltip>
 
           {/* Copy Email */}
-          <button
+          <HumanTooltip registryId="copy-email"><button
             onClick={handleCopyEmail}
             className="inline-flex items-center gap-2 px-5 py-3.5 rounded-md bg-[#f8f6f0] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] transition-colors cursor-pointer"
           >
@@ -86,10 +86,10 @@ export const RecruiterContact: React.FC = () => {
                 <span>COPY EMAIL ADDRESS</span>
               </>
             )}
-          </button>
+          </button></HumanTooltip>
 
           {/* LinkedIn */}
-          <a
+          <HumanTooltip registryId="linkedin-pro"><a
             href="https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/"
             target="_blank"
             rel="noopener noreferrer"
@@ -97,10 +97,10 @@ export const RecruiterContact: React.FC = () => {
           >
             <Linkedin className="w-4 h-4 opacity-80" />
             <span>LINKEDIN</span>
-          </a>
+          </a></HumanTooltip>
 
           {/* GitHub */}
-          <a
+          <HumanTooltip registryId="github"><a
             href="https://github.com/Codexia-afk"
             target="_blank"
             rel="noopener noreferrer"
@@ -108,7 +108,7 @@ export const RecruiterContact: React.FC = () => {
           >
             <Github className="w-4 h-4 opacity-80" />
             <span>GITHUB</span>
-          </a>
+          </a></HumanTooltip>
 
           {/* Return to Portfolio */}
           <Link
