@@ -104,13 +104,13 @@ export const OrbitalHero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4 }}
-              className="mb-5 flex items-center gap-3"
+              className="mb-5 flex flex-wrap items-center gap-2 sm:gap-3"
             >
               <MonoLabel dot dotColor="bg-[#486616] dark:bg-[#d5ef9c]">
                 N° 01 — RUNTIME ARCHITECTURE
               </MonoLabel>
-              <span className="text-[#bfb8a6] dark:text-[#494841] font-mono text-xs">·</span>
-              <span className="font-mono text-[11px] text-[#8c877b] dark:text-[#a8a69f] tracking-wider uppercase">
+              <span className="hidden sm:inline text-[#bfb8a6] dark:text-[#494841] font-mono text-xs">·</span>
+              <span className="hidden sm:inline font-mono text-[11px] text-[#8c877b] dark:text-[#a8a69f] tracking-wider uppercase">
                 SRINJOY PRAMANICK (@CODEXIA-AFK)
               </span>
             </motion.div>

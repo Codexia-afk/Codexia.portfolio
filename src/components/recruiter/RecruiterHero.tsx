@@ -67,21 +67,21 @@ export const RecruiterHero: React.FC = () => {
           
           {/* Left Column: Typographic Introduction */}
           <div className="lg:col-span-8 space-y-6">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <MonoLabel dot dotColor="bg-[#486616] dark:bg-[#d5ef9c]">
                 01 // ENGINEERING PROFILE
               </MonoLabel>
-              <span className="text-[#bfb8a6] dark:text-[#494841] font-mono text-xs">·</span>
-              <span className="font-mono text-[11px] text-[#8c877b] dark:text-[#a8a69f] tracking-wider uppercase">
+              <span className="hidden sm:inline text-[#bfb8a6] dark:text-[#494841] font-mono text-xs">·</span>
+              <span className="hidden sm:inline font-mono text-[11px] text-[#8c877b] dark:text-[#a8a69f] tracking-wider uppercase">
                 EXECUTIVE CANDIDATE BRIEF
               </span>
             </div>
 
             <div className="space-y-1">
-              <h1 className="font-display text-[2.75rem] sm:text-[4.25rem] lg:text-[5rem] font-bold uppercase tracking-[-0.04em] text-[#1a1917] dark:text-[#f0ede5] leading-[0.92]">
+              <h1 className="font-display text-[2.5rem] min-[380px]:text-[2.75rem] sm:text-[4.25rem] lg:text-[5rem] font-bold uppercase tracking-[-0.04em] text-[#1a1917] dark:text-[#f0ede5] leading-[0.92]">
                 SRINJOY PRAMANICK
               </h1>
-              <div className="font-editorial text-[2rem] sm:text-[2.75rem] italic lowercase text-[#486616] dark:text-[#d5ef9c] leading-[1.1]">
+              <div className="font-editorial text-[1.85rem] min-[380px]:text-[2rem] sm:text-[2.75rem] italic lowercase text-[#486616] dark:text-[#d5ef9c] leading-[1.1]">
                 *software engineering & systems.*
               </div>
             </div>

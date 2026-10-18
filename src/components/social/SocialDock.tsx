@@ -54,9 +54,9 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
   };
 
   return (
-    <div className={`relative select-none ${className}`}>
+    <div className={`relative inline-flex flex-col w-fit max-w-full select-none ${className}`}>
       {/* Top micro-editorial kicker */}
-      <div className="flex items-center justify-between gap-3 mb-2.5">
+      <div className="flex items-center justify-between gap-3 mb-2.5 w-full">
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#486616] dark:bg-[#d5ef9c] animate-pulse" />
           <span className="font-mono text-[11px] font-bold tracking-wider text-[#1a1917] dark:text-[#f0ede5] uppercase">
