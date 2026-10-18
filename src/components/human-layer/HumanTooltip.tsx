@@ -236,7 +236,7 @@ export const HumanTooltip: React.FC<HumanTooltipProps> = ({
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="relative px-3 py-2 rounded-lg bg-[#1B1B18] text-[#F0EDE5] border border-[#45453D] shadow-[0_12px_32px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col gap-1 w-max max-w-[min(280px,calc(100vw-28px))]"
+                className="relative px-3.5 py-2.5 rounded-lg bg-[#1B1B18] text-[#F0EDE5] border border-[#45453D] shadow-[0_12px_32px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col gap-1.5 w-max max-w-[min(280px,calc(100vw-28px))] text-left"
               >
                 {/* Arrow */}
                 {showArrow && (
@@ -246,13 +246,14 @@ export const HumanTooltip: React.FC<HumanTooltipProps> = ({
                     fill="#1B1B18"
                     stroke="#45453D"
                     strokeWidth={1}
-                    width={10}
-                    height={5}
+                    tipRadius={1}
+                    width={12}
+                    height={6}
                   />
                 )}
 
                 {/* Header Badge */}
-                <div className="flex items-center justify-between gap-2 font-mono text-[9px] uppercase tracking-wider text-[#D5EF9C] font-bold">
+                <div className="flex items-center justify-between gap-2.5 font-mono text-[9px] uppercase tracking-wider text-[#D5EF9C] font-bold text-left">
                   <div className="flex items-center gap-1.5">
                     {activeContext === 'professional' || activeContext === 'technical' ? (
                       <Terminal className="w-2.5 h-2.5" />
@@ -268,7 +269,7 @@ export const HumanTooltip: React.FC<HumanTooltipProps> = ({
                 </div>
 
                 {/* Message Text */}
-                <p className="font-sans text-xs font-medium text-[#F0EDE5] leading-snug break-words">
+                <p className="font-sans text-xs font-medium text-[#F0EDE5] leading-snug break-words text-left">
                   {activeMessage}
                 </p>
               </motion.div>

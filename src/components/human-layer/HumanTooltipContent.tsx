@@ -64,10 +64,10 @@ export const HumanTooltipContent: React.FC<HumanTooltipContentProps> = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className={`relative px-3 py-2 rounded-lg bg-[#1B1B18] text-[#F0EDE5] border border-[#45453D] shadow-[0_12px_32px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col gap-1 w-max max-w-[min(280px,calc(100vw-28px))] ${className}`}
+      className={`relative px-3.5 py-2.5 rounded-lg bg-[#1B1B18] text-[#F0EDE5] border border-[#45453D] shadow-[0_12px_32px_rgba(0,0,0,0.6)] backdrop-blur-md flex flex-col gap-1.5 w-max max-w-[min(280px,calc(100vw-28px))] text-left ${className}`}
     >
       {/* Header Tag / Context */}
-      <div className="flex items-center justify-between gap-2 font-mono text-[9px] uppercase tracking-wider text-[#D5EF9C] font-bold">
+      <div className="flex items-center justify-between gap-2.5 font-mono text-[9px] uppercase tracking-wider text-[#D5EF9C] font-bold text-left">
         <div className="flex items-center gap-1.5">
           {context === 'professional' || context === 'technical' ? (
             <Terminal className="w-2.5 h-2.5" />
@@ -83,7 +83,7 @@ export const HumanTooltipContent: React.FC<HumanTooltipContentProps> = ({
       </div>
 
       {/* Message Copy */}
-      <p className="font-sans text-xs font-medium text-[#F0EDE5] leading-snug break-words">
+      <p className="font-sans text-xs font-medium text-[#F0EDE5] leading-snug break-words text-left">
         {message}
       </p>
     </motion.div>
