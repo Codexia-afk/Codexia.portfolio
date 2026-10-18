@@ -112,7 +112,7 @@ export const RecruiterHero: React.FC = () => {
 
             {/* Direct Action Hub */}
             <div className="no-print flex flex-wrap items-center gap-3 pt-3">
-              <HumanTooltip registryId="resume-action" placement="top">
+              <HumanTooltip registryId="resume-action" placement="top" align="start">
                 <a
                   href="/resume.html"
                   target="_blank"

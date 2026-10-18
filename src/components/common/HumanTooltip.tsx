@@ -3,12 +3,15 @@ import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer
 import { Sparkles, Terminal } from 'lucide-react';
 import { getHumorItem, HumorItem, TooltipPlacement } from '../../data/humanLayer';
 
+export type TooltipAlign = 'auto' | 'start' | 'center' | 'end';
+
 export interface HumanTooltipProps {
   registryId?: string;
   message?: string;
   tag?: string;
   tone?: 'professional-wit' | 'hinglish-casual';
   placement?: TooltipPlacement;
+  align?: TooltipAlign;
   disabled?: boolean;
   className?: string;
   children: React.ReactNode;
@@ -20,12 +23,15 @@ export const HumanTooltip: React.FC<HumanTooltipProps> = ({
   tag,
   tone,
   placement,
+  align = 'auto',
   disabled = false,
   className = '',
   children
 }) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [messageIndex, setMessageIndex] = useState<number>(0);
+  const [computedAlign, setComputedAlign] = useState<'start' | 'center' | 'end'>('center');
+  
   const tooltipRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const uniqueId = useId();
@@ -63,6 +69,28 @@ export const HumanTooltip: React.FC<HumanTooltipProps> = ({
 
   const handleShow = () => {
     setMessageIndex((prev) => (prev + 1) % Math.max(1, messagesList.length));
+
+    // Viewport-aware boundary computation
+    if (align && align !== 'auto') {
+      setComputedAlign(align);
+    } else if (triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      
+      // If trigger is within 180px of left edge, align to start (left-0)
+      if (rect.left < 180) {
+        setComputedAlign('start');
+      } 
+      // If trigger is within 180px of right edge, align to end (right-0)
+      else if (viewportWidth - rect.right < 180) {
+        setComputedAlign('end');
+      } 
+      // Otherwise safely center
+      else {
+        setComputedAlign('center');
+      }
+    }
+
     setIsVisible(true);
   };
 
@@ -72,17 +100,37 @@ export const HumanTooltip: React.FC<HumanTooltipProps> = ({
 
   // Placement styling classes
   const getPlacementClasses = () => {
-    switch (resolvedPlacement) {
-      case 'bottom':
-        return 'top-full left-1/2 -translate-x-1/2 mt-2';
-      case 'left':
-        return 'right-full top-1/2 -translate-y-1/2 mr-2';
-      case 'right':
-        return 'left-full top-1/2 -translate-y-1/2 ml-2';
-      case 'top':
-      default:
-        return 'bottom-full left-1/2 -translate-x-1/2 mb-2';
+    let vertical = '';
+    if (resolvedPlacement === 'bottom') {
+      vertical = 'top-full mt-2.5';
+    } else if (resolvedPlacement === 'top') {
+      vertical = 'bottom-full mb-2.5';
     }
+
+    if (resolvedPlacement === 'left') {
+      return 'right-full top-1/2 -translate-y-1/2 mr-2.5';
+    }
+    if (resolvedPlacement === 'right') {
+      return 'left-full top-1/2 -translate-y-1/2 ml-2.5';
+    }
+
+    // Top / Bottom horizontal anchoring
+    switch (computedAlign) {
+      case 'start':
+        return `${vertical} left-0`;
+      case 'end':
+        return `${vertical} right-0`;
+      case 'center':
+      default:
+        return `${vertical} left-1/2`;
+    }
+  };
+
+  // Resolve horizontal motion offset based on computed alignment
+  const getHorizontalOffset = () => {
+    if (resolvedPlacement === 'left' || resolvedPlacement === 'right') return 0;
+    if (computedAlign === 'center') return '-50%';
+    return 0; // 'start' or 'end' stays at 0
   };
 
   // Framer motion variants
@@ -92,13 +140,13 @@ export const HumanTooltip: React.FC<HumanTooltipProps> = ({
       : {
           opacity: 0,
           y: resolvedPlacement === 'bottom' ? -4 : resolvedPlacement === 'top' ? 4 : 0,
-          x: resolvedPlacement === 'right' ? -4 : resolvedPlacement === 'left' ? 4 : '-50%',
+          x: getHorizontalOffset(),
           scale: 0.96
         },
     visible: {
       opacity: 1,
       y: 0,
-      x: resolvedPlacement === 'left' || resolvedPlacement === 'right' ? 0 : '-50%',
+      x: getHorizontalOffset(),
       scale: 1,
       transition: { duration: 0.18, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
     },
@@ -132,9 +180,9 @@ export const HumanTooltip: React.FC<HumanTooltipProps> = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className={`absolute z-50 pointer-events-none select-none max-w-xs sm:max-w-sm w-max ${getPlacementClasses()}`}
+            className={`absolute z-50 pointer-events-none select-none w-max max-w-[min(20rem,calc(100vw-2rem))] ${getPlacementClasses()}`}
           >
-            <div className="px-3 py-2 rounded-lg bg-[#1a1917]/95 dark:bg-[#201f1c]/95 text-[#f8f6f0] dark:text-[#f0ede5] border border-[#383731] dark:border-[#494841] shadow-[0_12px_32px_rgba(0,0,0,0.45)] backdrop-blur-md flex flex-col gap-1">
+            <div className="px-3 py-2 rounded-lg bg-[#1a1917]/95 dark:bg-[#201f1c]/95 text-[#f8f6f0] dark:text-[#f0ede5] border border-[#383731] dark:border-[#494841] shadow-[0_12px_32px_rgba(0,0,0,0.5)] backdrop-blur-md flex flex-col gap-1">
               {/* Header Badge */}
               <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-[#d5ef9c] dark:text-[#d5ef9c] font-bold">
                 {resolvedTone === 'professional-wit' ? (
@@ -146,7 +194,7 @@ export const HumanTooltip: React.FC<HumanTooltipProps> = ({
               </div>
 
               {/* Message Content */}
-              <p className="font-sans text-xs font-medium text-white/95 dark:text-[#f0ede5] leading-snug">
+              <p className="font-sans text-xs font-medium text-white/95 dark:text-[#f0ede5] leading-snug break-words">
                 {activeMessage}
               </p>
             </div>

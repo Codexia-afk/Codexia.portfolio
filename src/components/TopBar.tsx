@@ -164,7 +164,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           </Link>
 
           {/* ⌘K Command Center Launcher */}
-          <HumanTooltip registryId="portal-command" placement="bottom">
+          <HumanTooltip registryId="portal-command" placement="bottom" align="end">
             <button
               onClick={() => onOpenPortal?.()}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
@@ -177,7 +177,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           </HumanTooltip>
 
           {/* The Margins (Guestbook) Trigger */}
-          <HumanTooltip registryId="guestbook-trigger" placement="bottom">
+          <HumanTooltip registryId="guestbook-trigger" placement="bottom" align="end">
             <button
               onClick={() => onOpenPortal?.('margins-notes')}
               className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#486616] dark:hover:border-[#d5ef9c] font-mono text-xs transition-colors cursor-pointer shadow-2xs"
@@ -190,7 +190,7 @@ export const TopBar: React.FC<TopBarProps> = ({
 
           {/* Theme Toggle */}
           {setDarkMode && (
-            <HumanTooltip registryId="theme-toggle" placement="bottom">
+            <HumanTooltip registryId="theme-toggle" placement="bottom" align="end">
               <button
                 onClick={() => setDarkMode(!darkMode)}
                 className="p-2 rounded-xs bg-[#eeeae0] dark:bg-[#1a1917] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#2d2c27] hover:border-[#bfb8a6] transition-colors cursor-pointer"
