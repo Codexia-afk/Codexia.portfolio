@@ -1,7 +1,8 @@
-import React, { useState, useId } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Sparkles, X } from 'lucide-react';
 import { socialSignalsData, SocialSignal } from '../../data/socialSignals';
+import { HumanTooltip, HumanTooltipProvider } from '../human-layer';
 import { 
   LinkedInIcon, 
   XIcon, 
@@ -12,11 +13,8 @@ import {
 } from './SocialSignalIcons';
 
 export const SocialDock: React.FC<{ className?: string }> = ({ className = '' }) => {
-  const [activeSignal, setActiveSignal] = useState<SocialSignal | null>(null);
-  const [messageIndex, setMessageIndex] = useState<number>(0);
   const [mobileModalOpen, setMobileModalOpen] = useState<boolean>(false);
   const shouldReduceMotion = useReducedMotion();
-  const tooltipId = useId();
 
   const renderIcon = (id: SocialSignal['id']) => {
     switch (id) {
@@ -55,12 +53,6 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
     }
   };
 
-  const handleMouseEnter = (signal: SocialSignal) => {
-    // Deterministically rotate between the two jokes on hover
-    setMessageIndex((prev) => (prev + 1) % 2);
-    setActiveSignal(signal);
-  };
-
   return (
     <div className={`relative select-none ${className}`}>
       {/* Top micro-editorial kicker */}
@@ -89,87 +81,31 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
       </div>
 
       {/* Interactive Icon Dock Container */}
-      <div 
-        className="relative inline-flex items-center p-1.5 rounded-2xl bg-[#eeeae0]/90 dark:bg-[#1a1917]/90 border border-[#dcd6c8] dark:border-[#2d2c27] shadow-xs backdrop-blur-md"
-        onMouseLeave={() => setActiveSignal(null)}
-      >
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          {socialSignalsData.map((signal) => {
-            const isHovered = activeSignal?.id === signal.id;
-
-            return (
-              <div key={signal.id} className="relative">
+      <div className="relative inline-flex items-center p-1.5 rounded-2xl bg-[#eeeae0]/90 dark:bg-[#1a1917]/90 border border-[#dcd6c8] dark:border-[#2d2c27] shadow-xs backdrop-blur-md">
+        <HumanTooltipProvider delay={{ open: 80, close: 60 }}>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {socialSignalsData.map((signal) => (
+              <HumanTooltip
+                key={signal.id}
+                registryId={`social-${signal.id}`}
+                placement="top"
+                offsetDistance={12}
+              >
                 <motion.a
                   href={signal.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={signal.accessibleName}
-                  onMouseEnter={() => handleMouseEnter(signal)}
-                  onFocus={() => handleMouseEnter(signal)}
-                  onBlur={() => setActiveSignal(null)}
                   whileHover={getPlatformMotion(signal.animationVariant)}
                   whileTap={{ scale: 0.94 }}
-                  className={`relative flex items-center justify-center w-11 h-11 sm:w-10 sm:h-10 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 rounded-xl transition-all duration-200 outline-hidden focus-visible:ring-2 focus-visible:ring-[#486616] dark:focus-visible:ring-[#d5ef9c] ${
-                    isHovered
-                      ? 'bg-[#1a1917] dark:bg-[#f0ede5] text-[#f8f6f0] dark:text-[#131312] shadow-sm z-10'
-                      : 'bg-[#f4efe5] dark:bg-[#201f1c] text-[#58554d] dark:text-[#a8a69f] hover:text-[#1a1917] dark:hover:text-[#f0ede5] border border-[#dcd6c8]/60 dark:border-[#2d2c27]'
-                  }`}
+                  className="relative flex items-center justify-center w-11 h-11 sm:w-10 sm:h-10 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 rounded-xl transition-all duration-200 outline-hidden focus-visible:ring-2 focus-visible:ring-[#486616] dark:focus-visible:ring-[#d5ef9c] bg-[#f4efe5] dark:bg-[#201f1c] text-[#58554d] dark:text-[#a8a69f] hover:text-[#1a1917] dark:hover:text-[#f0ede5] hover:bg-[#1a1917] dark:hover:bg-[#f0ede5] hover:text-[#f8f6f0] dark:hover:text-[#131312] border border-[#dcd6c8]/60 dark:border-[#2d2c27] cursor-pointer"
                 >
                   {renderIcon(signal.id)}
-
-                  {/* Active dot marker on hover */}
-                  {isHovered && (
-                    <motion.span
-                      layoutId="socialDockDot"
-                      className="absolute -bottom-1 w-1 h-1 rounded-full bg-[#486616] dark:bg-[#d5ef9c]"
-                      transition={{ type: 'spring', stiffness: 380, damping: 25 }}
-                    />
-                  )}
                 </motion.a>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Desktop Editorial Tooltip (Fixed to dock to prevent edge clipping) */}
-        <AnimatePresence>
-          {activeSignal && (
-            <motion.div
-              id={tooltipId}
-              role="tooltip"
-              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 4, scale: 0.96 }}
-              transition={{ duration: 0.18, ease: 'easeOut' }}
-              className="hidden sm:block absolute left-0 -bottom-19 z-40 w-80 sm:w-88 rounded-xl bg-[#131312] text-[#f0ede5] border border-[#2d2c27] p-3 shadow-xl pointer-events-none select-none"
-            >
-              <div className="flex items-center justify-between pb-1.5 border-b border-[#2d2c27] mb-1.5 font-mono text-[10px]">
-                <div className="flex items-center gap-1.5">
-                  <span 
-                    className="w-1.5 h-1.5 rounded-full" 
-                    style={{ backgroundColor: activeSignal.accentColor }} 
-                  />
-                  <span className="font-bold text-[#f0ede5] uppercase tracking-wider">
-                    {activeSignal.label}
-                  </span>
-                  <span className="text-[#8c877b] dark:text-[#6e6b63]">·</span>
-                  <span className="text-[#a8a69f]">
-                    {activeSignal.handle}
-                  </span>
-                </div>
-                <div className="flex items-center gap-1 text-[#d5ef9c] font-semibold">
-                  <span>{activeSignal.tag}</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </div>
-              </div>
-
-              {/* Witty Microcopy */}
-              <p className="font-sans text-xs text-[#e5e2d9] leading-snug">
-                "{activeSignal.microcopy[messageIndex % activeSignal.microcopy.length]}"
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </HumanTooltip>
+            ))}
+          </div>
+        </HumanTooltipProvider>
       </div>
 
       {/* Mobile Personality Modal / Bottom Sheet */}
@@ -200,33 +136,44 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
                 </button>
               </div>
 
-              <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
+              <div className="space-y-3 font-mono text-xs">
                 {socialSignalsData.map((sig) => (
                   <a
                     key={sig.id}
                     href={sig.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-3 rounded-xl bg-[#201f1c] border border-[#2d2c27] active:scale-[0.98] transition-all"
+                    className="flex flex-col p-2.5 rounded-lg bg-[#201f1c] border border-[#2d2c27] hover:border-[#d5ef9c] transition-colors"
                   >
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#f0ede5]">
-                        {renderIcon(sig.id)}
+                    <div className="flex items-center justify-between text-[11px] font-bold text-[#d5ef9c] mb-1">
+                      <div className="flex items-center gap-1.5">
+                        <span 
+                          className="w-1.5 h-1.5 rounded-full" 
+                          style={{ backgroundColor: sig.accentColor }} 
+                        />
                         <span>{sig.label}</span>
                       </div>
-                      <span className="font-mono text-[9px] px-1.5 py-0.5 rounded-xs bg-black/40 text-[#d5ef9c]">
-                        {sig.tag}
-                      </span>
+                      <span className="text-[10px] text-[#8c877b]">{sig.tag}</span>
                     </div>
-                    <p className="font-sans text-xs text-[#a8a69f] leading-relaxed italic">
+                    <div className="text-[11px] text-[#a8a69f] font-sans italic">
                       "{sig.microcopy[0]}"
-                    </p>
+                    </div>
+                    <div className="text-[10px] text-[#6e6b63] font-mono mt-1">
+                      {sig.mobileDescription}
+                    </div>
                   </a>
                 ))}
               </div>
 
-              <div className="text-center pt-1 font-mono text-[10px] text-[#8c877b]">
-                TAP ANY PLATFORM TO OPEN OFFICIAL PROFILE ↗
+              <div className="pt-2 text-center">
+                <a
+                  href="#contact"
+                  onClick={() => setMobileModalOpen(false)}
+                  className="inline-flex items-center gap-1 text-xs text-[#d5ef9c] hover:underline font-mono"
+                >
+                  <span>Or leave a direct transmission</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </a>
               </div>
             </motion.div>
           </div>
@@ -235,3 +182,5 @@ export const SocialDock: React.FC<{ className?: string }> = ({ className = '' })
     </div>
   );
 };
+
+export default SocialDock;

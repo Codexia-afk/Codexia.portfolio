@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Github, Linkedin, ArrowUpRight, FileText, Copy, Check } from 'lucide-react';
 import { personalData } from '../data/personal';
 import { MonoLabel } from './typography/Typography';
+import { HumanTooltip } from './common/HumanTooltip';
 
 export const ContactOrbit: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -47,16 +48,18 @@ export const ContactOrbit: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-4">
           
           {/* Primary Action: Direct Email */}
-          <a
-            href={personalData.socials.gmailCompose}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-md bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#e2f5b8] transition-colors shadow-xs"
-          >
-            <Mail className="w-4 h-4 text-current" />
-            <span>EMAIL DIRECTLY</span>
-            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
+          <HumanTooltip registryId="contact-personal" placement="top">
+            <a
+              href={personalData.socials.gmailCompose}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-md bg-[#1a1917] dark:bg-[#d5ef9c] text-[#f8f6f0] dark:text-[#131312] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#486616] dark:hover:bg-[#e2f5b8] transition-colors shadow-xs"
+            >
+              <Mail className="w-4 h-4 text-current" />
+              <span>EMAIL DIRECTLY</span>
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </HumanTooltip>
 
           {/* Secondary Action: Copy Email to Clipboard */}
           <button

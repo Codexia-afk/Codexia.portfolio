@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "tsc && vite build && node scripts/prerender.js",
     "lint": "tsc",
+    "test": "playwright test",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.20",
     "@supabase/supabase-js": "^2.117.3",
     "framer-motion": "^12.4.7",
     "lucide-react": "^0.475.0",
@@ -19,6 +21,7 @@
     "three": "^0.173.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/vite": "^4.0.6",
     "@types/node": "^22.13.1",
     "@types/react": "^19.0.8",

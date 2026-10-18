@@ -96,13 +96,16 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="pt-4 border-t border-[#dcd6c8] dark:border-[#2d2c27] flex items-center justify-between">
-              <button
-                onClick={scrollToTop}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors cursor-pointer"
-              >
-                <span>BACK TO TOP</span>
-                <ArrowUp className="w-3.5 h-3.5" />
-              </button>
+              <HumanTooltip registryId="back-to-top" placement="top">
+                <button
+                  onClick={scrollToTop}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors cursor-pointer"
+                  aria-label="Scroll back to top"
+                >
+                  <span>BACK TO TOP</span>
+                  <ArrowUp className="w-3.5 h-3.5" />
+                </button>
+              </HumanTooltip>
 
               <div className="flex items-center space-x-3 text-[#8c877b] dark:text-[#a8a69f]">
                 <Link to="/privacy" className="hover:underline">Privacy</Link>

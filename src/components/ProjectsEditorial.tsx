@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Github, ExternalLink, Terminal, Shield, Cpu, Layers, Box } from 'lucide-react';
 import { projectsData, Project } from '../data/projects';
 import { SectionHeading } from './typography/Typography';
+import { HumanTooltip } from './common/HumanTooltip';
 
 export const ProjectsEditorial: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<string>('All');
@@ -267,15 +268,17 @@ export const ProjectsEditorial: React.FC = () => {
                       </Link>
 
                       {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-md bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
-                        >
-                          <Github className="w-3.5 h-3.5" />
-                          <span>SOURCE</span>
-                        </a>
+                        <HumanTooltip registryId="github" placement="top">
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-md bg-[#f4efe5] dark:bg-[#201f1c] text-[#1a1917] dark:text-[#f0ede5] font-mono text-xs font-semibold uppercase tracking-wider border border-[#dcd6c8] dark:border-[#383731] hover:border-[#486616] dark:hover:border-[#d5ef9c] hover:text-[#486616] dark:hover:text-[#d5ef9c] transition-colors"
+                          >
+                            <Github className="w-3.5 h-3.5" />
+                            <span>SOURCE</span>
+                          </a>
+                        </HumanTooltip>
                       )}
 
                       {project.liveUrl && (
