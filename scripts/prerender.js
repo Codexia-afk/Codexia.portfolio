@@ -151,6 +151,7 @@ const routes = [
           <p>Online Handles: @Codexia-afk · Codexia · Srinjoy Pramanick</p>
           <nav aria-label="Quick directory">
             <ul>
+              <li><a href="/hire">★ // The Hiring Dossier — Recruiter Brief</a></li>
               <li><a href="#about">01 // About Srinjoy Pramanick (Codexia-afk) — Intent &amp; Biography</a></li>
               <li><a href="#skills">02 // Technical Capabilities &amp; Systems Architecture</a></li>
               <li><a href="#projects">03 // Selected Builds &amp; Projects</a></li>
@@ -168,12 +169,16 @@ const routes = [
           <p>Bachelor of Technology in Computer Science and Engineering (B.Tech CSE), JIS College of Engineering, Kalyani, West Bengal (2024–2028).</p>
           <h3>Accolades &amp; Hackathons</h3>
           <p>1st Runner-Up @ CrazyBuild Hackathon (2025) · Smart India Hackathon Internal Qualifier (2025).</p>
-          <h3>Verified Profiles &amp; Links</h3>
+          <h3>Social Signals &amp; Verified Links</h3>
           <ul>
             <li>GitHub: <a href="https://github.com/Codexia-afk">https://github.com/Codexia-afk</a> (Codexia-afk)</li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/">Srinjoy Pramanick</a></li>
-            <li>Bento: <a href="https://bento.me/srinjoy19">https://bento.me/srinjoy19</a></li>
-            <li>Email: srinjoypramanick19@gmail.com</li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/">https://www.linkedin.com/in/srinjoy-pramanick-2a3019309/</a></li>
+            <li>X (Twitter): <a href="https://x.com/Srinjoy_18">https://x.com/Srinjoy_18</a></li>
+            <li>Peerlist: <a href="https://peerlist.io/srinjoyp15">https://peerlist.io/srinjoyp15</a></li>
+            <li>Instagram: <a href="https://www.instagram.com/unknown_syntax01/">https://www.instagram.com/unknown_syntax01/</a></li>
+            <li>Facebook: <a href="https://www.facebook.com/srinjoy.pramanick.2025">https://www.facebook.com/srinjoy.pramanick.2025</a></li>
+            <li>Linktree: <a href="https://linktr.ee/srinjoypramanick15">https://linktr.ee/srinjoypramanick15</a></li>
+            <li>Email: srinjoypramanick15@gmail.com</li>
           </ul>
         </section>
 
